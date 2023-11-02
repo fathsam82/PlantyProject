@@ -16,14 +16,206 @@ CREATE SCHEMA IF NOT EXISTS `plantydb` DEFAULT CHARACTER SET utf8 ;
 USE `plantydb` ;
 
 -- -----------------------------------------------------
+-- Table `plant_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `plant_category` ;
+
+CREATE TABLE IF NOT EXISTS `plant_category` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `plant`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `plant` ;
 
 CREATE TABLE IF NOT EXISTS `plant` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `plant_categories_id` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(255) NULL,
+  `price` INT NULL,
+  `stock_quantity` INT NULL,
+  `plant_image_url` VARCHAR(255) NULL,
+  `size` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_plant_plant_categories1_idx` (`plant_categories_id` ASC),
+  CONSTRAINT `fk_plant_plant_categories1`
+    FOREIGN KEY (`plant_categories_id`)
+    REFERENCES `plant_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user` ;
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(255) NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `enabled` TINYINT NULL,
+  `role` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `payment_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `payment_data` ;
+
+CREATE TABLE IF NOT EXISTS `payment_data` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `card_type` VARCHAR(255) NOT NULL,
+  `card_number` VARCHAR(16) NOT NULL,
+  `expiration_date` DATE NOT NULL,
+  `enabled` TINYINT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_payment_data_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_payment_data_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `order` ;
+
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `payment_data_id` INT NOT NULL,
+  `total_price` INT NOT NULL,
+  `date_placed` DATETIME NULL,
+  `notes` VARCHAR(255) NULL,
+  `estimated_delivery_date` DATETIME NULL,
+  `tracking_number` INT NULL,
+  `payment_method` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_order_user_idx` (`user_id` ASC),
+  INDEX `fk_order_payment_data1_idx` (`payment_data_id` ASC),
+  CONSTRAINT `fk_order_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_payment_data1`
+    FOREIGN KEY (`payment_data_id`)
+    REFERENCES `payment_data` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `order_detail`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `order_detail` ;
+
+CREATE TABLE IF NOT EXISTS `order_detail` (
+  `id` INT NOT NULL,
+  `order_id` INT NOT NULL,
+  `plant_id` INT NOT NULL,
+  `quantity_ordered` INT NOT NULL,
+  `unit_price` INT NOT NULL,
+  `subtotal_price` INT NOT NULL,
+  `gift_wrap` TINYINT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_order_detail_order1_idx` (`order_id` ASC),
+  INDEX `fk_order_detail_plant1_idx` (`plant_id` ASC),
+  CONSTRAINT `fk_order_detail_order1`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `order` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_detail_plant1`
+    FOREIGN KEY (`plant_id`)
+    REFERENCES `plant` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `post`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `post` ;
+
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `title` VARCHAR(500) NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_post_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_post_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `comment` ;
+
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `post_id` INT NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_comment_user1_idx` (`user_id` ASC),
+  INDEX `fk_comment_post1_idx` (`post_id` ASC),
+  CONSTRAINT `fk_comment_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comment_post1`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `post` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `plant_origin`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `plant_origin` ;
+
+CREATE TABLE IF NOT EXISTS `plant_origin` (
+  `id` INT NOT NULL,
+  `plant_id` INT NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `latitude` DECIMAL(9,6) NOT NULL,
+  `longitude` DECIMAL(9,6) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_plant_origin_plant1_idx` (`plant_id` ASC),
+  CONSTRAINT `fk_plant_origin_plant1`
+    FOREIGN KEY (`plant_id`)
+    REFERENCES `plant` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -38,12 +230,94 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `plant_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `plant_category` (`id`, `name`, `description`) VALUES (1, 'Evergreen perennials', 'Evergreen perennials have their leaves year-round and live longer than two years.');
+INSERT INTO `plant_category` (`id`, `name`, `description`) VALUES (2, 'Tropical Trees', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `plant`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant` (`id`, `name`) VALUES (1, 'Snake Plant');
-INSERT INTO `plant` (`id`, `name`) VALUES (2, 'Money Tree');
+INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`) VALUES (1, 1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium');
+INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`) VALUES (2, 2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `enabled`, `role`) VALUES (1, 'samwise', NULL, '1234', 1, 'standard');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `payment_data`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `payment_data` (`id`, `user_id`, `card_type`, `card_number`, `expiration_date`, `enabled`) VALUES (1, 1, 'VISA', '1234123412341234', '2024-11-15', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `order`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `order` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 132435, 'Credit Card');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `order_detail`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `order_detail` (`id`, `order_id`, `plant_id`, `quantity_ordered`, `unit_price`, `subtotal_price`, `gift_wrap`) VALUES (1, 1, 1, 2, 1000, 2000, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `post`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `post` (`id`, `user_id`, `title`, `content`, `created_at`) VALUES (1, 1, 'What is one benefit you\'ve received after incorporating house plants into your decor?', 'I really like the atmosphere they create. House plants bring a sense of calming to the room. Having oxygen being created inside of your home in a nice feature too.', '2023-11-01 13:11:30');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `created_at`) VALUES (1, 1, 1, 'I like creating a space that feels like a forest.', '2023-11-01 13:16:35');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `plant_origin`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (1, 1, 'Accra, Ghana', 5.5600, 0.2057);
+INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Georgetown, Guyana', 6.8013, -58.1553);
 
 COMMIT;
 

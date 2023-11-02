@@ -16,6 +16,7 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public List<Plant> listAllPlants() {
+		
 		return plantRepo.findAll();
 		
 		
