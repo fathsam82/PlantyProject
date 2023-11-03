@@ -38,10 +38,11 @@ CREATE TABLE IF NOT EXISTS `plant` (
   `plant_categories_id` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `description` VARCHAR(255) NULL,
-  `price` INT NULL,
-  `stock_quantity` INT NULL,
+  `price` INT NOT NULL,
+  `stock_quantity` INT NOT NULL,
   `plant_image_url` VARCHAR(255) NULL,
   `size` VARCHAR(45) NULL,
+  `is_discounted` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_plant_plant_categories1_idx` (`plant_categories_id` ASC),
   CONSTRAINT `fk_plant_plant_categories1`
@@ -91,11 +92,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `order`
+-- Table `order_cart`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `order` ;
+DROP TABLE IF EXISTS `order_cart` ;
 
-CREATE TABLE IF NOT EXISTS `order` (
+CREATE TABLE IF NOT EXISTS `order_cart` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `payment_data_id` INT NOT NULL,
@@ -108,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`id`),
   INDEX `fk_order_user_idx` (`user_id` ASC),
   INDEX `fk_order_payment_data1_idx` (`payment_data_id` ASC),
+  UNIQUE INDEX `tracking_number_UNIQUE` (`tracking_number` ASC),
   CONSTRAINT `fk_order_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
@@ -128,18 +130,18 @@ DROP TABLE IF EXISTS `order_detail` ;
 
 CREATE TABLE IF NOT EXISTS `order_detail` (
   `id` INT NOT NULL,
-  `order_id` INT NOT NULL,
+  `order_cart_id` INT NOT NULL,
   `plant_id` INT NOT NULL,
   `quantity_ordered` INT NOT NULL,
   `unit_price` INT NOT NULL,
   `subtotal_price` INT NOT NULL,
   `gift_wrap` TINYINT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_order_detail_order1_idx` (`order_id` ASC),
+  INDEX `fk_order_detail_order1_idx` (`order_cart_id` ASC),
   INDEX `fk_order_detail_plant1_idx` (`plant_id` ASC),
   CONSTRAINT `fk_order_detail_order1`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `order` (`id`)
+    FOREIGN KEY (`order_cart_id`)
+    REFERENCES `order_cart` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_detail_plant1`
@@ -245,8 +247,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`) VALUES (1, 1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium');
-INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`) VALUES (2, 2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium');
+INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`) VALUES (1, 1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0);
+INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`) VALUES (2, 2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0);
 
 COMMIT;
 
@@ -272,11 +274,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `order`
+-- Data for table `order_cart`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `order` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 132435, 'Credit Card');
+INSERT INTO `order_cart` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 1, 'Credit Card');
 
 COMMIT;
 
@@ -286,7 +288,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `order_detail` (`id`, `order_id`, `plant_id`, `quantity_ordered`, `unit_price`, `subtotal_price`, `gift_wrap`) VALUES (1, 1, 1, 2, 1000, 2000, 1);
+INSERT INTO `order_detail` (`id`, `order_cart_id`, `plant_id`, `quantity_ordered`, `unit_price`, `subtotal_price`, `gift_wrap`) VALUES (1, 1, 1, 2, 1000, 2000, 0);
 
 COMMIT;
 
@@ -316,8 +318,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (1, 1, 'Accra, Ghana', 5.5600, 0.2057);
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Georgetown, Guyana', 6.8013, -58.1553);
+INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (1, 1, 'Ghana', 5.5600, 0.2057);
+INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Guyana', 6.8013, -58.1553);
 
 COMMIT;
 

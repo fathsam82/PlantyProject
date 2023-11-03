@@ -1,8 +1,6 @@
 package com.skilldistillery.planty.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,13 +12,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlantTest {
-	
-	private static EntityManagerFactory emf;
+class CommentTest {
+
+private static EntityManagerFactory emf;
 	
 	private EntityManager em;
 	
-	private Plant plant;
+	private Comment comment;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -38,7 +36,7 @@ class PlantTest {
 		
 		em = emf.createEntityManager();
 		
-		plant = em.find(Plant.class, 1);
+		comment = em.find(Comment.class, 1);
 	}
 
 	@AfterEach
@@ -46,22 +44,19 @@ class PlantTest {
 		
 		em.close();
 		
-		plant = null;
+		comment = null;
 	}
 
 	@Test
-	void test_basic_plant_attributes() {
+	void test_basic_comment_attributes() {
 		
-		assertNotNull(plant);
+		assertNotNull(comment);
 		
-		assertEquals("Snake Plant", plant.getName());
+		assertEquals(2023, comment.getCreatedAt().getYear());
 		
-		assertFalse(plant.getIsDiscounted());
+		assertEquals(11, comment.getCreatedAt().getMonthValue());
 		
-		assertEquals(1000, plant.getPrice());
-		
-	
-		
+		assertEquals("I like creating a space that feels like a forest.", comment.getContent());
 	}
 
 }

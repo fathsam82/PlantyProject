@@ -14,13 +14,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlantTest {
-	
+class OrderDetailTest {
+
 	private static EntityManagerFactory emf;
 	
 	private EntityManager em;
 	
-	private Plant plant;
+	private OrderDetail orderDetail;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -38,7 +38,7 @@ class PlantTest {
 		
 		em = emf.createEntityManager();
 		
-		plant = em.find(Plant.class, 1);
+		orderDetail = em.find(OrderDetail.class, 1);
 	}
 
 	@AfterEach
@@ -46,22 +46,19 @@ class PlantTest {
 		
 		em.close();
 		
-		plant = null;
+		orderDetail = null;
 	}
 
 	@Test
-	void test_basic_plant_attributes() {
+	void test_basic_order_detail_attributes() {
 		
-		assertNotNull(plant);
+		assertNotNull(orderDetail);
 		
-		assertEquals("Snake Plant", plant.getName());
+		assertEquals(2, orderDetail.getQuantityOrdered());
 		
-		assertFalse(plant.getIsDiscounted());
+		assertEquals(1000, orderDetail.getUnitPrice());
 		
-		assertEquals(1000, plant.getPrice());
-		
-	
-		
+		assertFalse(orderDetail.getGiftWrap());
 	}
 
 }

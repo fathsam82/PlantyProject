@@ -3,6 +3,7 @@ package com.skilldistillery.planty.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,13 +15,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlantTest {
+class PaymentDataTest {
+
 	
-	private static EntityManagerFactory emf;
+	
+private static EntityManagerFactory emf;
 	
 	private EntityManager em;
 	
-	private Plant plant;
+	private PaymentData paymentData;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -38,7 +41,7 @@ class PlantTest {
 		
 		em = emf.createEntityManager();
 		
-		plant = em.find(Plant.class, 1);
+		paymentData = em.find(PaymentData.class, 1);
 	}
 
 	@AfterEach
@@ -46,22 +49,25 @@ class PlantTest {
 		
 		em.close();
 		
-		plant = null;
+		paymentData = null;
 	}
 
 	@Test
-	void test_basic_plant_attributes() {
+	void test_basic_payment_data_attributes() {
 		
-		assertNotNull(plant);
+		assertNotNull(paymentData);
 		
-		assertEquals("Snake Plant", plant.getName());
+		assertEquals("1234123412341234", paymentData.getCardNumber());
 		
-		assertFalse(plant.getIsDiscounted());
+		assertEquals(2024, paymentData.getExpirationDate().getYear());
 		
-		assertEquals(1000, plant.getPrice());
+		assertEquals("VISA", paymentData.getCardType());
 		
-	
+		assertTrue(paymentData.getEnabled());
+		
+		assertFalse(!paymentData.getEnabled());
+		
 		
 	}
-
+	
 }

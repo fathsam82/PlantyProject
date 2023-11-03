@@ -1,7 +1,6 @@
 package com.skilldistillery.planty.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
@@ -14,13 +13,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlantTest {
-	
-	private static EntityManagerFactory emf;
+class OrderCartTest {
+
+private static EntityManagerFactory emf;
 	
 	private EntityManager em;
 	
-	private Plant plant;
+	private OrderCart orderCart;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -38,7 +37,7 @@ class PlantTest {
 		
 		em = emf.createEntityManager();
 		
-		plant = em.find(Plant.class, 1);
+		orderCart = em.find(OrderCart.class, 1);
 	}
 
 	@AfterEach
@@ -46,21 +45,28 @@ class PlantTest {
 		
 		em.close();
 		
-		plant = null;
+		orderCart = null;
 	}
 
 	@Test
-	void test_basic_plant_attributes() {
+	void test_basic_order_cart_attributes() {
 		
-		assertNotNull(plant);
+		assertNotNull(orderCart);
 		
-		assertEquals("Snake Plant", plant.getName());
+		assertEquals(2000, orderCart.getTotalPrice());
 		
-		assertFalse(plant.getIsDiscounted());
+		assertEquals(1, orderCart.getTrackingNumber());
 		
-		assertEquals(1000, plant.getPrice());
+		assertEquals("Credit Card", orderCart.getPaymentMethod());
 		
-	
+		assertEquals(2023, orderCart.getEstimatedDeliveryDate().getYear());
+		
+		assertEquals(11, orderCart.getEstimatedDeliveryDate().getMonthValue());
+		
+		
+		
+		
+		
 		
 	}
 

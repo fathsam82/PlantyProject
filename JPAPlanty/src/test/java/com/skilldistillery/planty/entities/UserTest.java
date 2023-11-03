@@ -1,8 +1,6 @@
 package com.skilldistillery.planty.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,13 +12,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlantTest {
-	
+class UserTest {
+
+
 	private static EntityManagerFactory emf;
 	
 	private EntityManager em;
 	
-	private Plant plant;
+	private User user;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -38,7 +37,7 @@ class PlantTest {
 		
 		em = emf.createEntityManager();
 		
-		plant = em.find(Plant.class, 1);
+		user = em.find(User.class, 1);
 	}
 
 	@AfterEach
@@ -46,22 +45,24 @@ class PlantTest {
 		
 		em.close();
 		
-		plant = null;
+		user = null;
 	}
 
 	@Test
-	void test_basic_plant_attributes() {
+	void test_basic_user_attributes() {
 		
-		assertNotNull(plant);
+		assertNotNull(user);
 		
-		assertEquals("Snake Plant", plant.getName());
+		assertEquals("samwise", user.getUsername());
 		
-		assertFalse(plant.getIsDiscounted());
+		assertTrue(user.getEnabled());
 		
-		assertEquals(1000, plant.getPrice());
+		assertFalse(!user.getEnabled());
 		
-	
+		assertEquals("standard", user.getRole());
+		
 		
 	}
 
 }
+

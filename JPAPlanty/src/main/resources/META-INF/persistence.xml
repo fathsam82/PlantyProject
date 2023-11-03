@@ -7,8 +7,12 @@
 		<class>com.skilldistillery.planty.entities.Plant</class>
 		<class>com.skilldistillery.planty.entities.PlantCategory</class>
 		<class>com.skilldistillery.planty.entities.PlantOrigin</class>
-		
-		
+		<class>com.skilldistillery.planty.entities.OrderDetail</class>
+		<class>com.skilldistillery.planty.entities.OrderCart</class>
+		<class>com.skilldistillery.planty.entities.PaymentData</class>
+		<class>com.skilldistillery.planty.entities.User</class>
+		<class>com.skilldistillery.planty.entities.Post</class>
+		<class>com.skilldistillery.planty.entities.Comment</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.url"

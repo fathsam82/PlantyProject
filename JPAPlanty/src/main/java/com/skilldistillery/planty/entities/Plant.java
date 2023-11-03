@@ -19,15 +19,18 @@ public class Plant {
 	
 	private String description;
 	
-	private Integer price;
+	private int price;
 	
 	@Column(name = "stock_quantity")
-	private Integer stockQuantity;
+	private int stockQuantity;
 	
 	@Column(name = "plant_image_url")
 	private String plantImageUrl;
 	
 	private String size;
+	
+	@Column(name = "is_discounted")
+	private Boolean isDiscounted;
 	
 	
 
@@ -35,67 +38,114 @@ public class Plant {
 		
 	}
 
+	
+
 	public int getId() {
 		return id;
 	}
+
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
+
+
 	public String getName() {
 		return name;
 	}
+
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
+
+
 	public String getDescription() {
 		return description;
 	}
+
+
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public Integer getPrice() {
+
+
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+
+
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
-	public Integer getStockQuantity() {
+
+
+	public int getStockQuantity() {
 		return stockQuantity;
 	}
 
-	public void setStockQuantity(Integer stockQuantity) {
+
+
+	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
+
+
 
 	public String getPlantImageUrl() {
 		return plantImageUrl;
 	}
 
+
+
 	public void setPlantImageUrl(String plantImageUrl) {
 		this.plantImageUrl = plantImageUrl;
 	}
+
+
 
 	public String getSize() {
 		return size;
 	}
 
+
+
 	public void setSize(String size) {
 		this.size = size;
 	}
 
+
+
+	public Boolean getIsDiscounted() {
+		return isDiscounted;
+	}
+
+
+
+	public void setIsDiscounted(Boolean isDiscounted) {
+		this.isDiscounted = isDiscounted;
+	}
+	
+	
+
+
+
 	@Override
 	public String toString() {
 		return "Plant [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
-				+ ", stockQuantity=" + stockQuantity + ", plantImageUrl=" + plantImageUrl + ", size=" + size + "]";
+				+ ", stockQuantity=" + stockQuantity + ", plantImageUrl=" + plantImageUrl + ", size=" + size
+				+ ", isDiscounted=" + isDiscounted + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {

@@ -51,14 +51,15 @@ private static EntityManagerFactory emf;
 	}
 
 	@Test
-	void test() {
+	void test_basic_plant_origin_attributes() {
 		
 		assertNotNull(plantOrigin);
 		
 		assertEquals("Ghana", plantOrigin.getName());
 		
+		//Creating an instance of BigDecimal for unit testing id 1, return 0(which is an indicator that the test passed) and compare the new instance to the entry in the DB, if not equal, debugging string returned 
 		BigDecimal expectedLongitude1 = new BigDecimal("0.2057");
-	    assertEquals(0, expectedLongitude1.compareTo(plantOrigin.getLongitude()), "Latitude values are not equal");
+	    assertEquals(0, expectedLongitude1.compareTo(plantOrigin.getLongitude()), "Longitude values are not equal");
 		
 		BigDecimal expectedLatitude1 = new BigDecimal("5.5600");
 	    assertEquals(0, expectedLatitude1.compareTo(plantOrigin.getLatitude()), "Latitude values are not equal");

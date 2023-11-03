@@ -50,7 +50,7 @@ private static EntityManagerFactory emf;
 	}
 
 	@Test
-	void test_plant_category_basic_attributes() {
+	void test_basic_plant_category_attributes() {
 		
 		assertNotNull(plantCat);
 		

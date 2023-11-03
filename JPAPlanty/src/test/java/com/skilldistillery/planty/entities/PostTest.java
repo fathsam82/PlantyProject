@@ -1,8 +1,6 @@
 package com.skilldistillery.planty.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,17 +12,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlantTest {
-	
+class PostTest {
+
 	private static EntityManagerFactory emf;
-	
+
 	private EntityManager em;
-	
-	private Plant plant;
+
+	private Post post;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		
+
 		emf = Persistence.createEntityManagerFactory("JPAPlanty");
 	}
 
@@ -35,33 +33,32 @@ class PlantTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		
+
 		em = emf.createEntityManager();
-		
-		plant = em.find(Plant.class, 1);
+
+		post = em.find(Post.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		
+
 		em.close();
-		
-		plant = null;
+
+		post = null;
 	}
 
 	@Test
-	void test_basic_plant_attributes() {
+	void test_basic_post_attributes() {
+
+		assertNotNull(post);
+
+		assertEquals("What is one benefit you've received after incorporating house plants into your decor?",post.getTitle());
 		
-		assertNotNull(plant);
+		assertEquals(2023, post.getCreatedAt().getYear());
 		
-		assertEquals("Snake Plant", plant.getName());
+		assertEquals(11, post.getCreatedAt().getMonthValue());
 		
-		assertFalse(plant.getIsDiscounted());
-		
-		assertEquals(1000, plant.getPrice());
-		
-	
-		
+		assertEquals(13, post.getCreatedAt().getHour());
 	}
 
 }
