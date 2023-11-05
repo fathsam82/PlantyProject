@@ -1,6 +1,8 @@
 package com.skilldistillery.planty.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -57,6 +59,30 @@ private static EntityManagerFactory emf;
 		assertEquals(11, comment.getCreatedAt().getMonthValue());
 		
 		assertEquals("I like creating a space that feels like a forest.", comment.getContent());
+	}
+	
+	@Test
+	void test_comment_user_relationship() {
+		
+		assertNotNull(comment);
+		
+		assertNotNull(comment.getUser().getId());
+		
+		assertNotNull(comment.getUser().getRole());
+		
+		assertEquals("standard", comment.getUser().getRole());
+		
+	}
+	
+	@Test
+	void test_comment_post_relationship() {
+		
+		assertNotNull(comment);
+		
+		assertNotNull(comment.getPost());
+		
+		assertEquals(11, comment.getPost().getCreatedAt().getMonthValue());
+		
 	}
 
 }
