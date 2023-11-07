@@ -70,13 +70,13 @@ public class PlantOrigin {
 	
 	
 
-//	public Plant getPlant() {
-//		return plant;
-//	}
-//
-//	public void setPlant(Plant plant) {
-//		this.plant = plant;
-//	}
+	public Plant getPlant() {
+		return plant;
+	}
+
+	public void setPlant(Plant plant) {
+		this.plant = plant;
+	}
 
 	@Override
 	public String toString() {

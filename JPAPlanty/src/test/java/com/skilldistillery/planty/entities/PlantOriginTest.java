@@ -71,6 +71,17 @@ class PlantOriginTest {
 	    BigDecimal expectedLatitude2 = new BigDecimal("5.5600");
 	    assertTrue(expectedLatitude2.compareTo(plantOrigin.getLatitude()) == 0, "Latitude values are not equal");
 	}
+	
+	@Test
+	void test_plant_origin_plant_relationship() {
+		
+		assertNotNull(plantOrigin);
+		
+		assertNotNull(plantOrigin.getPlant().getName());
+		
+		assertEquals("Snake Plant", plantOrigin.getPlant().getName());
+	}
+	
 
 }
 

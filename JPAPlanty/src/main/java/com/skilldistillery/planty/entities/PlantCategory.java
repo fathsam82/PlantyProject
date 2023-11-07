@@ -53,10 +53,6 @@ public class PlantCategory {
 		this.description = description;
 	}
 	
-	
-
-	
-
 	public List<Plant> getPlants() {
 		return plants;
 	}

@@ -45,7 +45,7 @@ public class Plant {
 	@OneToMany(mappedBy = "plant")
 	private List<PlantOrigin> plantOrigins;
 	
-//	@OneToMany(mappedBy = "orderDetail")
+//	@OneToMany(mappedBy = "plant")
 //	private List<OrderDetail> orderDetails;
 //	No need for plant to have a bi-directional relationship with orderDetails, will only have to access plant info through order details, not other way around 
 	

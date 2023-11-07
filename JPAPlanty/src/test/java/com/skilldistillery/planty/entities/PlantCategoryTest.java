@@ -3,6 +3,7 @@ package com.skilldistillery.planty.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -57,6 +58,16 @@ private static EntityManagerFactory emf;
 		assertEquals("Evergreen perennials", plantCat.getName());
 		
 		assertEquals("Evergreen perennials have their leaves year-round and live longer than two years.", plantCat.getDescription());
+	}
+	
+	@Test
+	void test_plant_category_plant_relationship() {
+		
+		assertNotNull(plantCat);
+		
+		assertNotNull(plantCat.getPlants());
+		
+		assertTrue(plantCat.getPlants().size()>0);
 	}
 
 }
