@@ -1,11 +1,13 @@
 package com.skilldistillery.planty.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +21,9 @@ public class PlantCategory {
 	private String name;
 	
 	private String description;
+	
+	@OneToMany(mappedBy = "plantCat")
+	private List<Plant> plants;
 
 	public PlantCategory() {
 		
@@ -46,6 +51,18 @@ public class PlantCategory {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	
+
+	
+
+	public List<Plant> getPlants() {
+		return plants;
+	}
+
+	public void setPlants(List<Plant> plants) {
+		this.plants = plants;
 	}
 
 	@Override

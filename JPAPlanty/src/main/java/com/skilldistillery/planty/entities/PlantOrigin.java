@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +28,10 @@ public class PlantOrigin {
 	@Column(precision = 9, scale = 6)
 	private BigDecimal longitude;
 	
+	@JoinColumn(name = "plant_id")
+	@ManyToOne
+	private Plant plant;
 	
-
 	public PlantOrigin() {
 		
 	}
@@ -63,6 +67,16 @@ public class PlantOrigin {
 	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
+	
+	
+
+//	public Plant getPlant() {
+//		return plant;
+//	}
+//
+//	public void setPlant(Plant plant) {
+//		this.plant = plant;
+//	}
 
 	@Override
 	public String toString() {

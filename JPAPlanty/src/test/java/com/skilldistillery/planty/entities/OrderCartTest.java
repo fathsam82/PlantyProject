@@ -2,6 +2,7 @@ package com.skilldistillery.planty.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -63,6 +64,42 @@ class OrderCartTest {
 
 		assertEquals(11, orderCart.getEstimatedDeliveryDate().getMonthValue());
 
+	}
+	
+	@Test
+	void test_order_cart_order_detail_relationship() {
+		
+		assertNotNull(orderCart);
+		
+		assertNotNull(orderCart.getOrderDetails());
+		
+		assertTrue(orderCart.getOrderDetails().size()>0);
+		
+//		assertEquals(1000, orderCart.getOrderDetails().getUnitPrice());
+//		This does not compile, getOrderDetails is returning a List Object which does not have attributes
+	
+	}
+	
+	@Test
+	void test_order_cart_payment_data_relationship() {
+		
+		assertNotNull(orderCart);
+		
+		assertNotNull(orderCart.getPaymentData());
+		
+		assertEquals("VISA", orderCart.getPaymentData().getCardType());
+		
+	}
+	
+	@Test
+	void test_order_cart_user_relationship() {
+		
+		assertNotNull(orderCart);
+		
+		assertNotNull(orderCart.getUser());
+		
+		assertEquals("standard", orderCart.getUser().getRole());
+		
 	}
 
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +30,16 @@ public class OrderDetail {
 	
 	@Column(name = "gift_wrap")
 	private Boolean giftWrap;
+	
+	@JoinColumn(name = "order_cart_id")
+	@ManyToOne
+	private OrderCart orderCart;
+	
+	@JoinColumn(name = "plant_id")
+	@ManyToOne
+	private Plant plant;
+	
+	
 
 	public OrderDetail() {
 		
@@ -73,10 +85,27 @@ public class OrderDetail {
 		this.giftWrap = giftWrap;
 	}
 
+	public OrderCart getOrderCart() {
+		return orderCart;
+	}
+
+	public void setOrderCart(OrderCart orderCart) {
+		this.orderCart = orderCart;
+	}
+
+	public Plant getPlant() {
+		return plant;
+	}
+
+	public void setPlant(Plant plant) {
+		this.plant = plant;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderDetail [id=" + id + ", quantityOrdered=" + quantityOrdered + ", unitPrice=" + unitPrice
-				+ ", subtotalPrice=" + subtotalPrice + ", giftWrap=" + giftWrap + "]";
+				+ ", subtotalPrice=" + subtotalPrice + ", giftWrap=" + giftWrap + ", orderCart=" + orderCart
+				+ ", plant=" + plant + "]";
 	}
 
 	@Override

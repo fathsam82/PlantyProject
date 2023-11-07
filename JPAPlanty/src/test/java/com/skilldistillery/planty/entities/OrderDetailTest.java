@@ -60,5 +60,25 @@ class OrderDetailTest {
 		
 		assertFalse(orderDetail.getGiftWrap());
 	}
+	
+	@Test
+	void test_order_detail_order_cart_relationship() {
+		
+		assertNotNull(orderDetail);
+		
+		assertNotNull(orderDetail.getOrderCart());
+		
+		assertEquals(2000, orderDetail.getOrderCart().getTotalPrice());
+	}
+	
+	@Test 
+	void test_order_detail_plant_relationship() {
+		
+		assertNotNull(orderDetail);
+		
+		assertNotNull(orderDetail.getPlant());
+		
+		assertEquals("Snake Plant", orderDetail.getPlant().getName());
+	}
 
 }

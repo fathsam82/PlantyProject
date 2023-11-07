@@ -1,6 +1,7 @@
 package com.skilldistillery.planty.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,6 +42,18 @@ public class OrderCart {
 	
 	@Column(name = "payment_method")
 	private String paymentMethod;
+	
+	@ManyToOne
+	@JoinColumn(name = "payment_data_id")
+	private PaymentData paymentData;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	
+	@OneToMany(mappedBy = "orderCart")
+	private List<OrderDetail> orderDetails;
 
 	public OrderCart() {
 		
@@ -99,11 +115,37 @@ public class OrderCart {
 		this.paymentMethod = paymentMethod;
 	}
 
+	public PaymentData getPaymentData() {
+		return paymentData;
+	}
+
+	public void setPaymentData(PaymentData paymentData) {
+		this.paymentData = paymentData;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderCart [id=" + id + ", totalPrice=" + totalPrice + ", datePlaced=" + datePlaced + ", notes=" + notes
 				+ ", estimatedDeliveryDate=" + estimatedDeliveryDate + ", trackingNumber=" + trackingNumber
-				+ ", paymentMethod=" + paymentMethod + "]";
+				+ ", paymentMethod=" + paymentMethod + ", paymentData=" + paymentData + ", user=" + user + "]";
 	}
 
 	@Override

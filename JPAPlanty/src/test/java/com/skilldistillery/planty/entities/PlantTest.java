@@ -3,6 +3,7 @@ package com.skilldistillery.planty.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,9 +60,27 @@ class PlantTest {
 		assertFalse(plant.getIsDiscounted());
 		
 		assertEquals(1000, plant.getPrice());
-		
+	}
 	
+	@Test
+	void test_plant_plant_origin_relationship() {
 		
+		assertNotNull(plant);
+		
+		assertNotNull(plant.getPlantOrigins());
+		
+		assertTrue(plant.getPlantOrigins().size()>0);	
+		
+	}
+	
+	@Test
+	void test_plant_plant_category_relationship() {
+		
+		assertNotNull(plant);
+		
+		assertNotNull(plant.getPlantCat().getName());
+		
+		assertEquals("Evergreen perennials", plant.getPlantCat().getName());
 	}
 
 }

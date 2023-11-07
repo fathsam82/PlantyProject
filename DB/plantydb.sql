@@ -130,23 +130,23 @@ DROP TABLE IF EXISTS `order_detail` ;
 
 CREATE TABLE IF NOT EXISTS `order_detail` (
   `id` INT NOT NULL,
-  `order_cart_id` INT NOT NULL,
   `plant_id` INT NOT NULL,
   `quantity_ordered` INT NOT NULL,
   `unit_price` INT NOT NULL,
   `subtotal_price` INT NOT NULL,
   `gift_wrap` TINYINT NULL,
+  `order_cart_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_order_detail_order1_idx` (`order_cart_id` ASC),
   INDEX `fk_order_detail_plant1_idx` (`plant_id` ASC),
-  CONSTRAINT `fk_order_detail_order1`
-    FOREIGN KEY (`order_cart_id`)
-    REFERENCES `order_cart` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_order_detail_order_cart1_idx` (`order_cart_id` ASC),
   CONSTRAINT `fk_order_detail_plant1`
     FOREIGN KEY (`plant_id`)
     REFERENCES `plant` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_detail_order_cart1`
+    FOREIGN KEY (`order_cart_id`)
+    REFERENCES `order_cart` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -288,7 +288,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `order_detail` (`id`, `order_cart_id`, `plant_id`, `quantity_ordered`, `unit_price`, `subtotal_price`, `gift_wrap`) VALUES (1, 1, 1, 2, 1000, 2000, 0);
+INSERT INTO `order_detail` (`id`, `plant_id`, `quantity_ordered`, `unit_price`, `subtotal_price`, `gift_wrap`, `order_cart_id`) VALUES (1, 1, 2, 1000, 2000, 0, 1);
 
 COMMIT;
 

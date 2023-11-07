@@ -1,5 +1,7 @@
 package com.skilldistillery.planty.entities;
 
+
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class Plant {
@@ -32,20 +38,25 @@ public class Plant {
 	@Column(name = "is_discounted")
 	private Boolean isDiscounted;
 	
+	@JoinColumn(name = "plant_categories_id")
+	@ManyToOne
+	private PlantCategory plantCat;
 	
-
+	@OneToMany(mappedBy = "plant")
+	private List<PlantOrigin> plantOrigins;
+	
+//	@OneToMany(mappedBy = "orderDetail")
+//	private List<OrderDetail> orderDetails;
+//	No need for plant to have a bi-directional relationship with orderDetails, will only have to access plant info through order details, not other way around 
+	
 	public Plant() {
 		
 	}
 
-	
-
 	public int getId() {
 		return id;
 	}
-
-
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -133,19 +144,30 @@ public class Plant {
 	public void setIsDiscounted(Boolean isDiscounted) {
 		this.isDiscounted = isDiscounted;
 	}
-	
-	
 
 
+	public PlantCategory getPlantCat() {
+		return plantCat;
+	}
+
+	public void setPlantCat(PlantCategory plantCat) {
+		this.plantCat = plantCat;
+	}
+
+	public List<PlantOrigin> getPlantOrigins() {
+		return plantOrigins;
+	}
+
+	public void setPlantOrigins(List<PlantOrigin> plantOrigins) {
+		this.plantOrigins = plantOrigins;
+	}
 
 	@Override
 	public String toString() {
 		return "Plant [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
 				+ ", stockQuantity=" + stockQuantity + ", plantImageUrl=" + plantImageUrl + ", size=" + size
-				+ ", isDiscounted=" + isDiscounted + "]";
+				+ ", isDiscounted=" + isDiscounted + ", plantCat=" + plantCat + "]";
 	}
-
-
 
 	@Override
 	public int hashCode() {

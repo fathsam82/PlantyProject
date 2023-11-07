@@ -17,7 +17,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PlantOriginTest {
-private static EntityManagerFactory emf;
+	
+	private static EntityManagerFactory emf;
 	
 	private EntityManager em;
 	

@@ -67,7 +67,14 @@ private static EntityManagerFactory emf;
 		
 		assertFalse(!paymentData.getEnabled());
 		
+	}
+	
+	@Test
+	void test_payment_data_user_relationship() {
 		
+		assertNotNull(paymentData);
+		
+		assertNotNull("samwise", paymentData.getUser().getUsername());
 	}
 	
 }
