@@ -37,6 +37,8 @@ public class Post {
 	@OneToMany(mappedBy = "post")
 	private List<Comment> comments;
 	
+	private Boolean enabled;
+	
 
 	public Post() {
 
@@ -89,11 +91,21 @@ public class Post {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+	
+	
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt + ", user="
-				+ user + "]";
+				+ user + ", enabled=" + enabled + "]";
 	}
 
 	@Override

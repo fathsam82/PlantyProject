@@ -54,6 +54,8 @@ public class OrderCart {
 	
 	@OneToMany(mappedBy = "orderCart")
 	private List<OrderDetail> orderDetails;
+	
+	private Boolean enabled;
 
 	public OrderCart() {
 		
@@ -140,12 +142,23 @@ public class OrderCart {
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+	
+	
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public String toString() {
 		return "OrderCart [id=" + id + ", totalPrice=" + totalPrice + ", datePlaced=" + datePlaced + ", notes=" + notes
 				+ ", estimatedDeliveryDate=" + estimatedDeliveryDate + ", trackingNumber=" + trackingNumber
-				+ ", paymentMethod=" + paymentMethod + ", paymentData=" + paymentData + ", user=" + user + "]";
+				+ ", paymentMethod=" + paymentMethod + ", paymentData=" + paymentData + ", user=" + user + ", enabled="
+				+ enabled + "]";
 	}
 
 	@Override

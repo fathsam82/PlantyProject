@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "plant_origin")
 public class PlantOrigin {
@@ -28,6 +30,7 @@ public class PlantOrigin {
 	@Column(precision = 9, scale = 6)
 	private BigDecimal longitude;
 	
+	@JsonBackReference
 	@JoinColumn(name = "plant_id")
 	@ManyToOne
 	private Plant plant;

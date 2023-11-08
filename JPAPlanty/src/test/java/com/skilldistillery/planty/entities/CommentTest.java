@@ -59,6 +59,8 @@ private static EntityManagerFactory emf;
 		assertEquals(11, comment.getCreatedAt().getMonthValue());
 		
 		assertEquals("I like creating a space that feels like a forest.", comment.getContent());
+		
+		assertTrue(comment.getEnabled());
 	}
 	
 	@Test

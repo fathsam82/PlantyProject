@@ -34,6 +34,8 @@ public class Comment {
 	@JoinColumn(name = "post_id")
 	private Post post;
 	
+	private Boolean enabled;
+	
 	public Comment() {
 	
 	}
@@ -80,10 +82,18 @@ public class Comment {
 		this.post = post;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", createdAt=" + createdAt + ", user=" + user + ", post="
-				+ post + "]";
+				+ post + ", enabled=" + enabled + "]";
 	}
 
 	@Override

@@ -60,6 +60,8 @@ class PlantTest {
 		assertFalse(plant.getIsDiscounted());
 		
 		assertEquals(1000, plant.getPrice());
+		
+		assertTrue(plant.getEnabled());
 	}
 	
 	@Test

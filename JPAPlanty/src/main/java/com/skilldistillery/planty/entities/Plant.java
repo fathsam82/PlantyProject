@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class Plant {
@@ -38,12 +41,17 @@ public class Plant {
 	@Column(name = "is_discounted")
 	private Boolean isDiscounted;
 	
+	@JsonBackReference
 	@JoinColumn(name = "plant_category_id")
 	@ManyToOne
 	private PlantCategory plantCat;
 	
+//	@JsonIgnore
+	@JsonManagedReference
 	@OneToMany(mappedBy = "plant")
 	private List<PlantOrigin> plantOrigins;
+	
+	private Boolean enabled;
 	
 //	@OneToMany(mappedBy = "plant")
 //	private List<OrderDetail> orderDetails;
@@ -162,11 +170,19 @@ public class Plant {
 		this.plantOrigins = plantOrigins;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
 		return "Plant [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
 				+ ", stockQuantity=" + stockQuantity + ", plantImageUrl=" + plantImageUrl + ", size=" + size
-				+ ", isDiscounted=" + isDiscounted + ", plantCat=" + plantCat + "]";
+				+ ", isDiscounted=" + isDiscounted + ", plantCat=" + plantCat + ", enabled=" + enabled + "]";
 	}
 
 	@Override

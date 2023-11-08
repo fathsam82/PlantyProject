@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `plant` (
   `size` VARCHAR(45) NULL,
   `is_discounted` TINYINT NULL,
   `plant_category_id` INT NOT NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_plant_plant_category1_idx` (`plant_category_id` ASC),
   CONSTRAINT `fk_plant_plant_category1`
@@ -106,6 +107,7 @@ CREATE TABLE IF NOT EXISTS `order_cart` (
   `estimated_delivery_date` DATETIME NULL,
   `tracking_number` INT NULL,
   `payment_method` VARCHAR(45) NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_order_user_idx` (`user_id` ASC),
   INDEX `fk_order_payment_data1_idx` (`payment_data_id` ASC),
@@ -163,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `title` VARCHAR(500) NOT NULL,
   `content` TEXT NOT NULL,
   `created_at` DATETIME NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_post_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_post_user1`
@@ -184,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `post_id` INT NOT NULL,
   `content` TEXT NOT NULL,
   `created_at` DATETIME NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_comment_user1_idx` (`user_id` ASC),
   INDEX `fk_comment_post1_idx` (`post_id` ASC),
@@ -247,8 +251,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1);
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1, 1);
 
 COMMIT;
 
@@ -278,7 +282,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `order_cart` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 1, 'Credit Card');
+INSERT INTO `order_cart` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`, `enabled`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 1, 'Credit Card', 1);
 
 COMMIT;
 
@@ -298,7 +302,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `post` (`id`, `user_id`, `title`, `content`, `created_at`) VALUES (1, 1, 'What is one benefit you\'ve received after incorporating house plants into your decor?', 'I really like the atmosphere they create. House plants bring a sense of calming to the room. Having oxygen being created inside of your home in a nice feature too.', '2023-11-01 13:11:30');
+INSERT INTO `post` (`id`, `user_id`, `title`, `content`, `created_at`, `enabled`) VALUES (1, 1, 'What is one benefit you\'ve received after incorporating house plants into your decor?', 'I really like the atmosphere they create. House plants bring a sense of calming to the room. Having oxygen being created inside of your home in a nice feature too.', '2023-11-01 13:11:30', 1);
 
 COMMIT;
 
@@ -308,7 +312,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `created_at`) VALUES (1, 1, 1, 'I like creating a space that feels like a forest.', '2023-11-01 13:16:35');
+INSERT INTO `comment` (`id`, `user_id`, `post_id`, `content`, `created_at`, `enabled`) VALUES (1, 1, 1, 'I like creating a space that feels like a forest.', '2023-11-01 13:16:35', 1);
 
 COMMIT;
 
