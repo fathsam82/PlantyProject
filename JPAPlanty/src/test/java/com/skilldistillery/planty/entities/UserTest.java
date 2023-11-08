@@ -61,6 +61,49 @@ class UserTest {
 		
 		assertEquals("standard", user.getRole());
 		
+	}
+	
+	@Test
+	void test_user_paymentData_relationship() {
+		
+		assertNotNull(user);
+		
+		assertNotNull(user.getPaymentDatas());
+		
+		assertTrue(user.getPaymentDatas().size()>0);
+		
+	}
+	
+	@Test
+	void test_user_post_relationship() {
+		
+		assertNotNull(user);
+		
+		assertNotNull(user.getPosts());
+		
+		assertTrue(user.getPosts().size()>0);
+		
+	}
+	
+	@Test
+	void test_user_comment_relationship() {
+		
+		assertNotNull(user);
+		
+		assertNotNull(user.getComments());
+		
+		assertTrue(user.getComments().size()>0);
+		
+	}
+	
+	@Test
+	void test_user_orderCart_relationship() {
+		
+		assertNotNull(user);
+		
+		assertNotNull(user.getOrderCarts());
+		
+		assertTrue(user.getOrderCarts().size()>0);
 		
 	}
 

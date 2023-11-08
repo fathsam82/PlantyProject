@@ -1,6 +1,7 @@
 package com.skilldistillery.planty.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -25,6 +29,14 @@ public class Post {
 	@CreationTimestamp
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
+	
+	@JoinColumn(name = "user_id")
+	@ManyToOne
+	private User user;
+	
+	@OneToMany(mappedBy = "post")
+	private List<Comment> comments;
+	
 
 	public Post() {
 
@@ -62,14 +74,31 @@ public class Post {
 		this.createdAt = createdAt;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt + "]";
+		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt + ", user="
+				+ user + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(content, createdAt, id, title);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -81,9 +110,9 @@ public class Post {
 		if (getClass() != obj.getClass())
 			return false;
 		Post other = (Post) obj;
-		return Objects.equals(content, other.content) && Objects.equals(createdAt, other.createdAt) && id == other.id
-				&& Objects.equals(title, other.title);
+		return id == other.id;
 	}
+
 	
 	
 

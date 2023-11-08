@@ -1,6 +1,8 @@
 package com.skilldistillery.planty.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,6 +61,27 @@ class PostTest {
 		assertEquals(11, post.getCreatedAt().getMonthValue());
 		
 		assertEquals(13, post.getCreatedAt().getHour());
+	}
+	
+	@Test
+	void test_post_user_relationship() {
+		
+		assertNotNull(post);
+		
+		assertNotNull(post.getUser().getUsername());
+		
+		assertEquals("samwise", post.getUser().getUsername());
+		
+	}
+	
+	@Test
+	void test_post_comment_relationship() {
+		
+		assertNotNull(post);
+		
+		assertNotNull(post.getComments());
+		
+		assertTrue(post.getComments().size()>0);
 	}
 
 }

@@ -38,7 +38,7 @@ public class Plant {
 	@Column(name = "is_discounted")
 	private Boolean isDiscounted;
 	
-	@JoinColumn(name = "plant_categories_id")
+	@JoinColumn(name = "plant_category_id")
 	@ManyToOne
 	private PlantCategory plantCat;
 	

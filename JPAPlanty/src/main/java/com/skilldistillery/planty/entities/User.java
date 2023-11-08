@@ -1,11 +1,13 @@
 package com.skilldistillery.planty.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -23,6 +25,18 @@ public class User {
 	private Boolean enabled;
 
 	private String role;
+	
+	@OneToMany(mappedBy = "user")
+	private List<OrderCart> orderCarts;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Comment> comments;
+	
+	@OneToMany(mappedBy = "user")
+	private List<PaymentData> paymentDatas;
 
 	public User() {
 
@@ -74,6 +88,39 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+
+	public List<OrderCart> getOrderCarts() {
+		return orderCarts;
+	}
+
+	public void setOrderCarts(List<OrderCart> orderCarts) {
+		this.orderCarts = orderCarts;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<PaymentData> getPaymentDatas() {
+		return paymentDatas;
+	}
+
+	public void setPaymentDatas(List<PaymentData> paymentDatas) {
+		this.paymentDatas = paymentDatas;
 	}
 
 	@Override

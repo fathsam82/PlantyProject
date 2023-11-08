@@ -35,7 +35,6 @@ DROP TABLE IF EXISTS `plant` ;
 
 CREATE TABLE IF NOT EXISTS `plant` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `plant_categories_id` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `description` VARCHAR(255) NULL,
   `price` INT NOT NULL,
@@ -43,10 +42,11 @@ CREATE TABLE IF NOT EXISTS `plant` (
   `plant_image_url` VARCHAR(255) NULL,
   `size` VARCHAR(45) NULL,
   `is_discounted` TINYINT NULL,
+  `plant_category_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_plant_plant_categories1_idx` (`plant_categories_id` ASC),
-  CONSTRAINT `fk_plant_plant_categories1`
-    FOREIGN KEY (`plant_categories_id`)
+  INDEX `fk_plant_plant_category1_idx` (`plant_category_id` ASC),
+  CONSTRAINT `fk_plant_plant_category1`
+    FOREIGN KEY (`plant_category_id`)
     REFERENCES `plant_category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -247,8 +247,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`) VALUES (1, 1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0);
-INSERT INTO `plant` (`id`, `plant_categories_id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`) VALUES (2, 2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1);
 
 COMMIT;
 
