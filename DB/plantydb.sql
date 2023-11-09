@@ -252,7 +252,7 @@ COMMIT;
 START TRANSACTION;
 USE `plantydb`;
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1, 1);
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 2, 1);
 
 COMMIT;
 

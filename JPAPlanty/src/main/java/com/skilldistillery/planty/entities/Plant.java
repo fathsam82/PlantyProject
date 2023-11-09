@@ -46,7 +46,7 @@ public class Plant {
 	@ManyToOne
 	private PlantCategory plantCat;
 	
-//	@JsonIgnore
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "plant")
 	private List<PlantOrigin> plantOrigins;
