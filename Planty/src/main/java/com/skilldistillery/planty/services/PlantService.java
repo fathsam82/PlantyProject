@@ -20,5 +20,7 @@ public interface PlantService {
 	Plant updatePlant(int plantId, Plant newPlant);
 
 	boolean deletePlant(int plantId);
+	
+	boolean disablePlant(int plantId);
 
 }

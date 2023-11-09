@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "plant_category")
@@ -24,8 +24,8 @@ public class PlantCategory {
 	
 	private String description;
 	
-//	@JsonIgnore
-	@JsonManagedReference
+	@JsonIgnore
+//	@JsonManagedReference
 	@OneToMany(mappedBy = "plantCat")
 	private List<Plant> plants;
 

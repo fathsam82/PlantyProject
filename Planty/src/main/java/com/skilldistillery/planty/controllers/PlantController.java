@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -105,5 +107,37 @@ public class PlantController {
 		}
 		return updatedPlant;
 	}
+	@DeleteMapping("plants/{id}")
+	public void deletePlant(@PathVariable("id")int id, HttpServletResponse res) {
+		if(plantService.deletePlant(id)) {
+			res.setStatus(200);
+		}
+		else {
+			res.setStatus(404);
+		}
+		
+	}
+	
+	@DeleteMapping("plants/toDisable/{plantId}")
+	public void disablePlant(@PathVariable("plantId")int plantId, HttpServletResponse res) {
+		if(plantService.disablePlant(plantId)) {
+			res.setStatus(200);
+		}
+		else {
+			res.setStatus(404);
+		}
+		
+	}
+	
+//	@DeleteMapping("plants/{id}")
+//    public ResponseEntity<?> disablePlant(@PathVariable("id") int id, HttpServletResponse res) {
+//        boolean success = plantService.disablePlant(id);
+//
+//        if (success) {
+//            res.setStatus(200);
+//        } else {
+//          res.setStatus(404); 
+//        }
+//    }
 
 }

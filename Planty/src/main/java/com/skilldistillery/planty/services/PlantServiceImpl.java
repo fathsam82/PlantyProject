@@ -73,8 +73,27 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public boolean deletePlant(int plantId) {
+		boolean deleted = false;
+		Optional<Plant> toDelete = plantRepo.findById(plantId);
+		if(toDelete.isPresent()) {
+			plantRepo.delete(toDelete.get());
+			deleted = true;
+		}
 
-		return false;
+		return deleted;
+	}
+	
+	@Override
+	public boolean disablePlant(int plantId) {
+		Plant existingPlant = null;
+	    Optional<Plant> toDelete = plantRepo.findById(plantId);
+	    if (toDelete.isPresent()) {
+	        existingPlant = toDelete.get();
+	        existingPlant.setEnabled(false); // Assuming 'enabled' is a Boolean field that marks active/inactive.
+	        plantRepo.save(existingPlant);
+	        return true;
+	    }
+	    return false;
 	}
 
 }

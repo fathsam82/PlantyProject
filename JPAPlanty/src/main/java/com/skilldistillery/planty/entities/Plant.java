@@ -41,7 +41,7 @@ public class Plant {
 	@Column(name = "is_discounted")
 	private Boolean isDiscounted;
 	
-	@JsonBackReference
+//	@JsonBackReference
 	@JoinColumn(name = "plant_category_id")
 	@ManyToOne
 	private PlantCategory plantCat;
