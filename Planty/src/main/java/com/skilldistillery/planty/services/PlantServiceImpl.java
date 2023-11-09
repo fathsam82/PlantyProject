@@ -53,8 +53,22 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public Plant updatePlant(int plantId, Plant newPlant) {
+		Plant existingPlant = null;
+		Optional<Plant> existingOpt = plantRepo.findById(plantId);
+		if(existingOpt.isPresent()) {
+			existingPlant = existingOpt.get();
+			existingPlant.setDescription(newPlant.getDescription());
+			existingPlant.setName(newPlant.getName());
+			existingPlant.setPrice(newPlant.getPrice());
+			existingPlant.setStockQuantity(newPlant.getStockQuantity());
+			existingPlant.setIsDiscounted(newPlant.getIsDiscounted());
+			existingPlant.setSize(newPlant.getSize());
+			existingPlant.setPlantImageUrl(newPlant.getPlantImageUrl());
+			existingPlant.setPlantCat(newPlant.getPlantCat());
+			plantRepo.saveAndFlush(existingPlant);
+		}
 
-		return null;
+		return existingPlant;
 	}
 
 	@Override
