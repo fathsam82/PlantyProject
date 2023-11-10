@@ -33,12 +33,17 @@ public class PlantServiceImpl implements PlantService {
 			return null;
 		}
 	}
-	
+
 	@Override
-	public Optional<Plant> findByName(String name){
-		return plantRepo.findByNameIgnoreCase(name);
+	public Optional<Plant> findByName(String name) {
+		Optional<Plant> plantOpt = plantRepo.findByNameIgnoreCase(name);
+		if (plantOpt.isPresent()) {
+			return plantOpt;
+		} else {
+			return null;
+		}
 	}
-	
+
 	@Override
 	public List<Plant> findByCat(int plantCatId) {
 		return plantRepo.findByPlantCatId(plantCatId);
@@ -46,7 +51,6 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public Plant createPlant(Plant newPlant) {
-		
 
 		return plantRepo.saveAndFlush(newPlant);
 	}
@@ -55,7 +59,7 @@ public class PlantServiceImpl implements PlantService {
 	public Plant updatePlant(int plantId, Plant newPlant) {
 		Plant existingPlant = null;
 		Optional<Plant> existingOpt = plantRepo.findById(plantId);
-		if(existingOpt.isPresent()) {
+		if (existingOpt.isPresent()) {
 			existingPlant = existingOpt.get();
 			existingPlant.setDescription(newPlant.getDescription());
 			existingPlant.setName(newPlant.getName());
@@ -75,25 +79,25 @@ public class PlantServiceImpl implements PlantService {
 	public boolean deletePlant(int plantId) {
 		boolean deleted = false;
 		Optional<Plant> toDelete = plantRepo.findById(plantId);
-		if(toDelete.isPresent()) {
+		if (toDelete.isPresent()) {
 			plantRepo.delete(toDelete.get());
 			deleted = true;
 		}
 
 		return deleted;
 	}
-	
+
 	@Override
 	public boolean disablePlant(int plantId) {
 		Plant existingPlant = null;
-	    Optional<Plant> toDelete = plantRepo.findById(plantId);
-	    if (toDelete.isPresent()) {
-	        existingPlant = toDelete.get();
-	        existingPlant.setEnabled(false); // Assuming 'enabled' is a Boolean field that marks active/inactive.
-	        plantRepo.save(existingPlant);
-	        return true;
-	    }
-	    return false;
+		Optional<Plant> toDelete = plantRepo.findById(plantId);
+		if (toDelete.isPresent()) {
+			existingPlant = toDelete.get();
+			existingPlant.setEnabled(false); // Assuming 'enabled' is a Boolean field that marks active/inactive.
+			plantRepo.save(existingPlant);
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -131,7 +131,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `order_detail` ;
 
 CREATE TABLE IF NOT EXISTS `order_detail` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `plant_id` INT NOT NULL,
   `quantity_ordered` INT NOT NULL,
   `unit_price` INT NOT NULL,
@@ -210,7 +210,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `plant_origin` ;
 
 CREATE TABLE IF NOT EXISTS `plant_origin` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `plant_id` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `latitude` DECIMAL(9,6) NOT NULL,
@@ -242,6 +242,7 @@ START TRANSACTION;
 USE `plantydb`;
 INSERT INTO `plant_category` (`id`, `name`, `description`) VALUES (1, 'Evergreen perennials', 'Evergreen perennials have their leaves year-round and live longer than two years.');
 INSERT INTO `plant_category` (`id`, `name`, `description`) VALUES (2, 'Tropical Trees', NULL);
+INSERT INTO `plant_category` (`id`, `name`, `description`) VALUES (3, 'Succulents', NULL);
 
 COMMIT;
 
@@ -253,6 +254,7 @@ START TRANSACTION;
 USE `plantydb`;
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 2, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (3, 'Aloe Vera', 'Medium length green succulent leaves that are prickly.It is well known for offering possible health and beauty benefits. It\'s also toxic to cats and dogs so we advise caution to where it\'s placed in your home.', 1100, 2000, NULL, 'medium', 0, 3, 1);
 
 COMMIT;
 
@@ -324,6 +326,7 @@ START TRANSACTION;
 USE `plantydb`;
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (1, 1, 'Ghana', 5.5600, 0.2057);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Guyana', 6.8013, -58.1553);
+INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (3, 3, 'Oman', 21.0000, 57.0000);
 
 COMMIT;
 

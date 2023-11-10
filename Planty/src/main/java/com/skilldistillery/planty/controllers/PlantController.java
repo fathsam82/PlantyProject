@@ -94,50 +94,38 @@ public class PlantController {
 		return newPlant;
 
 	}
-	
+
 	@PutMapping("plants/{id}")
-	public Plant updatePlant(@PathVariable("id") int plantId, @RequestBody Plant updatedPlant, HttpServletResponse res) {
+	public Plant updatePlant(@PathVariable("id") int plantId, @RequestBody Plant updatedPlant,
+			HttpServletResponse res) {
 		updatedPlant = plantService.updatePlant(plantId, updatedPlant);
-		
-		if(updatedPlant == null) {
+
+		if (updatedPlant == null) {
 			res.setStatus(404);
-		}
-		else {
+		} else {
 			res.setStatus(200);
 		}
 		return updatedPlant;
 	}
+
 	@DeleteMapping("plants/{id}")
-	public void deletePlant(@PathVariable("id")int id, HttpServletResponse res) {
-		if(plantService.deletePlant(id)) {
+	public void deletePlant(@PathVariable("id") int id, HttpServletResponse res) {
+		if (plantService.deletePlant(id)) {
 			res.setStatus(200);
-		}
-		else {
+		} else {
 			res.setStatus(404);
 		}
-		
+
 	}
-	
+
 	@DeleteMapping("plants/toDisable/{plantId}")
-	public void disablePlant(@PathVariable("plantId")int plantId, HttpServletResponse res) {
-		if(plantService.disablePlant(plantId)) {
+	public void disablePlant(@PathVariable("plantId") int plantId, HttpServletResponse res) {
+		if (plantService.disablePlant(plantId)) {
 			res.setStatus(200);
-		}
-		else {
+		} else {
 			res.setStatus(404);
 		}
-		
+
 	}
-	
-//	@DeleteMapping("plants/{id}")
-//    public ResponseEntity<?> disablePlant(@PathVariable("id") int id, HttpServletResponse res) {
-//        boolean success = plantService.disablePlant(id);
-//
-//        if (success) {
-//            res.setStatus(200);
-//        } else {
-//          res.setStatus(404); 
-//        }
-//    }
 
 }
