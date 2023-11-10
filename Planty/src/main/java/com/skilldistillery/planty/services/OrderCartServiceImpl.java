@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.OrderCart;
+import com.skilldistillery.planty.entities.User;
 import com.skilldistillery.planty.repositories.OrderCartRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
 
@@ -25,14 +26,23 @@ public class OrderCartServiceImpl implements OrderCartService {
 	}
 
 	@Override
-	public Optional<OrderCart> getOrderCart(String username, int orderCartId) {
+	public OrderCart getOrderCart(String username, int orderCartId) {
+		OrderCart orderCart = null;
 		
-		return orderCartRepo.findById(null);
+		Optional<OrderCart> orderCartOpt = orderCartRepo.findById(orderCartId);
+		if (orderCartOpt.isPresent() && orderCartOpt.get().getUser().getUsername().equals(username)) {
+			orderCart = orderCartOpt.get();
+		}
+		return orderCart;
 	}
 
 	@Override
 	public OrderCart createOrderCart(String username, OrderCart newOrderCart) {
-		
+		User user = userRepo.findByUsername(username);
+		if(user != null) {
+			newOrderCart.setUser(user);
+			return orderCartRepo.saveAndFlush(newOrderCart);
+		}
 		return null;
 	}
 

@@ -40,5 +40,7 @@ public class AuthController {
 	  }
 	  return authService.getUserByUsername(principal.getName());
 	}
+	
+	
 
 }
