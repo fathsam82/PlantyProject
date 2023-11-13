@@ -12,7 +12,7 @@ public interface OrderCartService {
 
 	OrderCart createOrderCart(String username, OrderCart newOrderCart);
 
-	OrderCart updateOrderCart(String username, int orderCartId);
+	OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 
 	boolean deleteOrderCart(String username, int orderCartId);
 

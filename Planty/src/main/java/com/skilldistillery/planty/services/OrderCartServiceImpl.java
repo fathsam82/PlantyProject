@@ -47,9 +47,15 @@ public class OrderCartServiceImpl implements OrderCartService {
 	}
 
 	@Override
-	public OrderCart updateOrderCart(String username, int orderCartId) {
-		
-		return null;
+	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
+		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+		if(existing != null) {
+			
+			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+			orderCartRepo.saveAndFlush(existing);
+			
+		}
+		return existing;
 	}
 
 	@Override
