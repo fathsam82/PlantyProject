@@ -3,7 +3,6 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 
 import com.skilldistillery.planty.entities.OrderCart;
-import com.skilldistillery.planty.entities.OrderDetail;
 
 public interface OrderCartService {
 

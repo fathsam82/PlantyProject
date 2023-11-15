@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "order_cart")
 public class OrderCart {
@@ -50,7 +52,6 @@ public class OrderCart {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
 	
 	@OneToMany(mappedBy = "orderCart")
 	private List<OrderDetail> orderDetails;

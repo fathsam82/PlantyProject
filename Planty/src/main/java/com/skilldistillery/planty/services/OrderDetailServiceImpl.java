@@ -1,21 +1,34 @@
 package com.skilldistillery.planty.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.OrderDetail;
+import com.skilldistillery.planty.repositories.OrderDetailRepository;
 
+@Service
 public class OrderDetailServiceImpl implements OrderDetailService {
+	
+	@Autowired
+	OrderDetailRepository orderDetailRepo;
 
 	@Override
 	public List<OrderDetail> listAllOrderDetails() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return orderDetailRepo.findAll();
 	}
 
 	@Override
 	public OrderDetail getOrderDetail(int orderDetailId) {
-		// TODO Auto-generated method stub
-		return null;
+		OrderDetail orderDetail = null;
+		Optional<OrderDetail> orderDetailOpt = orderDetailRepo.findById(orderDetailId);
+		if(orderDetailOpt.isPresent()) {
+			orderDetail = orderDetailOpt.get();
+		}
+		return orderDetail;
 	}
 
 	@Override
