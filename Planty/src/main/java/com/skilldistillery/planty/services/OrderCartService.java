@@ -3,6 +3,7 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 
 import com.skilldistillery.planty.entities.OrderCart;
+import com.skilldistillery.planty.entities.OrderDetail;
 
 public interface OrderCartService {
 
@@ -13,7 +14,7 @@ public interface OrderCartService {
 	OrderCart createOrderCart(String username, OrderCart newOrderCart);
 
 	OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
-
+	
 	boolean deleteOrderCart(String username, int orderCartId);
 
 }
