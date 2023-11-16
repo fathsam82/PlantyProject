@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "order_detail")
@@ -33,11 +33,15 @@ public class OrderDetail {
 	@Column(name = "gift_wrap")
 	private Boolean giftWrap;
 	
-	@JsonIgnore       //TEMP
+//	@JsonBackReference
+//	@JsonManagedReference
+/// @JsonIgnore
+	@JsonIgnoreProperties
 	@JoinColumn(name = "order_cart_id")
 	@ManyToOne
 	private OrderCart orderCart;
 	
+	@JsonIgnoreProperties({"plantCat", "plantOrigins"})
 	@JoinColumn(name = "plant_id")
 	@ManyToOne
 	private Plant plant;

@@ -10,9 +10,9 @@ public interface OrderDetailService {
 	
 	OrderDetail getOrderDetail(int orderDetailId);
 	
-	OrderDetail createOrderDetail(int orderDetailId, OrderDetail newOrderDetail);
+	OrderDetail createOrderDetail(OrderDetail newOrderDetail);
 	
-	OrderDetail updateOrderDetail(int orderDetail, OrderDetail updatedOrderDetail);
+	OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail);
 
 	boolean deleteOrderDetail(int orderDetailId);
 }

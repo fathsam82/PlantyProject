@@ -108,9 +108,9 @@ public class PlantController {
 		return updatedPlant;
 	}
 
-	@DeleteMapping("plants/{id}")
-	public void deletePlant(@PathVariable("id") int id, HttpServletResponse res) {
-		if (plantService.deletePlant(id)) {
+	@DeleteMapping("plants/{plantId}")
+	public void deletePlant(@PathVariable("plantId") int plantId, HttpServletResponse res) {
+		if (plantService.deletePlant(plantId)) {
 			res.setStatus(200);
 		} else {
 			res.setStatus(404);

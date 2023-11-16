@@ -32,15 +32,23 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public OrderDetail createOrderDetail(int orderDetailId, OrderDetail newOrderDetail) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderDetail createOrderDetail(OrderDetail newOrderDetail) {
+		return orderDetailRepo.saveAndFlush(newOrderDetail);
 	}
 
 	@Override
-	public OrderDetail updateOrderDetail(int orderDetail, OrderDetail updatedOrderDetail) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail) {
+		OrderDetail existing = null;
+		Optional<OrderDetail> existingOptional = orderDetailRepo.findById(orderDetailId);
+		if(existingOptional.isPresent()) {
+			existing = existingOptional.get();
+			existing.setGiftWrap(updatedOrderDetail.getGiftWrap());
+			existing.setPlant(updatedOrderDetail.getPlant());
+			existing.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
+			existing.setOrderCart(updatedOrderDetail.getOrderCart());
+			orderDetailRepo.saveAndFlush(existing);
+		}
+		return existing;
 	}
 
 	@Override

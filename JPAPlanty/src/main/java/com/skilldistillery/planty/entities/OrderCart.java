@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "order_cart")
@@ -45,16 +46,21 @@ public class OrderCart {
 	@Column(name = "payment_method")
 	private String paymentMethod;
 	
+	@JsonIgnore  // TEMP
 	@ManyToOne
 	@JoinColumn(name = "payment_data_id")
 	private PaymentData paymentData;
 	
+	@JsonIgnore  // TEMP
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "orderCart")
-	private List<OrderDetail> orderDetails;
+//	@JsonManagedReference
+////	@JsonBackReference
+////	@JsonIgnore
+//	@OneToMany(mappedBy = "orderCart")
+//	private List<OrderDetail> orderDetails;
 	
 	private Boolean enabled;
 
@@ -136,13 +142,13 @@ public class OrderCart {
 	
 	
 
-	public List<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(List<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
-	}
+//	public List<OrderDetail> getOrderDetails() {
+//		return orderDetails;
+//	}
+//
+//	public void setOrderDetails(List<OrderDetail> orderDetails) {
+//		this.orderDetails = orderDetails;
+//	}
 	
 	
 
