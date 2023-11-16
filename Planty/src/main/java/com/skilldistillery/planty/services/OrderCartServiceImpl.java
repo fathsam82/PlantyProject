@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.OrderCart;
-import com.skilldistillery.planty.entities.OrderDetail;
 import com.skilldistillery.planty.entities.User;
 import com.skilldistillery.planty.repositories.OrderCartRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
@@ -51,7 +50,7 @@ public class OrderCartServiceImpl implements OrderCartService {
 	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
 		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
 		if(existing != null) {
-			
+			existing.setNotes(updatedOrderCart.getNotes());
 			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
 			orderCartRepo.saveAndFlush(existing);
 			

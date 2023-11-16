@@ -53,8 +53,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	public boolean deleteOrderDetail(int orderDetailId) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional<OrderDetail> toDeleteOpt = orderDetailRepo.findById(orderDetailId);
+		if(toDeleteOpt.isPresent()) {
+			orderDetailRepo.delete(toDeleteOpt.get());
+			deleted = true;
+		}
+		return deleted;
 	}
 
 }

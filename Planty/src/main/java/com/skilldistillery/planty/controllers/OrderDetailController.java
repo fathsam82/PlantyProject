@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,6 +81,20 @@ public class OrderDetailController {
 		}
 		return updatedOrderDetail;
 
+	}
+	
+	@DeleteMapping("orderDetails/{orderDetailId}")
+	public void deleteOrderDetail(@PathVariable int orderDetailId, HttpServletResponse res) {
+		
+		try {
+			if (orderDetailService.deleteOrderDetail(orderDetailId)) {
+				res.setStatus(204);
+			} else {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			res.setStatus(400);
+		}
 	}
 
 }

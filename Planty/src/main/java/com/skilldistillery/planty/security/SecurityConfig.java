@@ -36,6 +36,8 @@ public class SecurityConfig {
         .antMatchers(HttpMethod.POST, "/api/orderDetails/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.PUT, "/api/orderDetails").permitAll()  //TEMP
         .antMatchers(HttpMethod.PUT, "/api/orderDetails/*").permitAll()  //TEMP
+        .antMatchers(HttpMethod.DELETE, "/api/orderDetails").permitAll()  //TEMP
+        .antMatchers(HttpMethod.DELETE, "/api/orderDetails/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.GET, "/api/plants").permitAll()  //TEMP
         .antMatchers(HttpMethod.GET, "/api/plants/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.POST, "/api/plants").permitAll()  //TEMP
@@ -44,6 +46,14 @@ public class SecurityConfig {
         .antMatchers(HttpMethod.PUT, "/api/plants/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.DELETE, "/api/plants").permitAll()  //TEMP
         .antMatchers(HttpMethod.DELETE, "/api/plants/*").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.GET, "/api/orderCarts").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.GET, "/api/orderCarts/*").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.POST, "/api/orderCarts").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.POST, "/api/orderCarts/*").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.PUT, "/api/orderCarts").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.PUT, "/api/orderCarts/*").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.DELETE, "/api/orderCarts").permitAll()  //TEMP
+//        .antMatchers(HttpMethod.DELETE, "/api/orderCarts/*").permitAll()  //TEMP
         .antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
         .anyRequest().permitAll()               // All other requests are allowed without authentication.
         .and()
