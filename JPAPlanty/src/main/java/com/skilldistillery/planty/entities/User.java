@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 
@@ -26,15 +28,19 @@ public class User {
 
 	private String role;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<OrderCart> orderCarts;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Post> posts;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<PaymentData> paymentDatas;
 
