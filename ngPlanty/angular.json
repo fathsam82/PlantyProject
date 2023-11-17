@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ngPlanty:build:production"
+              "buildTarget": "ngPlanty:build:production"
             },
             "development": {
-              "browserTarget": "ngPlanty:build:development"
+              "buildTarget": "ngPlanty:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngPlanty:build"
+            "buildTarget": "ngPlanty:build"
           }
         },
         "test": {
