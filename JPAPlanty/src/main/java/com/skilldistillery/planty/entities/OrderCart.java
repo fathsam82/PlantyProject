@@ -56,9 +56,10 @@ public class OrderCart {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-//	@JsonManagedReference
-////	@JsonBackReference
-////	@JsonIgnore
+//  COMMENTED OUT FOR TEMP FIX FOR INFINITE RECURSION, RELATIONSHIP TURNED FROM BI TO UNI
+//	//@JsonManagedReference
+//	//@JsonBackReference
+//  // @JsonIgnore
 //	@OneToMany(mappedBy = "orderCart")
 //	private List<OrderDetail> orderDetails;
 	

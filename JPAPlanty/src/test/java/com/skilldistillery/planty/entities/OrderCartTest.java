@@ -66,6 +66,8 @@ class OrderCartTest {
 
 	}
 	
+	
+	//COMMENTED OUT FOR TEMP FIX FOR INFINITE RECURSION, RELATIONSHIP TURNED FROM BI TO UNI
 //	@Test
 //	void test_order_cart_order_detail_relationship() {
 //		

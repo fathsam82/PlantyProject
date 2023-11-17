@@ -69,6 +69,7 @@ public class PlantServiceImpl implements PlantService {
 			existingPlant.setSize(newPlant.getSize());
 			existingPlant.setPlantImageUrl(newPlant.getPlantImageUrl());
 			existingPlant.setPlantCat(newPlant.getPlantCat());
+			existingPlant.setEnabled(newPlant.getEnabled());
 			plantRepo.saveAndFlush(existingPlant);
 		}
 
