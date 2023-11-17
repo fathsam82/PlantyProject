@@ -22,7 +22,7 @@ export class Plant {
     size: string = '',
     isDiscounted: boolean = false,
     plantCat: PlantCategory = new PlantCategory(),
-    enabled: boolean
+    enabled: boolean = false
   ) {
     this.id = id;
     this.name = name;
