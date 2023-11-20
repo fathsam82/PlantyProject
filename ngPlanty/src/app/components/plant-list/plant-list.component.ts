@@ -10,7 +10,7 @@ import { Plant } from 'src/app/models/plant';
 export class PlantListComponent implements OnInit {
   title = 'ngPlant';
 
-  plants: Plant[] = [];
+  plants: Plant[] | undefined;
 
   selected: Plant | null = null;
 
@@ -22,12 +22,13 @@ export class PlantListComponent implements OnInit {
 
   reload() {
     this.plantService.index().subscribe({
-      next: (plantList) => {
-        this.plants = plantList;
+      next: (plants) => {
+        this.plants = plants;
       },
       error: (somethingBad) => {
         console.error('PlantListComponent.reload: error loading plants');
         console.error(somethingBad);
+        console.log(this.plants);
       },
     });
   }
