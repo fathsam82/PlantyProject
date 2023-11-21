@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MockComponentComponent } from './components/mock-component/mock-component.component';
 import {FormsModule} from '@angular/forms';
+import { RegisterComponent } from './components/register/register.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MockComponentComponent,
-    PlantListComponent
+    PlantListComponent,
+    RegisterComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
