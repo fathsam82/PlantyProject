@@ -1,1 +1,25 @@
-<!-- <p>login works!</p> -->
+<div class="container">
+  <form (submit)="login(loginUser)">
+    <div class="row">
+      <div>
+        <input
+          class="col form-control"
+          type="text"
+          name="username"
+          [(ngModel)]="loginUser.username"
+          placeholder="Username"
+        /><br />
+      </div>
+      <div>
+        <input
+          class="col form-control"
+          type="password"
+          name="password"
+          [(ngModel)]="loginUser.password"
+          placeholder="Password"
+        />
+      </div>
+      <button class="col-auto btn btn-accesss">Log In</button>
+    </div>
+  </form>
+</div>

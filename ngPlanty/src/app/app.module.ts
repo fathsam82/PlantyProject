@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LogoutComponent } from "./components/logout/logout.component";
+import { LoginComponent } from './components/login/login.component';
 // import { DatePipe } from '@angular/common';
 
 
@@ -21,7 +22,8 @@ import { LogoutComponent } from "./components/logout/logout.component";
         PlantListComponent,
         RegisterComponent,
         NavigationComponent,
-        LogoutComponent
+        LogoutComponent,
+        LoginComponent
 
     ],
     providers: [],

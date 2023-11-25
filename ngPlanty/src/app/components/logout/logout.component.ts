@@ -14,4 +14,10 @@ export class LogoutComponent {
     private router: Router
   ){}
 
+  logout(){
+    console.log('Logging out.');
+    this.auth.logout();
+    this.router.navigateByUrl('/plants');
+  }
+
 }

@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PlantListComponent } from './components/plant-list/plant-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
@@ -13,7 +14,8 @@ const routes: Routes =  [
   { path: 'plants', component: PlantListComponent},
   { path: 'home', component: HomeComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'logout', component: LogoutComponent}
 
 
 

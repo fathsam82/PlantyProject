@@ -264,7 +264,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `enabled`, `role`) VALUES (1, 'Samwise', NULL, '$2a$10$rkKTjBmUEe/uxMS1KdJexupMtg5tNVl5d/16YzZ9OAnk0fhK8eiaS', 1, 'standard');
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `enabled`, `role`) VALUES (1, 'Samwise', 'sam1@aol.com', '$2a$10$rkKTjBmUEe/uxMS1KdJexupMtg5tNVl5d/16YzZ9OAnk0fhK8eiaS', 1, 'standard');
 
 COMMIT;
 
