@@ -53,7 +53,7 @@ class UserTest {
 		
 		assertNotNull(user);
 		
-		assertEquals("samwise", user.getUsername());
+		assertEquals("Samwise", user.getUsername());
 		
 		assertTrue(user.getEnabled());
 		

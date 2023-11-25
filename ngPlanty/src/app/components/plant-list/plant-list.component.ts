@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantService } from 'src/app/services/plant.service';
 import { Plant } from 'src/app/models/plant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plant-list',
@@ -14,7 +15,7 @@ export class PlantListComponent implements OnInit {
 
   selected: Plant | null = null;
 
-  constructor(private plantService: PlantService) {}
+  constructor(private plantService: PlantService, private router: Router) {}
 
   ngOnInit() {
     this.reload();

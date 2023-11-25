@@ -6,26 +6,32 @@ import { PlantListComponent } from './components/plant-list/plant-list.component
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MockComponentComponent } from './components/mock-component/mock-component.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { LogoutComponent } from "./components/logout/logout.component";
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    MockComponentComponent,
-    PlantListComponent,
-    RegisterComponent,
-    NavigationComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        MockComponentComponent,
+        PlantListComponent,
+        RegisterComponent,
+        NavigationComponent,
+        LogoutComponent
+
+    ],
+    providers: [DatePipe],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        LogoutComponent
+    ]
 })
 export class AppModule { }

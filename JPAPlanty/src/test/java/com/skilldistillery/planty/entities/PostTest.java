@@ -70,7 +70,7 @@ class PostTest {
 		
 		assertNotNull(post.getUser().getUsername());
 		
-		assertEquals("samwise", post.getUser().getUsername());
+		assertEquals("Samwise", post.getUser().getUsername());
 		
 	}
 	

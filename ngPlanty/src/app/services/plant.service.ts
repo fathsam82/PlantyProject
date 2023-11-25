@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Plant } from '../models/plant';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { Plant } from '../models/plant';
 export class PlantService {
 
   private baseUrl = 'http://localhost:8085/';
-  private url = this.baseUrl + 'api/plants'
+  private url = environment.baseUrl + 'api/plants'
 
   constructor(private http: HttpClient) {}
 
