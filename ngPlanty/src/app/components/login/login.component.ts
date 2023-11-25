@@ -18,8 +18,18 @@ export class LoginComponent {
   loginUser: User = new User();
 
   login(user: User) {
-    console.log('Loggin in:');
+    console.log('Logging in:');
     console.log(user);
+
+    this.auth.login(user.username, user.password).subscribe({
+      next: (loggedInUser) => {
+        this.router.navigateByUrl('/plants');
+      },
+      error: (problem) => {
+        console.error('LoginComponent.login(): Error logging in user:');
+        console.error(problem);
+      }
+    });
   }
 
 }

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LogoutComponent } from "./components/logout/logout.component";
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -24,14 +24,14 @@ import { DatePipe } from '@angular/common';
         LogoutComponent
 
     ],
-    providers: [DatePipe],
+    providers: [],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-        HttpClientModule,
-        LogoutComponent
+        HttpClientModule
+
     ]
 })
 export class AppModule { }

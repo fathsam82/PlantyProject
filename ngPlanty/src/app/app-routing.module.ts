@@ -10,8 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes =  [
   { path: '', pathMatch: 'full', redirectTo: 'plants' },
-  { path: 'home', component: HomeComponent},
   { path: 'plants', component: PlantListComponent},
+  { path: 'home', component: HomeComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent}
 
@@ -23,7 +23,7 @@ const routes: Routes =  [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
