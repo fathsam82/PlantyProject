@@ -41,4 +41,18 @@ export class PlantService {
       })
     )
   }
+
+  getPlantsByName(name: string): Observable<Plant> {
+    return this.http.get<Plant>(this.url + '/' + name).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () =>
+            new Error(
+              'PlantService.getPlantsByName(): error retrieving Resources for user: ' + name + err
+            )
+        );
+      })
+    );
+  }
 }
