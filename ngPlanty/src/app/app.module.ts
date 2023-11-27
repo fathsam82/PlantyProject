@@ -12,6 +12,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LogoutComponent } from "./components/logout/logout.component";
 import { LoginComponent } from './components/login/login.component';
 // import { DatePipe } from '@angular/common';
+//mock-comment
 
 
 @NgModule({
