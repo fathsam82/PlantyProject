@@ -1,15 +1,3 @@
-<!-- <div class="container">
-  <div>
-<input [(ngModel)]="searchPlantQuery" type="text" placeholder="Search by plant name">
-<button (click)="getPlantByName()">Search</button>
-</div>
-<div>
-  <ul>
-    <li *ngFor="let plant of plants">{{ plant.name }} {{plant.description}}</li>
-  </ul>
-</div>
-</div> -->
-
 <div class="container mt-4">
   <div class="row">
     <div class="col">
@@ -20,17 +8,18 @@
     </div>
   </div>
 
-  <div class="row mt-3">
-    <div class="col-md-4 mb-3" *ngFor="let plant of plants">
-      <div class="card">
-        <img [src]="plant.plantImageUrl" class="card-img-top" alt="Plant Image" style="height: 200px; object-fit: contain;">
-        <div class="card-body">
-          <h5 class="card-title">{{ plant.name }}</h5>
-          <p class="card-text">{{ plant.description }}</p>
-        </div>
+<div class="col-md-4 mb-3" *ngFor="let plant of plants">
+  <div class="card">
+    <div class="image-container">
+      <img [src]="plant.plantImageUrl" class="card-img-top" alt="Plant Image" />
+      <div class="overlay" *ngIf="plant.isDiscounted">
+        <i class="fas fa-percent discount-icon"></i>
+        <span class="discount-text">20% Off!</span>
       </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ plant.name }}</h5>
+      <p class="card-text">{{ plant.description }}</p>
     </div>
   </div>
 </div>
-
-
