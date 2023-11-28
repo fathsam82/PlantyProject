@@ -42,8 +42,8 @@ export class PlantService {
     )
   }
 
-  getPlantsByName(name: string): Observable<Plant> {
-    return this.http.get<Plant>(this.url + '/' + name).pipe(
+  getPlantByName(name: string): Observable<Plant> {
+    return this.http.get<Plant>(this.url + '/name/' + name).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

@@ -15,10 +15,13 @@ export class PlantListComponent implements OnInit {
 
   selected: Plant | null = null;
 
+  searchPlantQuery: string = '';
+
   constructor(private plantService: PlantService, private router: Router) {}
 
   ngOnInit() {
     this.reload();
+    // this.getPlantByName();
   }
 
   reload() {
@@ -32,5 +35,22 @@ export class PlantListComponent implements OnInit {
         console.log(this.plants);
       },
     });
+  }
+
+  getPlantByName() {
+    if (this.searchPlantQuery.trim()) {
+      this.plantService.getPlantByName(this.searchPlantQuery).subscribe({
+        next: (plant) => {
+          this.plants = [plant];
+        },
+        error: (badTings) => {
+          console.error('PlantListComponent.getPlantByName: error loading plant');
+          console.error(badTings);
+          this.plants = [];
+        }
+      });
+    } else {
+      this.reload();
+    }
   }
 }
