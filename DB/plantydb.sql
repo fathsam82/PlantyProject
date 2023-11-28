@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS `plant` ;
 CREATE TABLE IF NOT EXISTS `plant` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(255) NULL,
+  `description` VARCHAR(500) NULL,
   `price` INT NOT NULL,
   `stock_quantity` INT NOT NULL,
   `plant_image_url` VARCHAR(255) NULL,
@@ -252,9 +252,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, NULL, 'medium', 0, 1, 1);
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, NULL, 'medium', 0, 2, 1);
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (3, 'Aloe Vera', 'Medium length green succulent leaves that are prickly.It is well known for offering possible health and beauty benefits. It\'s also toxic to cats and dogs so we advise caution to where it\'s placed in your home.', 1100, 2000, NULL, 'medium', 0, 3, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, 'https://target.scene7.com/is/image/Target/GUEST_71909e47-2c05-418f-a124-cf3910389a15?wid=1200&hei=1200&qlt=80&fmt=webp', 'medium', 0, 1, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, 'https://m.media-amazon.com/images/I/71M-lBHD4sL._AC_SX679_.jpg', 'medium', 0, 2, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (3, 'Aloe Vera', 'Medium length green succulent leaves that are prickly.It is well known for offering possible health and beauty benefits. It\'s also toxic to cats and dogs so we advise caution to where it\'s placed in your home.', 1100, 2000, 'https://m.media-amazon.com/images/I/713BlHvw8VL.__AC_SX300_SY300_QL70_FMwebp_.jpg', 'medium', 0, 3, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (4, 'Winter Green', 'The “Wintergreen” cultivar of the Ficus benjamina is characterized by its yellowish green foliage that help give it a glowing appearance. Otherwise, this tree is everything plant lovers appreciate about fig trees. Even indoors, this tree can grow to be over 10-feet tall', 1500, 5000, 'https://m.media-amazon.com/images/I/81Ez5uPN9vL._AC_SY879_.jpg', 'large', 0, 2, 1);
 
 COMMIT;
 
@@ -327,6 +328,7 @@ USE `plantydb`;
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (1, 1, 'Ghana', 5.5600, 0.2057);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Guyana', 6.8013, -58.1553);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (3, 3, 'Oman', 21.0000, 57.0000);
+INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (4, 4, 'Ghana', 5.5600, 0.2057);
 
 COMMIT;
 

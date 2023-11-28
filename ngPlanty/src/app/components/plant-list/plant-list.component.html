@@ -1,9 +1,36 @@
+<!-- <div class="container">
+  <div>
+<input [(ngModel)]="searchPlantQuery" type="text" placeholder="Search by plant name">
+<button (click)="getPlantByName()">Search</button>
+</div>
 <div>
   <ul>
     <li *ngFor="let plant of plants">{{ plant.name }} {{plant.description}}</li>
   </ul>
 </div>
+</div> -->
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <input [(ngModel)]="searchPlantQuery" class="form-control" type="text" placeholder="Search by plant name">
+    </div>
+    <div class="col-auto">
+      <button (click)="getPlantByName()" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-4 mb-3" *ngFor="let plant of plants">
+      <div class="card">
+        <img [src]="plant.plantImageUrl" class="card-img-top" alt="Plant Image" style="height: 200px; object-fit: contain;">
+        <div class="card-body">
+          <h5 class="card-title">{{ plant.name }}</h5>
+          <p class="card-text">{{ plant.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-<input [(ngModel)]="searchPlantQuery" type="text" placeholder="Search by plant name">
-<button (click)="getPlantByName()">Search</button>
