@@ -1,0 +1,22 @@
+.image-container {
+  position: relative;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.discount-text {
+  color: red;
+  font-weight: bold;
+}
