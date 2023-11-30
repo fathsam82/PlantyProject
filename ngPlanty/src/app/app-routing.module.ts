@@ -5,6 +5,7 @@ import { PlantListComponent } from './components/plant-list/plant-list.component
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -15,7 +16,9 @@ const routes: Routes =  [
   { path: 'home', component: HomeComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'logout', component: LogoutComponent}
+  { path: 'logout', component: LogoutComponent},
+  { path: 'about', component: AboutComponent}
+
 
 
 

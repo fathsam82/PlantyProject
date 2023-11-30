@@ -12,6 +12,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LogoutComponent } from "./components/logout/logout.component";
 import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutComponent } from './components/about/about.component';
 // import { DatePipe } from '@angular/common';
 //mock-comment
 
@@ -25,7 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         RegisterComponent,
         NavigationComponent,
         LogoutComponent,
-        LoginComponent
+        LoginComponent,
+        AboutComponent
 
     ],
     providers: [],
