@@ -12,3 +12,33 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.nav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: rgba(119, 123, 235, 0.6);
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(119, 123, 235, 0.8);
+}
+
+.card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  width: 100vw;
+  max-width: 250px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 8px;
+  overflow: auto;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  transform: translateX(-375px);
+}
