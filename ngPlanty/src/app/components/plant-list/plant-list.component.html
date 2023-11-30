@@ -1,14 +1,15 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col">
-      <input [(ngModel)]="searchPlantQuery" class="form-control" type="text" placeholder="Search by plant name">
+      <input [(ngModel)]="searchPlantQuery" class="form-control" type="text" placeholder="Search plant by name">
     </div>
     <div class="col-auto">
       <button (click)="getPlantByName()" class="btn btn-primary">Search</button>
     </div>
-  </div><br>
+  </div>
 
-<div class="col-md-4 mb-3" *ngFor="let plant of plants">
+  <div class="row">
+<div class="col-12 col-sm-6 col-md-4 mb-3" *ngFor="let plant of plants">
   <div class="card">
     <div class="image-container">
       <img [src]="plant.plantImageUrl" class="card-img-top" alt="Plant Image" />
@@ -20,6 +21,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ plant.name }}</h5>
       <p class="card-text">{{ plant.description }}</p>
+      </div>
     </div>
   </div>
 </div>
