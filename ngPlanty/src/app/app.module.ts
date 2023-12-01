@@ -13,8 +13,8 @@ import { LogoutComponent } from "./components/logout/logout.component";
 import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from './components/about/about.component';
-// import { DatePipe } from '@angular/common';
-//mock-comment
+import { DatePipe } from '@angular/common';
+
 
 
 @NgModule({
@@ -30,14 +30,15 @@ import { AboutComponent } from './components/about/about.component';
         AboutComponent
 
     ],
-    providers: [],
+    providers: [DatePipe],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        NgbModule
+        NgbModule,
+
 
     ]
 })
