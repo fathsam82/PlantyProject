@@ -1,0 +1,29 @@
+.navbar.bg-body-tertiary {
+  background-color: #5e5ed8 !important;
+}
+
+.navbar-brand {
+  background: linear-gradient(
+        to right,
+        rgb(76, 244, 29) 20%,
+        rgb(18, 18, 228) 30%,
+        rgb(10, 179, 60) 70%,
+        rgb(13, 53, 229) 80%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-size: 500% auto;
+    animation: textShine 5s ease-in-out infinite alternate;
+
+}
+
+@keyframes textShine {
+  0% {
+      background-position: 0% 50%;
+  }
+  100% {
+      background-position: 100% 50%;
+  }
+}
