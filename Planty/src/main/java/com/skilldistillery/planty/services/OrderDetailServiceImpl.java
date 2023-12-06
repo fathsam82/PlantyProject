@@ -65,8 +65,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	public OrderDetail createAndSavePlantToOrderDetail(Plant plant, int quantity) {
-		// TODO Auto-generated method stub
-		return null;
+		OrderDetail orderDetail = new OrderDetail();
+		orderDetail.setPlant(plant);
+		orderDetail.setQuantityOrdered(quantity);
+		return orderDetailRepo.saveAndFlush(orderDetail);
 	}
 
 
