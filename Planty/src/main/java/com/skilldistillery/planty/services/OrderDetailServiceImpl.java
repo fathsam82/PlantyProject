@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.OrderDetail;
+import com.skilldistillery.planty.entities.Plant;
 import com.skilldistillery.planty.repositories.OrderDetailRepository;
 
 @Service
@@ -61,5 +62,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		}
 		return deleted;
 	}
+
+	@Override
+	public OrderDetail createAndSavePlantToOrderDetail(Plant plant, int quantity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

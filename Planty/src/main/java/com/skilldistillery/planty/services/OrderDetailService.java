@@ -3,6 +3,7 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 
 import com.skilldistillery.planty.entities.OrderDetail;
+import com.skilldistillery.planty.entities.Plant;
 
 public interface OrderDetailService {
 	
@@ -15,4 +16,6 @@ public interface OrderDetailService {
 	OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail);
 
 	boolean deleteOrderDetail(int orderDetailId);
+	
+	OrderDetail createAndSavePlantToOrderDetail(Plant plant, int quantity);
 }
