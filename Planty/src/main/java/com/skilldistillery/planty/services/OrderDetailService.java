@@ -17,5 +17,5 @@ public interface OrderDetailService {
 
 	boolean deleteOrderDetail(int orderDetailId);
 	
-	OrderDetail createAndSavePlantToOrderDetail(Plant plant, int quantity);
+	OrderDetail createPlantToOrderDetail(Plant plant, int quantity);
 }

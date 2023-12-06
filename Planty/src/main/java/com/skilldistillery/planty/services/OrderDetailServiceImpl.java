@@ -46,7 +46,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			existing.setGiftWrap(updatedOrderDetail.getGiftWrap());
 			existing.setPlant(updatedOrderDetail.getPlant());
 			existing.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
-			existing.setSubtotalPrice(updatedOrderDetail.getSubtotalPrice());
+			int subtotalPrice = existing.getPlant().getPrice() * existing.getQuantityOrdered();
+	        existing.setSubtotalPrice(subtotalPrice);
 //			existing.setOrderCart(updatedOrderDetail.getOrderCart());
 			orderDetailRepo.saveAndFlush(existing);
 		}
@@ -65,10 +66,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public OrderDetail createAndSavePlantToOrderDetail(Plant plant, int quantity) {
+	public OrderDetail createPlantToOrderDetail(Plant plant, int quantity) {
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setPlant(plant);
 		orderDetail.setQuantityOrdered(quantity);
+		
+		int subtotalPrice = plant.getPrice() * quantity;
+	    orderDetail.setSubtotalPrice(subtotalPrice);
+		
 		return orderDetailRepo.saveAndFlush(orderDetail);
 	}
 
