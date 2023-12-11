@@ -69,7 +69,7 @@ public class OrderCartServiceImpl implements OrderCartService {
 		User user = userRepo.findById(userId).orElseThrow(null);
 		Plant plant = plantRepo.findById(plantId).orElseThrow(null);
 		
-		OrderCart orderCart = user.getOrderCarts();
+		OrderCart orderCart = user.getOrderCart();
 		
 		if(orderCart == null) {
 			orderCart = new OrderCart();
