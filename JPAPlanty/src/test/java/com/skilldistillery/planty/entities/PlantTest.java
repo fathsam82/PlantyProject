@@ -57,7 +57,7 @@ class PlantTest {
 		
 		assertEquals("Snake Plant", plant.getName());
 		
-		assertFalse(plant.getIsDiscounted());
+		assertFalse(!plant.getIsDiscounted());
 		
 		assertEquals(1000, plant.getPrice());
 		

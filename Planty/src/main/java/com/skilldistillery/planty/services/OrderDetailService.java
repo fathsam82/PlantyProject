@@ -11,11 +11,11 @@ public interface OrderDetailService {
 	
 	OrderDetail getOrderDetail(int orderDetailId);
 	
-	OrderDetail createOrderDetail(OrderDetail newOrderDetail);
+//	OrderDetail createOrderDetail(OrderDetail newOrderDetail);
 	
 	OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail);
 
 	boolean deleteOrderDetail(int orderDetailId);
 	
-	OrderDetail createPlantToOrderDetail(Plant plant, int quantity);
+//	OrderDetail createPlantToOrderDetail(Plant plant, Integer quantity, OrderDetail orderDetail);
 }

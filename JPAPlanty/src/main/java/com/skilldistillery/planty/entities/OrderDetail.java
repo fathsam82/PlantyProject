@@ -22,21 +22,21 @@ public class OrderDetail {
 	private int id;
 	
 	@Column(name = "quantity_ordered")
-	private int quantityOrdered;
+	private Integer quantityOrdered;
 	
 	@Column(name = "unit_price")
 	private int unitPrice;
 	
 	@Column(name = "subtotal_price")
-	private int subtotalPrice;
+	private Integer subtotalPrice;
 	
 	@Column(name = "gift_wrap")
 	private Boolean giftWrap;
 	
 //	@JsonBackReference
 //	@JsonManagedReference
-/// @JsonIgnore
-	@JsonIgnoreProperties
+//  @JsonIgnore
+//	@JsonIgnoreProperties
 	@JoinColumn(name = "order_cart_id")
 	@ManyToOne
 	private OrderCart orderCart;
@@ -59,12 +59,13 @@ public class OrderDetail {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getQuantityOrdered() {
+	
+	
+	public Integer getQuantityOrdered() {
 		return quantityOrdered;
 	}
 
-	public void setQuantityOrdered(int quantityOrdered) {
+	public void setQuantityOrdered(Integer quantityOrdered) {
 		this.quantityOrdered = quantityOrdered;
 	}
 
@@ -76,11 +77,12 @@ public class OrderDetail {
 		this.unitPrice = unitPrice;
 	}
 
-	public int getSubtotalPrice() {
+
+	public Integer getSubtotalPrice() {
 		return subtotalPrice;
 	}
 
-	public void setSubtotalPrice(int subtotalPrice) {
+	public void setSubtotalPrice(Integer subtotalPrice) {
 		this.subtotalPrice = subtotalPrice;
 	}
 

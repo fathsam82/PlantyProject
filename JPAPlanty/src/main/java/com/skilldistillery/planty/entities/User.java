@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,8 +30,8 @@ public class User {
 	private String role;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<OrderCart> orderCarts;
+	@OneToOne(mappedBy = "user")
+	private OrderCart orderCart;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
@@ -96,13 +97,14 @@ public class User {
 		this.role = role;
 	}
 	
-
-	public List<OrderCart> getOrderCarts() {
-		return orderCarts;
+	
+	
+	public OrderCart getOrderCart() {
+		return orderCart;
 	}
 
-	public void setOrderCarts(List<OrderCart> orderCarts) {
-		this.orderCarts = orderCarts;
+	public void setOrderCart(OrderCart orderCart) {
+		this.orderCart = orderCart;
 	}
 
 	public List<Post> getPosts() {
@@ -132,7 +134,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", enabled=" + enabled + ", role=" + role + "]";
+				+ ", enabled=" + enabled + ", role=" + role + ", orderCart=" + orderCart + "]";
 	}
 
 	@Override

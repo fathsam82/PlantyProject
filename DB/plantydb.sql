@@ -109,17 +109,18 @@ CREATE TABLE IF NOT EXISTS `order_cart` (
   `payment_method` VARCHAR(45) NULL,
   `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_order_user_idx` (`user_id` ASC),
   INDEX `fk_order_payment_data1_idx` (`payment_data_id` ASC),
   UNIQUE INDEX `tracking_number_UNIQUE` (`tracking_number` ASC),
-  CONSTRAINT `fk_order_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_order_cart_user1_idx` (`user_id` ASC),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
   CONSTRAINT `fk_order_payment_data1`
     FOREIGN KEY (`payment_data_id`)
     REFERENCES `payment_data` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_cart_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -255,7 +256,7 @@ USE `plantydb`;
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000, 'https://target.scene7.com/is/image/Target/GUEST_71909e47-2c05-418f-a124-cf3910389a15?wid=1200&hei=1200&qlt=80&fmt=webp', 'medium', 1, 1, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000, 'https://m.media-amazon.com/images/I/71M-lBHD4sL._AC_SX679_.jpg', 'medium', 1, 2, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (3, 'Aloe Vera', 'Medium length green succulent leaves that are prickly.It is well known for offering possible health and beauty benefits. It\'s also toxic to cats and dogs so we advise caution to where it\'s placed in your home.', 1100, 2000, 'https://m.media-amazon.com/images/I/713BlHvw8VL.__AC_SX300_SY300_QL70_FMwebp_.jpg', 'medium', 1, 3, 1);
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (4, 'Winter Green', 'The “Wintergreen” cultivar of the Ficus benjamina is characterized by its yellowish green foliage that help give it a glowing appearance. Otherwise, this tree is everything plant lovers appreciate about fig trees. Even indoors, this tree can grow to be over 10-feet tall', 1500, 5000, 'https://m.media-amazon.com/images/I/81Ez5uPN9vL._AC_SY879_.jpg', 'large', 0, 2, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (4, 'Winter Green', 'The “Wintergreen” cultivar of the Ficus benjamina is characterized by its yellowish green foliage that help give it a glowing appearance. Otherwise, this tree is everything plant lovers appreciate about fig trees. Even indoors, this tree can grow to be over 10-feet tall.', 1500, 5000, 'https://m.media-amazon.com/images/I/81Ez5uPN9vL._AC_SY879_.jpg', 'large', 0, 2, 1);
 
 COMMIT;
 

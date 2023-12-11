@@ -1,6 +1,9 @@
 package com.skilldistillery.planty.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -101,9 +104,9 @@ class UserTest {
 		
 		assertNotNull(user);
 		
-		assertNotNull(user.getOrderCarts());
+		assertNotNull(user.getOrderCart());
 		
-		assertTrue(user.getOrderCarts().size()>0);
+		assertEquals(1, user.getOrderCart().getTrackingNumber());
 		
 	}
 

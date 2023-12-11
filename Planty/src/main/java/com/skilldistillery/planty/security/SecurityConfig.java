@@ -32,8 +32,8 @@ public class SecurityConfig {
         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // will hit the OPTIONS on the route
         .antMatchers(HttpMethod.GET, "/api/orderDetails").permitAll()  //TEMP
         .antMatchers(HttpMethod.GET, "/api/orderDetails/*").permitAll()  //TEMP
-        .antMatchers(HttpMethod.POST, "/api/orderDetails").permitAll()  //TEMP
-        .antMatchers(HttpMethod.POST, "/api/orderDetails/*").permitAll()  //TEMP
+        .antMatchers(HttpMethod.POST, "/api/orderDetailss").permitAll()  //TEMP
+        .antMatchers(HttpMethod.POST, "/api/orderDetailss/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.PUT, "/api/orderDetails").permitAll()  //TEMP
         .antMatchers(HttpMethod.PUT, "/api/orderDetails/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.DELETE, "/api/orderDetails").permitAll()  //TEMP

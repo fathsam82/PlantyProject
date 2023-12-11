@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.planty.entities.OrderCart;
 import com.skilldistillery.planty.entities.OrderDetail;
 import com.skilldistillery.planty.entities.Plant;
 import com.skilldistillery.planty.repositories.OrderDetailRepository;
@@ -32,10 +33,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return orderDetail;
 	}
 
-	@Override
-	public OrderDetail createOrderDetail(OrderDetail newOrderDetail) {
-		return orderDetailRepo.saveAndFlush(newOrderDetail);
-	}
+//	@Override
+//	public OrderDetail createOrderDetail(OrderDetail newOrderDetail) {
+//		return orderDetailRepo.saveAndFlush(newOrderDetail);
+//	}
 
 	@Override
 	public OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail) {
@@ -46,7 +47,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			existing.setGiftWrap(updatedOrderDetail.getGiftWrap());
 			existing.setPlant(updatedOrderDetail.getPlant());
 			existing.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
-			int subtotalPrice = existing.getPlant().getPrice() * existing.getQuantityOrdered();
+			Integer subtotalPrice = existing.getPlant().getPrice() * existing.getQuantityOrdered();
 	        existing.setSubtotalPrice(subtotalPrice);
 //			existing.setOrderCart(updatedOrderDetail.getOrderCart());
 			orderDetailRepo.saveAndFlush(existing);
@@ -65,17 +66,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return deleted;
 	}
 
-	@Override
-	public OrderDetail createPlantToOrderDetail(Plant plant, int quantity) {
-		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setPlant(plant);
-		orderDetail.setQuantityOrdered(quantity);
-		
-		int subtotalPrice = plant.getPrice() * quantity;
-	    orderDetail.setSubtotalPrice(subtotalPrice);
-		
-		return orderDetailRepo.saveAndFlush(orderDetail);
-	}
+//	@Override
+//	public OrderDetail createPlantToOrderDetail(Plant plant, Integer quantity, OrderDetail orderDetail) {
+//		orderDetail.setPlant(plant);
+//		orderDetail.setQuantityOrdered(quantity);
+//		orderDetail.setOrderCart(orderDetail.getOrderCart());
+//		
+//		Integer subtotalPrice = plant.getPrice() * quantity;
+//	    orderDetail.setSubtotalPrice(subtotalPrice);
+//		
+//		return orderDetailRepo.saveAndFlush(orderDetail);
+//	}
 
 
 }

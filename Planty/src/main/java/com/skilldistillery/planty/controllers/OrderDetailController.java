@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.planty.entities.OrderDetail;
+import com.skilldistillery.planty.entities.Plant;
 import com.skilldistillery.planty.services.OrderDetailService;
 
 @RestController
@@ -51,20 +52,20 @@ public class OrderDetailController {
 
 	}
 
-	@PostMapping("orderDetails")
-	OrderDetail createOrderDetail(@RequestBody OrderDetail newOrderDetail, HttpServletResponse res,
-			HttpServletRequest req) {
-		OrderDetail orderDetail = orderDetailService.createOrderDetail(newOrderDetail);
-		if (orderDetail != null) {
-			res.setStatus(200);
-			StringBuffer url = req.getRequestURL().append("/" + orderDetail.getId());
-			res.setHeader("Location", url.toString());
-		} else {
-			res.setStatus(400);
-		}
-		return orderDetail;
-
-	}
+//	@PostMapping("orderDetailss")
+//	OrderDetail createOrderDetail(@RequestBody OrderDetail orderDetails, Plant plant, Integer quantity, HttpServletResponse res,
+//			HttpServletRequest req) {
+//		OrderDetail orderDetail = orderDetailService.createPlantToOrderDetail(plant, quantity, orderDetails );
+//		if (orderDetail != null) {
+//			res.setStatus(200);
+//			StringBuffer url = req.getRequestURL().append("/" + orderDetail.getId());
+//			res.setHeader("Location", url.toString());
+//		} else {
+//			res.setStatus(400);
+//		}
+//		return orderDetail;
+//
+//	}
 	
 	@PutMapping("orderDetails/{orderDetailId}")
 	OrderDetail updateOrderDetail(@RequestBody OrderDetail updatedOrderDetail, @PathVariable int orderDetailId, HttpServletResponse res) {
@@ -96,5 +97,6 @@ public class OrderDetailController {
 			res.setStatus(400);
 		}
 	}
+	
 
 }

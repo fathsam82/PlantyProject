@@ -11,6 +11,8 @@ public interface OrderCartService {
 	OrderCart getOrderCart(String username, int orderCartId);
 
 	OrderCart createOrderCart(String username, OrderCart newOrderCart);
+	
+	OrderCart addPlantToCart(int userId, int plantId, int quantity);
 
 	OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 	

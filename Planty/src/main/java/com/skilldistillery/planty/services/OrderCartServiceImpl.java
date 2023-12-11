@@ -3,12 +3,18 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.OrderCart;
+import com.skilldistillery.planty.entities.OrderDetail;
+import com.skilldistillery.planty.entities.Plant;
 import com.skilldistillery.planty.entities.User;
 import com.skilldistillery.planty.repositories.OrderCartRepository;
+import com.skilldistillery.planty.repositories.OrderDetailRepository;
+import com.skilldistillery.planty.repositories.PlantRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
 
 @Service
@@ -17,7 +23,16 @@ public class OrderCartServiceImpl implements OrderCartService {
 	@Autowired
 	private OrderCartRepository orderCartRepo;
 	
-	@Autowired UserRepository userRepo;
+	@Autowired 
+	private UserRepository userRepo;
+	
+	@Autowired
+	private PlantRepository plantRepo;
+	
+	@Autowired
+	private OrderDetailRepository orderDetailRepo;
+	
+	
 
 	@Override
 	public List<OrderCart> listAllOrderCarts(String username) {
@@ -45,6 +60,33 @@ public class OrderCartServiceImpl implements OrderCartService {
 		}
 		return null;
 	}
+	
+	
+	
+	@Override
+	@Transactional
+	public OrderCart addPlantToCart(int userId, int plantId, int quantity) {
+		User user = userRepo.findById(userId).orElseThrow(null);
+		Plant plant = plantRepo.findById(plantId).orElseThrow(null);
+		
+		OrderCart orderCart = user.getOrderCarts();
+		
+		if(orderCart == null) {
+			orderCart = new OrderCart();
+			orderCart.setUser(user);
+		}
+		
+		OrderDetail orderDetail = new OrderDetail();
+		orderDetail.setPlant(plant);
+		orderDetail.setQuantityOrdered(quantity);
+		orderDetail.setOrderCart(orderCart);
+		orderDetailRepo.saveAndFlush(orderDetail);
+		
+		return orderCart;
+		
+		
+	}
+	
 
 	@Override
 	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
