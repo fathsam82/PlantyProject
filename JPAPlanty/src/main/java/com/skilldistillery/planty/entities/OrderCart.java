@@ -1,21 +1,25 @@
 package com.skilldistillery.planty.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "order_cart")
@@ -44,22 +48,22 @@ public class OrderCart {
 	@Column(name = "payment_method")
 	private String paymentMethod;
 	
-	@JsonIgnore  // TEMP
+//	@JsonIgnore  // TEMP
 	@ManyToOne
 	@JoinColumn(name = "payment_data_id")
 	private PaymentData paymentData;
 	
-	@JsonIgnore  // TEMP
+//	@JsonIgnore  // TEMP
 	@OneToOne
-	@JoinColumn(name = "user_id", unique = true)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 //  COMMENTED OUT FOR TEMP FIX FOR INFINITE RECURSION, RELATIONSHIP TURNED FROM BI TO UNI
-//	//@JsonManagedReference
+//	@JsonManagedReference
 //	//@JsonBackReference
-//  // @JsonIgnore
-//	@OneToMany(mappedBy = "orderCart")
-//	private List<OrderDetail> orderDetails;
+   @JsonIgnore
+	@OneToMany(mappedBy = "orderCart", fetch = FetchType.LAZY)
+	private List<OrderDetail> orderDetails;
 	
 	private Boolean enabled;
 

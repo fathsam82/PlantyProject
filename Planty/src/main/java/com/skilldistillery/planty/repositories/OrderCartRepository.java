@@ -8,7 +8,7 @@ import com.skilldistillery.planty.entities.OrderCart;
 
 public interface OrderCartRepository extends JpaRepository<OrderCart, Integer> {
 	
-	List<OrderCart> findByUser_Username(String username);
+	OrderCart findByUser_Username(String username);
 	
 	OrderCart findByIdAndUser_Username(int OrderCartId, String username);
 

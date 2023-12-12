@@ -6,13 +6,13 @@ import com.skilldistillery.planty.entities.OrderCart;
 
 public interface OrderCartService {
 
-	List<OrderCart> listAllOrderCarts(String username);
+//	List<OrderCart> listAllOrderCarts(String username);
 
 	OrderCart getOrderCart(String username, int orderCartId);
 
 	OrderCart createOrderCart(String username, OrderCart newOrderCart);
 	
-	OrderCart addPlantToCart(int userId, int plantId, int quantity);
+	OrderCart addPlantToCart(String username, int plantId, int quantity);
 
 	OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 	

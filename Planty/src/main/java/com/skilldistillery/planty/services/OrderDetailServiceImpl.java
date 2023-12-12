@@ -3,19 +3,29 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.OrderCart;
 import com.skilldistillery.planty.entities.OrderDetail;
 import com.skilldistillery.planty.entities.Plant;
+import com.skilldistillery.planty.repositories.OrderCartRepository;
 import com.skilldistillery.planty.repositories.OrderDetailRepository;
+import com.skilldistillery.planty.repositories.PlantRepository;
 
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
 	
 	@Autowired
 	OrderDetailRepository orderDetailRepo;
+	
+	@Autowired
+	PlantRepository plantRepo;
+	
+	@Autowired
+	OrderCartRepository orderCartRepo;
 
 	@Override
 	public List<OrderDetail> listAllOrderDetails() {
@@ -66,17 +76,20 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return deleted;
 	}
 
-//	@Override
-//	public OrderDetail createPlantToOrderDetail(Plant plant, Integer quantity, OrderDetail orderDetail) {
-//		orderDetail.setPlant(plant);
-//		orderDetail.setQuantityOrdered(quantity);
-//		orderDetail.setOrderCart(orderDetail.getOrderCart());
-//		
-//		Integer subtotalPrice = plant.getPrice() * quantity;
-//	    orderDetail.setSubtotalPrice(subtotalPrice);
-//		
-//		return orderDetailRepo.saveAndFlush(orderDetail);
-//	}
+	@Override
+	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, int orderCartId) {
+		
+		Plant plant = plantRepo.findById(plantId).orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
+		
+		OrderDetail orderDetail = new OrderDetail();
+		orderDetail.setPlant(plant);
+		orderDetail.setQuantityOrdered(quantity);
+		int subtotalPrice = plant.getPrice() * quantity;
+	    orderDetail.setSubtotalPrice(subtotalPrice);
+	    OrderCart orderCart = orderCartRepo.findById(orderCartId).orElseThrow(() -> new EntityNotFoundException("OrderCart not found for ID: " + orderCartId));
+	    orderDetail.setOrderCart(orderCart);
+		return orderDetailRepo.saveAndFlush(orderDetail);
+	}
 
 
 }

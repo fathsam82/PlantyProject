@@ -52,20 +52,7 @@ public class OrderDetailController {
 
 	}
 
-//	@PostMapping("orderDetailss")
-//	OrderDetail createOrderDetail(@RequestBody OrderDetail orderDetails, Plant plant, Integer quantity, HttpServletResponse res,
-//			HttpServletRequest req) {
-//		OrderDetail orderDetail = orderDetailService.createPlantToOrderDetail(plant, quantity, orderDetails );
-//		if (orderDetail != null) {
-//			res.setStatus(200);
-//			StringBuffer url = req.getRequestURL().append("/" + orderDetail.getId());
-//			res.setHeader("Location", url.toString());
-//		} else {
-//			res.setStatus(400);
-//		}
-//		return orderDetail;
-//
-//	}
+	
 	
 	@PutMapping("orderDetails/{orderDetailId}")
 	OrderDetail updateOrderDetail(@RequestBody OrderDetail updatedOrderDetail, @PathVariable int orderDetailId, HttpServletResponse res) {
@@ -97,6 +84,24 @@ public class OrderDetailController {
 			res.setStatus(400);
 		}
 	}
+	
+	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{orderCartId}")
+    public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable int orderCartId, HttpServletResponse res) {
+        OrderDetail orderDetail;
+        try {
+            orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, orderCartId);
+            if (orderDetail != null) {
+                res.setStatus(HttpServletResponse.SC_CREATED); // 201 status code
+            } else {
+                res.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 status code
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 status code
+            orderDetail = null;
+        }
+        return orderDetail;
+    }
 	
 
 }

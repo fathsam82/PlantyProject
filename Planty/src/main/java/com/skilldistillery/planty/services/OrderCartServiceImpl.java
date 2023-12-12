@@ -34,11 +34,11 @@ public class OrderCartServiceImpl implements OrderCartService {
 	
 	
 
-	@Override
-	public List<OrderCart> listAllOrderCarts(String username) {
-		
-		return orderCartRepo.findByUser_Username(username);
-	}
+//	@Override
+//	public List<OrderCart> listAllOrderCarts(String username) {
+//		
+//		return orderCartRepo.findByUser_Username(username);
+//	}
 
 	@Override
 	public OrderCart getOrderCart(String username, int orderCartId) {
@@ -65,8 +65,8 @@ public class OrderCartServiceImpl implements OrderCartService {
 	
 	@Override
 	@Transactional
-	public OrderCart addPlantToCart(int userId, int plantId, int quantity) {
-		User user = userRepo.findById(userId).orElseThrow(null);
+	public OrderCart addPlantToCart(String username, int plantId, int quantity) {
+		User user = userRepo.findByUsername(username);
 		Plant plant = plantRepo.findById(plantId).orElseThrow(null);
 		
 		OrderCart orderCart = user.getOrderCart();
