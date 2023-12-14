@@ -1,3 +1,4 @@
+import { OrderDetail } from './order-detail';
 import { PaymentData } from './payment-data';
 import { User } from './user';
 
@@ -12,6 +13,8 @@ export class OrderCart {
   enabled: boolean;
   user: User;
   paymentData: PaymentData;
+  orderDetail: OrderDetail;
+
 
   constructor(
     id: number = 0,
@@ -23,7 +26,8 @@ export class OrderCart {
     paymentMethod: string = '',
     enabled: boolean = false,
     user: User = new User(),
-    paymentData: PaymentData = new PaymentData()
+    paymentData: PaymentData = new PaymentData(),
+    orderDetail: OrderDetail = new OrderDetail()
   ) {
     this.id = id;
     this.totalPrice = totalPrice;
@@ -35,5 +39,6 @@ export class OrderCart {
     this.enabled = enabled;
     this.user = user;
     this.paymentData = paymentData;
+    this.orderDetail = orderDetail;
   }
 }
