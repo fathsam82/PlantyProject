@@ -91,13 +91,13 @@ public class OrderDetailController {
         try {
             orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, orderCartId);
             if (orderDetail != null) {
-                res.setStatus(HttpServletResponse.SC_CREATED); // 201 status code
+                res.setStatus(HttpServletResponse.SC_CREATED);
             } else {
-                res.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 status code
+                res.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 status code
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             orderDetail = null;
         }
         return orderDetail;
