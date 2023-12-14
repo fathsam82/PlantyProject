@@ -1,5 +1,6 @@
 package com.skilldistillery.planty.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,23 +86,47 @@ public class OrderDetailController {
 		}
 	}
 	
-	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{orderCartId}")
-    public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable int orderCartId, HttpServletResponse res) {
-        OrderDetail orderDetail;
-        try {
-            orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, orderCartId);
-            if (orderDetail != null) {
-                res.setStatus(HttpServletResponse.SC_CREATED);
-            } else {
-                res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            orderDetail = null;
-        }
-        return orderDetail;
-    }
+//	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{orderCartId}")
+//    public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable int orderCartId, HttpServletResponse res) {
+//        OrderDetail orderDetail;
+//        try {
+//            orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, orderCartId);
+//            if (orderDetail != null) {
+//                res.setStatus(HttpServletResponse.SC_CREATED);
+//            } else {
+//                res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//            orderDetail = null;
+//        }
+//        return orderDetail;
+//    }
+	
+	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}")
+	public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, Principal principal, HttpServletResponse res) {
+	    if (principal == null) {
+	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	        return null;
+	    }
+
+	    OrderDetail orderDetail;
+	    try {
+	        String username = principal.getName();
+	        orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, username);
+	        if (orderDetail != null) {
+	            res.setStatus(HttpServletResponse.SC_CREATED);
+	        } else {
+	            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	        orderDetail = null;
+	    }
+	    return orderDetail;
+	}
 	
 
 }

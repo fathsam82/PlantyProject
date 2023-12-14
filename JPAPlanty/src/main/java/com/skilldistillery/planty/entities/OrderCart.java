@@ -61,8 +61,8 @@ public class OrderCart {
 //  COMMENTED OUT FOR TEMP FIX FOR INFINITE RECURSION, RELATIONSHIP TURNED FROM BI TO UNI
 //	@JsonManagedReference
 //	//@JsonBackReference
-   @JsonIgnore
-	@OneToMany(mappedBy = "orderCart", fetch = FetchType.LAZY)
+//   @JsonIgnore
+	@OneToMany(mappedBy = "orderCart")     // , fetch = FetchType.LAZY
 	private List<OrderDetail> orderDetails;
 	
 	private Boolean enabled;
@@ -145,13 +145,13 @@ public class OrderCart {
 	
 	
 
-//	public List<OrderDetail> getOrderDetails() {
-//		return orderDetails;
-//	}
-//
-//	public void setOrderDetails(List<OrderDetail> orderDetails) {
-//		this.orderDetails = orderDetails;
-//	}
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 	
 	
 

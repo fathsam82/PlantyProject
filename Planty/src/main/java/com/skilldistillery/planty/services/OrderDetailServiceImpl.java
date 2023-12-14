@@ -11,21 +11,26 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.planty.entities.OrderCart;
 import com.skilldistillery.planty.entities.OrderDetail;
 import com.skilldistillery.planty.entities.Plant;
+import com.skilldistillery.planty.entities.User;
 import com.skilldistillery.planty.repositories.OrderCartRepository;
 import com.skilldistillery.planty.repositories.OrderDetailRepository;
 import com.skilldistillery.planty.repositories.PlantRepository;
+import com.skilldistillery.planty.repositories.UserRepository;
 
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
 	
 	@Autowired
-	OrderDetailRepository orderDetailRepo;
+	private OrderDetailRepository orderDetailRepo;
 	
 	@Autowired
-	PlantRepository plantRepo;
+	private PlantRepository plantRepo;
 	
 	@Autowired
-	OrderCartRepository orderCartRepo;
+	private OrderCartRepository orderCartRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 
 	@Override
 	public List<OrderDetail> listAllOrderDetails() {
@@ -76,20 +81,44 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return deleted;
 	}
 
-	@Override
-	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, int orderCartId) {
-		
-		Plant plant = plantRepo.findById(plantId).orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
-		
-		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setPlant(plant);
-		orderDetail.setQuantityOrdered(quantity);
-		int subtotalPrice = plant.getPrice() * quantity;
-	    orderDetail.setSubtotalPrice(subtotalPrice);
-	    OrderCart orderCart = orderCartRepo.findById(orderCartId).orElseThrow(() -> new EntityNotFoundException("OrderCart not found for ID: " + orderCartId));
-	    orderDetail.setOrderCart(orderCart);
-		return orderDetailRepo.saveAndFlush(orderDetail);
-	}
+//	@Override
+//	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, int orderCartId) {
+//		
+//		Plant plant = plantRepo.findById(plantId).orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
+//		
+//		OrderDetail orderDetail = new OrderDetail();
+//		orderDetail.setPlant(plant);
+//		orderDetail.setQuantityOrdered(quantity);
+//		int subtotalPrice = plant.getPrice() * quantity;
+//	    orderDetail.setSubtotalPrice(subtotalPrice);
+//	    OrderCart orderCart = orderCartRepo.findById(orderCartId).orElseThrow(() -> new EntityNotFoundException("OrderCart not found for ID: " + orderCartId));
+//	    orderDetail.setOrderCart(orderCart);
+//		return orderDetailRepo.saveAndFlush(orderDetail);
+//	}
 
+	
+	@Override
+	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, String username) {
+	    Plant plant = plantRepo.findById(plantId)
+	        .orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
+	    
+	    User user = userRepo.findByUsername(username);
+	    		if (user == null) {
+	    	        throw new EntityNotFoundException("User not found for username: " + username);
+	    	    }
+	    OrderCart orderCart = user.getOrderCart();
+	    if (orderCart == null) {
+	        throw new EntityNotFoundException("OrderCart not found for user: " + username);
+	    }
+
+	    OrderDetail orderDetail = new OrderDetail();
+	    orderDetail.setPlant(plant);
+	    orderDetail.setQuantityOrdered(quantity);
+	    int subtotalPrice = plant.getPrice() * quantity;
+	    orderDetail.setSubtotalPrice(subtotalPrice);
+	    orderDetail.setOrderCart(orderCart);
+
+	    return orderDetailRepo.saveAndFlush(orderDetail);
+	}
 
 }

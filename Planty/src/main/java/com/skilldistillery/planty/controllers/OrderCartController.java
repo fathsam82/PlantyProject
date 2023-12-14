@@ -3,10 +3,13 @@ package com.skilldistillery.planty.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +37,29 @@ public class OrderCartController {
 //		return orderCartService.listAllOrderCarts(principal.getName());
 //	}
 	
-	@GetMapping("orderCarts/{orderCartId}")
-	public OrderCart getOrderCart(Principal principal, @PathVariable Integer orderCartId, HttpServletResponse res, HttpServletRequest req) {
-		OrderCart orderCart = orderCartService.getOrderCart(principal.getName(), orderCartId);
-		if(orderCart == null) {
-			res.setStatus(404);
-		}
-		return orderCart;
+//	@GetMapping("orderCarts/{orderCartId}")
+//	public OrderCart getOrderCart(Principal principal, @PathVariable Integer orderCartId, HttpServletResponse res, HttpServletRequest req) {
+//		OrderCart orderCart = orderCartService.getOrderCart(principal.getName(), orderCartId);
+//		if(orderCart == null) {
+//			res.setStatus(404);
+//		}
+//		return orderCart;
+//	}
+	
+	@GetMapping("orderCarts")
+	public ResponseEntity<OrderCart> getOrderCart(Principal principal, HttpServletResponse res) {
+	    if (principal == null) {
+	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	    }
+	    try {
+	        String username = principal.getName();
+	        OrderCart orderCart = orderCartService.getOrderCartByUsername(username);
+	        return ResponseEntity.ok(orderCart);
+	    } catch (EntityNotFoundException e) {
+	        res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
 	}
 	
 	@PostMapping("orderCarts")
@@ -74,27 +93,27 @@ public class OrderCartController {
 	}
 	
 	
-	@PostMapping("orderCarts/addPlant")
-	public OrderCart addPlantToCart(Principal principal, 
-	                                @RequestParam("plantId") int plantId, 
-	                                @RequestParam("quantity") int quantity, 
-	                                HttpServletResponse res, 
-	                                HttpServletRequest req) {
-	    try {
-	        OrderCart updatedCart = orderCartService.addPlantToCart(principal.getName(), plantId, quantity);
-	        if (updatedCart != null) {
-	            res.setStatus(HttpServletResponse.SC_OK); // 200 OK
-	            return updatedCart;
-	        } else {
-	            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
-	            return null;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
-	        return null;
-	    }
-	}
+//	@PostMapping("orderCarts/addPlant")
+//	public OrderCart addPlantToCart(Principal principal, 
+//	                                @RequestParam("plantId") int plantId, 
+//	                                @RequestParam("quantity") int quantity, 
+//	                                HttpServletResponse res, 
+//	                                HttpServletRequest req) {
+//	    try {
+//	        OrderCart updatedCart = orderCartService.addPlantToCart(principal.getName(), plantId, quantity);
+//	        if (updatedCart != null) {
+//	            res.setStatus(HttpServletResponse.SC_OK); // 200 OK
+//	            return updatedCart;
+//	        } else {
+//	            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+//	            return null;
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+//	        return null;
+//	    }
+//	}
 	
 
 }

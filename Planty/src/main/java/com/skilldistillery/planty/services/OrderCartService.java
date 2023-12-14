@@ -8,14 +8,16 @@ public interface OrderCartService {
 
 //	List<OrderCart> listAllOrderCarts(String username);
 
-	OrderCart getOrderCart(String username, int orderCartId);
+//	OrderCart getOrderCart(String username, int orderCartId);
 
 	OrderCart createOrderCart(String username, OrderCart newOrderCart);
 	
-	OrderCart addPlantToCart(String username, int plantId, int quantity);
+//	OrderCart addPlantToCart(String username, int plantId, int quantity);
 
 	OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 	
 	boolean deleteOrderCart(String username, int orderCartId);
+
+	OrderCart getOrderCartByUsername(String username);
 
 }

@@ -17,5 +17,5 @@ public interface OrderDetailService {
 
 	boolean deleteOrderDetail(int orderDetailId);
 	
-	OrderDetail createPlantToOrderDetail(int plantId, int quantity, int orderCartId);
+	OrderDetail createPlantToOrderDetail(int plantId, int quantity, String username);
 }

@@ -3,6 +3,7 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +41,16 @@ public class OrderCartServiceImpl implements OrderCartService {
 //		return orderCartRepo.findByUser_Username(username);
 //	}
 
-	@Override
-	public OrderCart getOrderCart(String username, int orderCartId) {
-		OrderCart orderCart = null;
-		
-		Optional<OrderCart> orderCartOpt = orderCartRepo.findById(orderCartId);
-		if (orderCartOpt.isPresent() && orderCartOpt.get().getUser().getUsername().equals(username)) {
-			orderCart = orderCartOpt.get();
-		}
-		return orderCart;
-	}
+//	@Override
+//	public OrderCart getOrderCart(String username, int orderCartId) {
+//		OrderCart orderCart = null;
+//		
+//		Optional<OrderCart> orderCartOpt = orderCartRepo.findById(orderCartId);
+//		if (orderCartOpt.isPresent() && orderCartOpt.get().getUser().getUsername().equals(username)) {
+//			orderCart = orderCartOpt.get();
+//		}
+//		return orderCart;
+//	}
 
 	@Override
 	public OrderCart createOrderCart(String username, OrderCart newOrderCart) {
@@ -63,29 +64,29 @@ public class OrderCartServiceImpl implements OrderCartService {
 	
 	
 	
-	@Override
-	@Transactional
-	public OrderCart addPlantToCart(String username, int plantId, int quantity) {
-		User user = userRepo.findByUsername(username);
-		Plant plant = plantRepo.findById(plantId).orElseThrow(null);
-		
-		OrderCart orderCart = user.getOrderCart();
-		
-		if(orderCart == null) {
-			orderCart = new OrderCart();
-			orderCart.setUser(user);
-		}
-		
-		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setPlant(plant);
-		orderDetail.setQuantityOrdered(quantity);
-		orderDetail.setOrderCart(orderCart);
-		orderDetailRepo.saveAndFlush(orderDetail);
-		
-		return orderCart;
-		
-		
-	}
+//	@Override
+//	@Transactional
+//	public OrderCart addPlantToCart(String username, int plantId, int quantity) {
+//		User user = userRepo.findByUsername(username);
+//		Plant plant = plantRepo.findById(plantId).orElseThrow(null);
+//		
+//		OrderCart orderCart = user.getOrderCart();
+//		
+//		if(orderCart == null) {
+//			orderCart = new OrderCart();
+//			orderCart.setUser(user);
+//		}
+//		
+//		OrderDetail orderDetail = new OrderDetail();
+//		orderDetail.setPlant(plant);
+//		orderDetail.setQuantityOrdered(quantity);
+//		orderDetail.setOrderCart(orderCart);
+//		orderDetailRepo.saveAndFlush(orderDetail);
+//		
+//		return orderCart;
+//		
+//		
+//	}
 	
 
 	@Override
@@ -105,6 +106,21 @@ public class OrderCartServiceImpl implements OrderCartService {
 		
 		return false;
 	}
+
+	@Override
+    public OrderCart getOrderCartByUsername(String username) throws EntityNotFoundException {
+        User user = userRepo.findByUsername(username);
+        if (user == null) {
+            throw new EntityNotFoundException("User not found for username: " + username);
+        }
+
+        OrderCart orderCart = user.getOrderCart();
+        if (orderCart == null) {
+            throw new EntityNotFoundException("OrderCart not found for user: " + username);
+        }
+
+        return orderCart;
+    }
 	
 	
 	
