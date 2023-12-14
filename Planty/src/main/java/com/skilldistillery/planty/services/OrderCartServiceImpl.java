@@ -118,6 +118,13 @@ public class OrderCartServiceImpl implements OrderCartService {
         if (orderCart == null) {
             throw new EntityNotFoundException("OrderCart not found for user: " + username);
         }
+        int totalPrice = 0;
+        for (OrderDetail detail : orderCart.getOrderDetails()) {
+        	totalPrice += detail.getSubtotalPrice();
+			
+		}
+        
+        orderCart.setTotalPrice(totalPrice);
 
         return orderCart;
     }

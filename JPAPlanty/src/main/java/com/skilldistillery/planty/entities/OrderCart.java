@@ -143,7 +143,6 @@ public class OrderCart {
 		this.user = user;
 	}
 	
-	
 
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
