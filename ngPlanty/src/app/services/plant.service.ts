@@ -24,7 +24,7 @@ export class PlantService {
 //     getHttpOptions(){
 //       let options = {
 //       headers: {
-//         Authorization: 'Basic ' + this.auth.getCredentials(),
+//         Authorization: 'Basic ' + this.authService.getCredentials(),
 //       'X-Requested-With': 'XMLHttpRequest',
 //     },
 //   };
