@@ -27,11 +27,11 @@ public class OrderCartServiceImpl implements OrderCartService {
 	@Autowired 
 	private UserRepository userRepo;
 	
-	@Autowired
-	private PlantRepository plantRepo;
+//	@Autowired
+//	private PlantRepository plantRepo;
 	
-	@Autowired
-	private OrderDetailRepository orderDetailRepo;
+//	@Autowired
+//	private OrderDetailRepository orderDetailRepo;
 	
 	
 
