@@ -36,7 +36,7 @@ create(plantId: number, quantity: number): Observable<OrderDetail> {
     catchError((err: any) => {
       console.log(err);
       return throwError(
-        () => new Error('OrderDetailService.create(): error creating orderDetails: ' + err)
+        () => new Error('OrderDetailService.create(): error creating orderDetail: ' + err)
       );
     })
   );

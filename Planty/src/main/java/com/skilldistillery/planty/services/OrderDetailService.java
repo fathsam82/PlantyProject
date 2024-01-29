@@ -13,7 +13,7 @@ public interface OrderDetailService {
 	
 //	OrderDetail createOrderDetail(OrderDetail newOrderDetail);
 	
-	OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail);
+	OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail, String username);
 
 	boolean deleteOrderDetail(int orderDetailId);
 	
