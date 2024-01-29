@@ -54,7 +54,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 //	}
 
 	@Override
-	public OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail) {
+	public OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail, String username) {
 		OrderDetail existing = null;
 		Optional<OrderDetail> existingOptional = orderDetailRepo.findById(orderDetailId);
 		if(existingOptional.isPresent()) {
