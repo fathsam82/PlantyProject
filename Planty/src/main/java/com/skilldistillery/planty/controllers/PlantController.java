@@ -47,11 +47,16 @@ public class PlantController {
 
 	@GetMapping("plants/{id}")
 	public ResponseEntity<?> getPlantById(@PathVariable("id") int plantId) {
-		Optional<Plant> plant = plantService.getPlant(plantId);
-		if (plant.isPresent()) {
-			return ResponseEntity.ok(plant.get());
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plant not found with id: " + plantId);
+		try {
+			Optional<Plant> plant = plantService.getPlant(plantId);
+			if (plant.isPresent()) {
+				return ResponseEntity.ok(plant.get());
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plant not found with id: " + plantId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant");
 		}
 
 	}
