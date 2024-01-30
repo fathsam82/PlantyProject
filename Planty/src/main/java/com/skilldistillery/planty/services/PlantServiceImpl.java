@@ -24,14 +24,7 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public Optional<Plant> getPlant(int plantId) {
-		Optional<Plant> plantOpt = plantRepo.findById(plantId);
-		if (plantOpt.isPresent()) {
-			return plantOpt;
-
-		} else {
-
-			return null;
-		}
+		return plantRepo.findById(plantId);
 	}
 
 	@Override

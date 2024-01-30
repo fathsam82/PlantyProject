@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,15 +46,13 @@ public class PlantController {
 	}
 
 	@GetMapping("plants/{id}")
-	Plant getPlantById(@PathVariable("id") int plantId, HttpServletResponse res) {
+	public ResponseEntity<?> getPlantById(@PathVariable("id") int plantId) {
 		Optional<Plant> plant = plantService.getPlant(plantId);
 		if (plant.isPresent()) {
-			res.setStatus(200);
+			return ResponseEntity.ok(plant.get());
 		} else {
-			res.setStatus(404);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plant not found with id: " + plantId);
 		}
-
-		return plant.get();
 
 	}
 
