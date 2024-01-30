@@ -19,22 +19,22 @@ import com.skilldistillery.planty.repositories.UserRepository;
 
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
-	
+
 	@Autowired
 	private OrderDetailRepository orderDetailRepo;
-	
+
 	@Autowired
 	private PlantRepository plantRepo;
-	
+
 	@Autowired
 	private OrderCartRepository orderCartRepo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
 
 	@Override
 	public List<OrderDetail> listAllOrderDetails() {
-		
+
 		return orderDetailRepo.findAll();
 	}
 
@@ -42,7 +42,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public OrderDetail getOrderDetail(int orderDetailId) {
 		OrderDetail orderDetail = null;
 		Optional<OrderDetail> orderDetailOpt = orderDetailRepo.findById(orderDetailId);
-		if(orderDetailOpt.isPresent()) {
+		if (orderDetailOpt.isPresent()) {
 			orderDetail = orderDetailOpt.get();
 		}
 		return orderDetail;
@@ -55,72 +55,71 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	public OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail, String username) {
-		OrderDetail existing = null;
-		Optional<OrderDetail> existingOptional = orderDetailRepo.findById(orderDetailId);
-		if(existingOptional.isPresent()) {
-			existing = existingOptional.get();
-			existing.setGiftWrap(updatedOrderDetail.getGiftWrap());
-			existing.setPlant(updatedOrderDetail.getPlant());
-			existing.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
-			Integer subtotalPrice = existing.getPlant().getPrice() * existing.getQuantityOrdered();
-	        existing.setSubtotalPrice(subtotalPrice);
-//			existing.setOrderCart(updatedOrderDetail.getOrderCart());
-			orderDetailRepo.saveAndFlush(existing);
+		OrderDetail existingOrderDetail = null;
+		try {
+
+			User user = userRepo.findByUsername(username);
+			if (user == null) {
+				throw new Exception("User not found for username: " + username);
+			}
+
+			existingOrderDetail = orderDetailRepo.findById(orderDetailId)
+					.orElseThrow(() -> new Exception("OrderDetail not found for Id: " + orderDetailId));
+
+			if (!existingOrderDetail.getOrderCart().getUser().equals(user)) {
+				throw new Exception("Unauthorized access attempt to update order detail");
+			}
+
+			existingOrderDetail.setGiftWrap(updatedOrderDetail.getGiftWrap());
+//			existingOrderDetail.setPlant(updatedOrderDetail.getPlant());
+			existingOrderDetail.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
+			Integer subtotalPrice = existingOrderDetail.getPlant().getPrice()* existingOrderDetail.getQuantityOrdered();
+			existingOrderDetail.setSubtotalPrice(subtotalPrice);
+//			existingOrderDetail.setOrderCart(updatedOrderDetail.getOrderCart());
+			
+
+			return orderDetailRepo.saveAndFlush(existingOrderDetail);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return null;
 		}
-		return existing;
 	}
-	
-	
 
 	@Override
 	public boolean deleteOrderDetail(int orderDetailId) {
 		boolean deleted = false;
 		Optional<OrderDetail> toDeleteOpt = orderDetailRepo.findById(orderDetailId);
-		if(toDeleteOpt.isPresent()) {
+		if (toDeleteOpt.isPresent()) {
 			orderDetailRepo.delete(toDeleteOpt.get());
 			deleted = true;
 		}
 		return deleted;
 	}
 
-//	@Override
-//	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, int orderCartId) {
-//		
-//		Plant plant = plantRepo.findById(plantId).orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
-//		
-//		OrderDetail orderDetail = new OrderDetail();
-//		orderDetail.setPlant(plant);
-//		orderDetail.setQuantityOrdered(quantity);
-//		int subtotalPrice = plant.getPrice() * quantity;
-//	    orderDetail.setSubtotalPrice(subtotalPrice);
-//	    OrderCart orderCart = orderCartRepo.findById(orderCartId).orElseThrow(() -> new EntityNotFoundException("OrderCart not found for ID: " + orderCartId));
-//	    orderDetail.setOrderCart(orderCart);
-//		return orderDetailRepo.saveAndFlush(orderDetail);
-//	}
-
-	
 	@Override
 	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, String username) {
-	    Plant plant = plantRepo.findById(plantId)
-	        .orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
-	    
-	    User user = userRepo.findByUsername(username);
-	    		if (user == null) {
-	    	        throw new EntityNotFoundException("User not found for username: " + username);
-	    	    }
-	    OrderCart orderCart = user.getOrderCart();
-	    if (orderCart == null) {
-	        throw new EntityNotFoundException("OrderCart not found for user: " + username);
-	    }
+		Plant plant = plantRepo.findById(plantId)
+				.orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
 
-	    OrderDetail orderDetail = new OrderDetail();
-	    orderDetail.setPlant(plant);
-	    orderDetail.setQuantityOrdered(quantity);
-	    int subtotalPrice = plant.getPrice() * quantity;
-	    orderDetail.setSubtotalPrice(subtotalPrice);
-	    orderDetail.setOrderCart(orderCart);
+		User user = userRepo.findByUsername(username);
+		if (user == null) {
+			throw new EntityNotFoundException("User not found for username: " + username);
+		}
+		OrderCart orderCart = user.getOrderCart();
+		if (orderCart == null) {
+			throw new EntityNotFoundException("OrderCart not found for user: " + username);
+		}
 
-	    return orderDetailRepo.saveAndFlush(orderDetail);
+		OrderDetail orderDetail = new OrderDetail();
+		orderDetail.setPlant(plant);
+		orderDetail.setQuantityOrdered(quantity);
+		int subtotalPrice = plant.getPrice() * quantity;
+		orderDetail.setSubtotalPrice(subtotalPrice);
+		orderDetail.setOrderCart(orderCart);
+
+		return orderDetailRepo.saveAndFlush(orderDetail);
 	}
 
 }

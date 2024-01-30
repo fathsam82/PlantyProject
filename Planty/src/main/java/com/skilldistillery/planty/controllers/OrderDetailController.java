@@ -56,9 +56,12 @@ public class OrderDetailController {
 	
 	
 	@PutMapping("orderDetails/{orderDetailId}")
-	OrderDetail updateOrderDetail(@RequestBody OrderDetail updatedOrderDetail, @PathVariable int orderDetailId, HttpServletResponse res) {
+	OrderDetail updateOrderDetail(@RequestBody OrderDetail updatedOrderDetail, @PathVariable int orderDetailId, Principal principal, 
+			HttpServletResponse res) {
 		
-		updatedOrderDetail = orderDetailService.updateOrderDetail(orderDetailId, updatedOrderDetail);
+		
+		String username = principal.getName();
+		updatedOrderDetail = orderDetailService.updateOrderDetail(orderDetailId, updatedOrderDetail, username);
 		try {
 			if (updatedOrderDetail == null) {
 				res.setStatus(404);
@@ -69,12 +72,9 @@ public class OrderDetailController {
 			updatedOrderDetail = null;
 		}
 		return updatedOrderDetail;
-
 	}
-	
 	@DeleteMapping("orderDetails/{orderDetailId}")
 	public void deleteOrderDetail(@PathVariable int orderDetailId, HttpServletResponse res) {
-		
 		try {
 			if (orderDetailService.deleteOrderDetail(orderDetailId)) {
 				res.setStatus(204);
@@ -85,48 +85,27 @@ public class OrderDetailController {
 			res.setStatus(400);
 		}
 	}
-	
-//	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{orderCartId}")
-//    public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable int orderCartId, HttpServletResponse res) {
-//        OrderDetail orderDetail;
-//        try {
-//            orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, orderCartId);
-//            if (orderDetail != null) {
-//                res.setStatus(HttpServletResponse.SC_CREATED);
-//            } else {
-//                res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//            orderDetail = null;
-//        }
-//        return orderDetail;
-//    }
-	
 	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}")
-	public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, Principal principal, HttpServletResponse res) {
-	    if (principal == null) {
-	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	        return null;
-	    }
-
-	    OrderDetail orderDetail;
-	    try {
-	        String username = principal.getName();
-	        orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, username);
-	        if (orderDetail != null) {
-	            res.setStatus(HttpServletResponse.SC_CREATED);
-	        } else {
-	            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-	        orderDetail = null;
-	    }
-	    return orderDetail;
+	public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, Principal principal,
+			HttpServletResponse res) {
+		if (principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return null;
+		}
+		OrderDetail orderDetail;
+		try {
+			String username = principal.getName();
+			orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, username);
+			if (orderDetail != null) {
+				res.setStatus(HttpServletResponse.SC_CREATED);
+			} else {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			orderDetail = null;
+		}
+		return orderDetail;
 	}
-	
-
 }
