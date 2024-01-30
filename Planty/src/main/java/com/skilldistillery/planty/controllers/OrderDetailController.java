@@ -85,8 +85,8 @@ public class OrderDetailController {
 			res.setStatus(400);
 		}
 	}
-	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}")
-	public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, Principal principal,
+	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{giftWrap}")
+	public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable boolean giftWrap, Principal principal,
 			HttpServletResponse res) {
 		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -95,7 +95,7 @@ public class OrderDetailController {
 		OrderDetail orderDetail;
 		try {
 			String username = principal.getName();
-			orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, username);
+			orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, giftWrap, username);
 			if (orderDetail != null) {
 				res.setStatus(HttpServletResponse.SC_CREATED);
 			} else {

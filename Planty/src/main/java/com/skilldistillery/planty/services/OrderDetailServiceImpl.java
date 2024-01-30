@@ -99,7 +99,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, String username) {
+	public OrderDetail createPlantToOrderDetail(int plantId, int quantity, boolean giftWrap, String username) {
 		Plant plant = plantRepo.findById(plantId)
 				.orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
 
@@ -115,6 +115,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setPlant(plant);
 		orderDetail.setQuantityOrdered(quantity);
+		orderDetail.setGiftWrap(giftWrap);
 		int subtotalPrice = plant.getPrice() * quantity;
 		orderDetail.setSubtotalPrice(subtotalPrice);
 		orderDetail.setOrderCart(orderCart);
