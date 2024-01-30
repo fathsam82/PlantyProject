@@ -56,20 +56,28 @@ public class PlantController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant");
 		}
 
 	}
 
 	@GetMapping("plants/name/{name}")
-	Plant getPlantByName(@PathVariable("name") String name, HttpServletResponse res) {
-		Optional<Plant> plant = plantService.findByName(name);
-		if (plant.isPresent()) {
-			res.setStatus(200);
-		} else {
-			res.setStatus(404);
+	ResponseEntity<?> getPlantByName(@PathVariable("name") String name) {
+		try {
+			Optional<Plant> plant = plantService.findByName(name);
+			if (plant.isPresent()) {
+				return ResponseEntity.ok(plant.get());
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plant not found with name: " + name);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant");
+			
 		}
-		return plant.get();
+		
 	}
 
 	@GetMapping("plants/plantCatId/{plantCatId}")

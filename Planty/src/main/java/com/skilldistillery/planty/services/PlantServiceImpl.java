@@ -29,12 +29,8 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public Optional<Plant> findByName(String name) {
-		Optional<Plant> plantOpt = plantRepo.findByNameIgnoreCase(name);
-		if (plantOpt.isPresent()) {
-			return plantOpt;
-		} else {
-			return null;
-		}
+		return plantRepo.findByNameIgnoreCase(name);
+		
 	}
 
 	@Override
