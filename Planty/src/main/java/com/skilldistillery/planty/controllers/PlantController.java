@@ -1,5 +1,6 @@
 package com.skilldistillery.planty.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,19 +32,26 @@ public class PlantController {
 	private PlantService plantService;
 
 	@GetMapping("plants")
-	List<Plant> listPlants(HttpServletResponse res) {
-		List<Plant> plants = null;
-		plants = plantService.listAllPlants();
+	public ResponseEntity<?> listPlants() {
+		try {
+			List<Plant> plants = plantService.listAllPlants();
+			
 
-		if (plants == null) {
-			res.setStatus(404);
-		} else {
-			res.setStatus(200);
+			if (plants == null || plants.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No plants found");
+			} else {
+				return ResponseEntity.ok(plants);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured while fetching plants");
 		}
 
-		return plants;
-
+	
 	}
+	
+	
 
 	@GetMapping("plants/{id}")
 	public ResponseEntity<?> getPlantById(@PathVariable("id") int plantId) {
@@ -57,13 +65,13 @@ public class PlantController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant");
 		}
 
 	}
 
 	@GetMapping("plants/name/{name}")
-	ResponseEntity<?> getPlantByName(@PathVariable("name") String name) {
+	public ResponseEntity<?> getPlantByName(@PathVariable("name") String name) {
 		try {
 			Optional<Plant> plant = plantService.findByName(name);
 			if (plant.isPresent()) {
@@ -81,16 +89,15 @@ public class PlantController {
 	}
 
 	@GetMapping("plants/plantCatId/{plantCatId}")
-	List<Plant> getPlantsByCat(@PathVariable("plantCatId") int plantCatId, HttpServletResponse res) {
-		List<Plant> plants = null;
-		plants = plantService.findByCat(plantCatId);
+	public ResponseEntity<?> getPlantsByCat(@PathVariable("plantCatId") int plantCatId) {
+		List<Plant> plants = plantService.findByCat(plantCatId);
 
-		if (plants == null) {
-			res.setStatus(404);
+		if (plants.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<>());
 		} else {
-			res.setStatus(200);
+			return ResponseEntity.ok(plants);
 		}
-		return plants;
+		
 	}
 
 	@PostMapping("plants")
