@@ -116,6 +116,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetail.setPlant(plant);
 		orderDetail.setQuantityOrdered(quantity);
 		orderDetail.setGiftWrap(giftWrap);
+		orderDetail.setUnitPrice(plant.getPrice());
 		int subtotalPrice = plant.getPrice() * quantity;
 		orderDetail.setSubtotalPrice(subtotalPrice);
 		orderDetail.setOrderCart(orderCart);

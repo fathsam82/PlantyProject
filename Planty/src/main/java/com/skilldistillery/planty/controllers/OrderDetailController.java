@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,26 +88,24 @@ public class OrderDetailController {
 		}
 	}
 	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{giftWrap}")
-	public OrderDetail addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable boolean giftWrap, Principal principal,
-			HttpServletResponse res) {
+	public ResponseEntity<?> addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable boolean giftWrap, Principal principal
+			) {
 		if (principal == null) {
-			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User was not able to be authorized for this request");
 		}
 		OrderDetail orderDetail;
 		try {
 			String username = principal.getName();
 			orderDetail = orderDetailService.createPlantToOrderDetail(plantId, quantity, giftWrap, username);
 			if (orderDetail != null) {
-				res.setStatus(HttpServletResponse.SC_CREATED);
+				return ResponseEntity.status(HttpStatus.CREATED).body(orderDetail);
 			} else {
-				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("OrderDetail was not found");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			orderDetail = null;
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured while trying to create an OrderDetail");
+			
 		}
-		return orderDetail;
 	}
 }
