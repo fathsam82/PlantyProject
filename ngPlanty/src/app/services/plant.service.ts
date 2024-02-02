@@ -42,6 +42,17 @@ export class PlantService {
     )
   }
 
+  getPlant(id: number): Observable<Plant> {
+    return this.http.get<Plant>(this.url + '/id/').pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(() => new Error('PlantService.getPlant(): error retrieving plant by id ${id}'));
+
+      })
+    );
+  }
+
+
   getPlantByName(name: string): Observable<Plant> {
     return this.http.get<Plant>(this.url + '/name/' + name).pipe(
       catchError((err: any) => {
