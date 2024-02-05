@@ -1,6 +1,18 @@
+
+<div class="container-fluid">
 <div *ngIf="plant">
-  <h2>{{ plant?.name }}</h2>
-  <p>{{ plant?.description }}</p>
+  <!-- <div="image-container"> -->
+  <div class="card">
+  <div class="image-container">
+    <img
+      [src]="plant.plantImageUrl"
+      class="card-img-top"
+      alt="Plant Image"
+    />
+  </div>
+</div>
+  <h2>{{ plant.name }}</h2>
+  <p>{{ plant.description }}</p>
   <!-- Add more plant details as needed -->
 
   <form>
@@ -14,4 +26,5 @@
     </div>
     <!-- <button type="button" (click)="addToOrder()">Add to Order</button> -->
   </form>
+</div>
 </div>

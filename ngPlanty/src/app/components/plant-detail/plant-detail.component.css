@@ -1,0 +1,15 @@
+.card {
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+
+/* .image-container {
+  position: relative;
+} */
+
+.card-img-top {
+  width: 50%;
+  height: auto;
+}

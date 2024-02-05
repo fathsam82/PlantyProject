@@ -43,5 +43,7 @@ export class PlantDetailComponent implements OnInit {
     }
   }
 
+
+
 }
 
