@@ -21,7 +21,8 @@ export class PlantDetailComponent implements OnInit {
 
   constructor(
     private plantService: PlantService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private orderDetailService: OrderDetailService
   ) {}
 
   ngOnInit() {
