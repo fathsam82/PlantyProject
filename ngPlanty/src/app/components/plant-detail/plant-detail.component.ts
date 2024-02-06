@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PlantService } from 'src/app/services/plant.service';
 import { Plant } from 'src/app/models/plant';
 import { FormsModule } from '@angular/forms';
+import { OrderDetailService } from 'src/app/services/order-detail.service';
+
 
 
 @Component({
