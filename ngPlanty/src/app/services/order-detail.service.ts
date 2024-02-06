@@ -24,13 +24,13 @@ export class OrderDetailService {
   return options;
 }
 
-create(plantId: number, quantity: number): Observable<OrderDetail> {
+createOrderDetail(plantId: number, quantity: number, giftWrap: boolean): Observable<OrderDetail> {
   return this.authService.getLoggedInUser().pipe(
     switchMap(user => {
       if (!user) {
         throw new Error('User not logged in');
       }
-      const urlWithParams = `${this.url}/addPlant/${plantId}/${quantity}`;
+      const urlWithParams = `${this.url}/addPlant/${plantId}/${quantity}/${giftWrap}`;
       return this.httpClient.post<OrderDetail>(urlWithParams, null, this.getHttpOptions());
     }),
     catchError((err: any) => {
