@@ -10,26 +10,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PlantService {
-
   // private baseUrl = 'http://localhost:8085/';
-  private url = environment.baseUrl + "api/plants";
+  private url = environment.baseUrl + 'api/plants';
 
-  constructor(
-    private http: HttpClient,
-    // private datePipe: DatePipe,
-    // private auth: AuthService
-    ) {}
+  constructor(private http: HttpClient) // private datePipe: DatePipe,
+  // private auth: AuthService
+  {}
 
-
-//     getHttpOptions(){
-//       let options = {
-//       headers: {
-//         Authorization: 'Basic ' + this.authService.getCredentials(),
-//       'X-Requested-With': 'XMLHttpRequest',
-//     },
-//   };
-//   return options;
-// }
+  //     getHttpOptions(){
+  //       let options = {
+  //       headers: {
+  //         Authorization: 'Basic ' + this.authService.getCredentials(),
+  //       'X-Requested-With': 'XMLHttpRequest',
+  //     },
+  //   };
+  //   return options;
+  // }
 
   index(): Observable<Plant[]> {
     return this.http.get<Plant[]>(this.url).pipe(
@@ -37,21 +33,24 @@ export class PlantService {
         console.log(err);
         return throwError(
           () => new Error('PlantService.index(): error retrieving plant')
-        )
+        );
       })
-    )
+    );
   }
 
   getPlant(id: number): Observable<Plant> {
     return this.http.get<Plant>(this.url + '/' + id).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError(() => new Error('PlantService.getPlant(): error retrieving plant by id ${id}'));
-
+        return throwError(
+          () =>
+            new Error(
+              'PlantService.getPlant(): error retrieving plant by id ${id}'
+            )
+        );
       })
     );
   }
-
 
   getPlantByName(name: string): Observable<Plant> {
     return this.http.get<Plant>(this.url + '/name/' + name).pipe(
@@ -60,7 +59,9 @@ export class PlantService {
         return throwError(
           () =>
             new Error(
-              'PlantService.getPlantsByName(): error retrieving Resources for user: ' + name + err
+              'PlantService.getPlantsByName(): error retrieving Resources for user: ' +
+                name +
+                err
             )
         );
       })
