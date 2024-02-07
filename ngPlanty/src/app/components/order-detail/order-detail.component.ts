@@ -8,6 +8,9 @@ import { OrderDetailService } from 'src/app/services/order-detail.service';
 })
 export class OrderDetailComponent {
 
-  constructor(){}
+  constructor(private orderDetailService: OrderDetailService){
+
+
+  }
 
 }
