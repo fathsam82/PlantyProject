@@ -11,7 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LogoutComponent } from "./components/logout/logout.component";
 import { LoginComponent } from './components/login/login.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from './components/about/about.component';
 import { DatePipe } from '@angular/common';
 import { PlantDetailComponent } from './components/plant-detail/plant-detail.component';
@@ -42,6 +42,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
         FormsModule,
         HttpClientModule,
         NgbModule,
+        NgbCarouselModule
 
 
     ]

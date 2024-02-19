@@ -1,35 +1,29 @@
 
-<div class="container-fluid">
-<div *ngIf="plant">
-  <!-- <div="image-container"> -->
-  <div class="card">
-  <div class="image-container">
-    <img
-      [src]="plant.plantImageUrl"
-      class="img-small"
-      alt="Plant Image"
-    />
+ <div class="container-fluid plant-detail">
+  <div *ngIf="plant" class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <img [src]="plant.plantImageUrl" class="card-img-top plant-image" alt="Plant Image">
+        <div class="card-body">
+          <h2 class="card-title">{{ plant.name }}</h2>
+          <h3 class="plant-price">${{ plant.price / 100 | number:'1.2-2' }}</h3>
+          <p class="card-text">{{ plant.description }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <form>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" class="form-control" [(ngModel)]="quantity" name="quantity" min="1">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="giftWrap" class="form-check-input" [(ngModel)]="giftWrap" name="giftWrap">
+          <label for="giftWrap" class="form-check-label">Gift Wrap?</label>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addToOrderDetail()">Add to Order</button>
+      </form>
+    </div>
   </div>
 </div>
-  <h2>{{ plant.name }}</h2>
-  <h2>{{ plant.price}}</h2>
-  <p>{{ plant.description }}</p>
-
-
-
-  <form>
-    <div class="form-group">
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" min="1">
-    </div>
-    <div class="form-check">
-      <input type="checkbox" id="giftWrap" [(ngModel)]="giftWrap" name="giftWrap">
-      <label for="giftWrap">Gift Wrap?</label>
-    </div>
-    <button type="button" (click)="addToOrderDetail()">Add to Order</button>
-  </form>
-</div>
-</div>
-
-
 
