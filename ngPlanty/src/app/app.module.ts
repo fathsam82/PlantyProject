@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from './components/about/about.component';
 import { DatePipe } from '@angular/common';
 import { PlantDetailComponent } from './components/plant-detail/plant-detail.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 
 
@@ -29,7 +30,8 @@ import { PlantDetailComponent } from './components/plant-detail/plant-detail.com
         LogoutComponent,
         LoginComponent,
         AboutComponent,
-        PlantDetailComponent
+        PlantDetailComponent,
+        OrderDetailComponent
 
     ],
     providers: [DatePipe],

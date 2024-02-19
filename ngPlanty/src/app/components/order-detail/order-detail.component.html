@@ -1,6 +1,22 @@
 <div class="container-fluid">
   <div *ngIf="orderDetail">
+    <div class="card">
+      <div class="image-container">
+        <img
+        *ngIf="plant"
+          [src]="plant.plantImageUrl"
+          class="img-small"
+          alt="Plant Image"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <h2>{{orderDetail?.quantityOrdered}} {{plant?.name}}s ordered </h2>
+
+  <h1>Subtotal price</h1>
+  <h2>{{orderDetail?.subtotalPrice}}</h2>
 
   </div>
 
-</div>
