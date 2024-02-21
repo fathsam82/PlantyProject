@@ -13,6 +13,7 @@ import { PlantService } from 'src/app/services/plant.service';
 export class OrderDetailComponent implements OnInit{
   orderDetail: OrderDetail | undefined;
   plant: Plant | undefined;
+  itemAddedToCart: boolean = false;
 
   constructor(
     private orderDetailService: OrderDetailService,
@@ -22,6 +23,10 @@ export class OrderDetailComponent implements OnInit{
 
   ngOnInit() {
     this.getOrderDetail();
+
+  }
+
+  addItem(){
 
   }
 
