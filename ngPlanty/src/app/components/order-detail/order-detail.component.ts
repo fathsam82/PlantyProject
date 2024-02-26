@@ -10,7 +10,7 @@ import { PlantService } from 'src/app/services/plant.service';
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.css',
 })
-export class OrderDetailComponent implements OnInit{
+export class OrderDetailComponent implements OnInit {
   orderDetail: OrderDetail | undefined;
   plant: Plant | undefined;
   itemAddedToCart: boolean = false;
@@ -23,14 +23,7 @@ export class OrderDetailComponent implements OnInit{
 
   ngOnInit() {
     this.getOrderDetail();
-
   }
-
-  addItem(){
-
-  }
-
-
 
   getOrderDetail() {
     const orderDetailId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -55,6 +48,4 @@ export class OrderDetailComponent implements OnInit{
       console.error('OrderDetail ID is missing the route parameters');
     }
   }
-
-
 }

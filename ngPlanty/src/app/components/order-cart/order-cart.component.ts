@@ -19,24 +19,22 @@ export class OrderCartComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
-
-  reload() {
-
+  ngOnInit() {
+    this.getOrderCart();
   }
-  loadOrderCart(){
-    const cartId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (cartId){
-      const id = Number(cartId);
-      this.orderCartService.getOrderCarts(id).subscribe({
-        next: (orderCart) => {
-          this.orderCart = orderCart;
-        },
-        error: (err) => console.error(err),
 
-      });
-    } else {
-      console.error('Cart ID is missing in the route parameters');
-    }
+
+  getOrderCart(){
+    this.orderCartService.getOrderCart().subscribe({
+      next: (orderCart) => {
+        this.orderCart = orderCart;
+      },
+      error: (badTings) => {
+        console.error('OrderCartComponent.getOrderCart: error loading OrderCart');
+        console.error(badTings);
+        console.error(this.orderCart);
+      }
+    })
+
   }
 }
