@@ -1,13 +1,15 @@
 <div *ngIf="orderCart">
   <h2>Your Order Cart</h2>
-  <div *ngFor="let orderDetail of orderCart.orderDetails; let i = index">
+  <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index">
     <div class="order-item">
       <div class="item-info">
-        <h3>{{ orderDetail.plant.name }}</h3>
-        <p>Quantity: {{ orderDetail.quantity }}</p>
-        <p>Price: {{ orderDetail.price }}</p>
+        <h3> {{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
+        <p>Quantity: {{ orderDetail.quantityOrdered }}</p>
+        <p>Price: {{ orderDetail.subtotalPrice }}</p>
       </div>
     </div>
   </div>
 </div>
+
+<!-- <pre>{{ orderCart | json }}</pre> -->
 

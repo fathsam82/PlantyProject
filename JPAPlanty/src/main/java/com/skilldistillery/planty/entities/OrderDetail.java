@@ -36,7 +36,7 @@ public class OrderDetail {
 	
 //	@JsonBackReference
 //	@JsonManagedReference
-    @JsonIgnore
+	@JsonIgnore
 //	@JsonIgnoreProperties
 	@JoinColumn(name = "order_cart_id")
 	@ManyToOne

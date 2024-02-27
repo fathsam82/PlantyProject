@@ -20,7 +20,6 @@
       id="navbarTogglerDemo01"
       [ngbCollapse]="isCollapsed"
     >
-      <!-- <a class="navbar-brand" href="#">Home</a> -->
       <a class="navbar-brand" [routerLink]="['/home']">PLANTY</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -34,6 +33,12 @@
         </li>
         <li class="nav-item" *ngIf="checkLogin()">
           <a class="nav-link" [routerLink]="['/logout']">Logout</a>
+        </li>
+
+        <li class="nav-item" *ngIf="checkLogin()">
+          <button class="btn nav-link" mat-icon-button [routerLink]="['/order-cart']">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
         </li>
       </ul>
     </div>

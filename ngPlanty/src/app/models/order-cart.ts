@@ -13,7 +13,7 @@ export class OrderCart {
   enabled: boolean;
   user: User;
   paymentData: PaymentData;
-  orderDetail: OrderDetail;
+  orderDetails: OrderDetail[];
 
 
   constructor(
@@ -27,7 +27,7 @@ export class OrderCart {
     enabled: boolean = false,
     user: User = new User(),
     paymentData: PaymentData = new PaymentData(),
-    orderDetail: OrderDetail = new OrderDetail()
+    orderDetails: OrderDetail[] = []
   ) {
     this.id = id;
     this.totalPrice = totalPrice;
@@ -39,6 +39,6 @@ export class OrderCart {
     this.enabled = enabled;
     this.user = user;
     this.paymentData = paymentData;
-    this.orderDetail = orderDetail;
+    this.orderDetails = orderDetails;
   }
 }

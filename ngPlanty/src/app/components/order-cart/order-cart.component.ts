@@ -27,6 +27,7 @@ export class OrderCartComponent implements OnInit {
   getOrderCart(){
     this.orderCartService.getOrderCart().subscribe({
       next: (orderCart) => {
+        console.log(orderCart)
         this.orderCart = orderCart;
       },
       error: (badTings) => {

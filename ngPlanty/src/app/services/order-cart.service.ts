@@ -19,7 +19,7 @@ export class OrderCartService {
     getHttpOptions() {
       let options = {
         headers: {
-          Authorization: 'Basic' + this.authService.getCredentials(),
+          Authorization: 'Basic ' + this.authService.getCredentials(),
           'X-Requested-With': 'XMLHttpRequest',
         },
       };
@@ -34,7 +34,7 @@ export class OrderCartService {
           if(!user) {
             throw new Error('User not logged in');
           }
-          return this.httpClient.get<OrderCart>(this.url).pipe(
+          return this.httpClient.get<OrderCart>(this.url, this.getHttpOptions()).pipe(
             catchError((err: any) => {
               console.log(err);
               return throwError(
