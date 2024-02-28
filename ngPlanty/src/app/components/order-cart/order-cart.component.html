@@ -5,7 +5,7 @@
       <div class="item-info">
         <h3> {{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
         <p>Quantity: {{ orderDetail.quantityOrdered }}</p>
-        <p>Price: {{ orderDetail.subtotalPrice }}</p>
+        <p>Price: ${{ orderDetail.subtotalPrice / 100 | number:'1.2-2' }}</p>
       </div>
     </div>
   </div>
