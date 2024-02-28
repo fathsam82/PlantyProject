@@ -9,7 +9,7 @@
       <div class="col-md-6">
         <div class="order-info">
           <h2>{{orderDetail.quantityOrdered}} x {{plant?.name}}</h2>
-          <h1>Subtotal: ${{orderDetail.subtotalPrice | number:'1.2-2'}}</h1>
+          <h1>Subtotal: ${{orderDetail.subtotalPrice / 100 | number:'1.2-2'}}</h1>
         </div>
       </div>
     </div>
