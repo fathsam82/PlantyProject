@@ -1,0 +1,26 @@
+.image-container {
+  position: relative;
+}
+
+.img-small {
+  width: 200px;
+  height: auto;
+}
+
+.plant-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  height: 450px;
+  display: flex;
+  flex-direction: row;
+  background-color: #f4f4f4;
+}

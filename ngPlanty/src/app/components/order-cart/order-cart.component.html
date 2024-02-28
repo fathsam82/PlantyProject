@@ -1,15 +1,27 @@
-<div *ngIf="orderCart">
-  <h2>Your Order Cart</h2>
-  <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index">
-    <div class="order-item">
-      <div class="item-info">
-        <h3> {{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
-        <p>Quantity: {{ orderDetail.quantityOrdered }}</p>
-        <p>Price: ${{ orderDetail.subtotalPrice / 100 | number:'1.2-2' }}</p>
+<div class="container-fluid">
+  <div *ngIf="orderCart">
+    <h2>Your Order Cart</h2>
+    <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index">
+      <div class="order-item">
+        <div class="item-info">
+          <h3>{{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
+          <p>Quantity: {{ orderDetail.quantityOrdered }}</p>
+          <p>
+            Price: ${{ orderDetail.subtotalPrice / 100 | number : "1.2-2" }}
+          </p>
+          <div class="card">
+            <div class="image-container plant-image img-small">
+              <img
+                [src]="orderDetail.plant.plantImageUrl"
+                class="card-img-top"
+                alt="Plant Image"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- <pre>{{ orderCart | json }}</pre> -->
 </div>
-
-<!-- <pre>{{ orderCart | json }}</pre> -->
-
