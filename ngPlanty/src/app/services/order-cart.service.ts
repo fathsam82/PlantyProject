@@ -49,13 +49,14 @@ export class OrderCartService {
       )
     }
 
-    editOrderCart(id: number): Observable<OrderCart> {
+    editOrderCart(orderCart: OrderCart, id: number): Observable<OrderCart> {
       return this.authService.getLoggedInUser().pipe(
         switchMap((user) => {
           if(!user) {
             throw new Error('User not logged in');
           }
-          return this.httpClient.put<OrderCart>(this.url, this.getHttpOptions()).pipe(
+          const urlWithId = `${this.url}/${id}`;
+      return this.httpClient.put<OrderCart>(urlWithId, orderCart, this.getHttpOptions()).pipe(
             catchError((err: any) => {
               console.log(err);
               return throwError(
