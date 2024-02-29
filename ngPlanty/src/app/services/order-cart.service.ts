@@ -48,4 +48,25 @@ export class OrderCartService {
         })
       )
     }
+
+    editOrderCart(id: number): Observable<OrderCart> {
+      return this.authService.getLoggedInUser().pipe(
+        switchMap((user) => {
+          if(!user) {
+            throw new Error('User not logged in');
+          }
+          return this.httpClient.put<OrderCart>(this.url, this.getHttpOptions()).pipe(
+            catchError((err: any) => {
+              console.log(err);
+              return throwError(
+                () =>
+                new Error(
+                  'OrderCartService.getOrderCarts():error editing orderCart'
+                )
+              )
+            })
+          )
+        })
+      )
+    }
 }

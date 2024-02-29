@@ -3,7 +3,9 @@
   <div *ngIf="plant" class="row">
     <div class="col-md-4">
       <div class="card">
-        <img [src]="plant.plantImageUrl" class="card-img-top plant-image img-small" alt="Plant Image">
+        <div class="image-container">
+          <img [src]="plant.plantImageUrl" class="card-img-top plant-image img-small" alt="Plant Image">
+        </div>
         <div class="card-body">
           <h2 class="card-title">{{ plant.name }}</h2>
           <h3 class="plant-price">${{ plant.price / 100 | number:'1.2-2' }}</h3>

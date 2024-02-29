@@ -3,42 +3,38 @@
   height: auto;
 }
 
-
-.plant-detail .card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  /* Center the card horizontally if it's not already */
-  margin-left: auto;
-  margin-right: auto;
+.image-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
 }
 
-.plant-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
+.card {
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
 }
 
-.plant-price {
-  color: #4CAF50;
-  font-size: 1.5em;
+.card-img-top {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  background-color: rgb(198, 233, 164);
 }
 
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  padding: 8px 16px;
-  margin-top: 10px;
+.card-body {
+  height: 300px;
+  overflow-y: auto;
+  flex: 1;
+  background-color:rgb(205, 236, 195);
+  border: 2px solid #4CAF50;
+  padding: 10px;
+
 }
 
-.form-control {
-  margin-bottom: 10px;
-}
-
-.form-check-input {
-  margin-top: 6px;
-}
-
-.form-check-label {
-  margin-left: 8px;
+.card-title, .card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
