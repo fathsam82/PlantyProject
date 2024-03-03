@@ -27,13 +27,28 @@ export class OrderCartComponent implements OnInit {
   getOrderCart(){
     this.orderCartService.getOrderCart().subscribe({
       next: (orderCart) => {
-        console.log(orderCart)
+        console.log(orderCart);
         this.orderCart = orderCart;
       },
       error: (badTings) => {
         console.error('OrderCartComponent.getOrderCart: error loading OrderCart');
         console.error(badTings);
         console.error(this.orderCart);
+      }
+    })
+
+  }
+
+  updateOrderCart(orderCart: OrderCart, id: number) {
+    this.orderCartService.editOrderCart(orderCart, id).subscribe({
+      next: (updatedOrdeCart) => {
+        this.orderCart = updatedOrdeCart;
+        console.log('OrderCart: successfully retrieved: ', updatedOrdeCart);
+
+
+      },
+      error: (whoops) => {
+        console.error('OrderCartComponent.updateOrderCart: Ran into a curfuffle on update.', whoops);
       }
     })
 
