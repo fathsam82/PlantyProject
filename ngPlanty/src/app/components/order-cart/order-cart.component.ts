@@ -12,6 +12,8 @@ import { OrderCartService } from 'src/app/services/order-cart.service';
 export class OrderCartComponent implements OnInit {
   orderDetails: OrderDetail[] | undefined;
   orderCart: OrderCart | undefined;
+  selectedOrderCart: OrderCart | null = null;
+  editOrderCart: OrderCart | null = null;
 
   constructor(
     private orderCartService: OrderCartService,
@@ -39,18 +41,28 @@ export class OrderCartComponent implements OnInit {
 
   }
 
-  updateOrderCart(orderCart: OrderCart, id: number) {
+  updateOrderCart(orderCart: OrderCart, id: number, setSelected: boolean = true) {
     this.orderCartService.editOrderCart(orderCart, id).subscribe({
-      next: (updatedOrdeCart) => {
-        this.orderCart = updatedOrdeCart;
-        console.log('OrderCart: successfully retrieved: ', updatedOrdeCart);
-
-
+      next: (updatedOrderCart) => {
+        if (setSelected) {
+          this.selectedOrderCart = updatedOrderCart;
+        }
+        this.editOrderCart = null;
+        console.log('OrderCart updated successfully!', updatedOrderCart);
+        this.getOrderCart();
       },
       error: (whoops) => {
-        console.error('OrderCartComponent.updateOrderCart: Ran into a curfuffle on update.', whoops);
+        console.error('OrderCartComponent.updateOrderCart: Error on update', whoops);
       }
-    })
+    });
+  }
 
+  initiateEditOrderCart() {
+    this.editOrderCart = Object.assign({}, this.selectedOrderCart);
+  }
+
+  clearSelectedOrderCart() {
+    this.selectedOrderCart = null;
   }
 }
+
