@@ -25,23 +25,27 @@ export class OrderCartComponent implements OnInit {
     this.getOrderCart();
   }
 
-
-  getOrderCart(){
+  getOrderCart() {
     this.orderCartService.getOrderCart().subscribe({
       next: (orderCart) => {
         console.log(orderCart);
         this.orderCart = orderCart;
       },
       error: (badTings) => {
-        console.error('OrderCartComponent.getOrderCart: error loading OrderCart');
+        console.error(
+          'OrderCartComponent.getOrderCart: error loading OrderCart'
+        );
         console.error(badTings);
         console.error(this.orderCart);
-      }
-    })
-
+      },
+    });
   }
 
-  updateOrderCart(orderCart: OrderCart, id: number, setSelected: boolean = true) {
+  updateOrderCart(
+    orderCart: OrderCart,
+    id: number,
+    setSelected: boolean = true
+  ) {
     this.orderCartService.editOrderCart(orderCart, id).subscribe({
       next: (updatedOrderCart) => {
         if (setSelected) {
@@ -52,17 +56,20 @@ export class OrderCartComponent implements OnInit {
         this.getOrderCart();
       },
       error: (whoops) => {
-        console.error('OrderCartComponent.updateOrderCart: Error on update', whoops);
-      }
+        console.error(
+          'OrderCartComponent.updateOrderCart: Error on update',
+          whoops
+        );
+      },
     });
   }
 
   initiateEditOrderCart() {
-    this.editOrderCart = Object.assign({}, this.selectedOrderCart);
+    this.editOrderCart = JSON.parse(JSON.stringify(this.selectedOrderCart));
   }
+
 
   clearSelectedOrderCart() {
     this.selectedOrderCart = null;
   }
 }
-

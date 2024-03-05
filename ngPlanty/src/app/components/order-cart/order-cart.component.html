@@ -1,6 +1,7 @@
+<!-- <pre>{{ orderCart | json }}</pre> -->
 <div class="container-fluid">
   <div *ngIf="orderCart">
-    <h2>Your Order Cart</h2>
+    <h2>Your Order Cart <button class="btn btn-primary" (click)="initiateEditOrderCart()">Edit OrderCart</button></h2>
     <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index">
       <div class="order-item">
         <div class="item-info">
@@ -22,6 +23,16 @@
       </div>
     </div>
   </div>
+  <div *ngIf="editOrderCart" class="edit-order-cart-form">
+    <h3>Edit Order Cart</h3>
+    <form (ngSubmit)="updateOrderCart(editOrderCart, editOrderCart.id)">
+      <div class="form-group">
+        <label for="specialInstructions">Special Instructions</label>
+        <input type="text" class="form-control" id="specialInstructions" [(ngModel)]="editOrderCart.orderDetails" name="specialInstructions">
+      </div>
+      <button type="submit" class="btn btn-success">Save Changes</button>
+      <button type="button" class="btn btn-secondary" (click)="clearSelectedOrderCart()">Cancel</button>
+    </form>
+  </div>
 
-  <!-- <pre>{{ orderCart | json }}</pre> -->
 </div>
