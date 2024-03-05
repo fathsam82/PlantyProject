@@ -30,6 +30,7 @@ export class OrderCartComponent implements OnInit {
       next: (orderCart) => {
         console.log(orderCart);
         this.orderCart = orderCart;
+        this.selectedOrderCart = orderCart;
       },
       error: (badTings) => {
         console.error(

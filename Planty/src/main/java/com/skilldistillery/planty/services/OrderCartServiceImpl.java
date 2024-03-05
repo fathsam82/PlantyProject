@@ -19,20 +19,18 @@ import com.skilldistillery.planty.repositories.UserRepository;
 
 @Service
 public class OrderCartServiceImpl implements OrderCartService {
-	
+
 	@Autowired
 	private OrderCartRepository orderCartRepo;
-	
-	@Autowired 
+
+	@Autowired
 	private UserRepository userRepo;
-	
+
 //	@Autowired
 //	private PlantRepository plantRepo;
-	
-//	@Autowired
-//	private OrderDetailRepository orderDetailRepo;
-	
-	
+
+	@Autowired
+	private OrderDetailService orderDetailService;
 
 //	@Override
 //	public List<OrderCart> listAllOrderCarts(String username) {
@@ -54,15 +52,13 @@ public class OrderCartServiceImpl implements OrderCartService {
 	@Override
 	public OrderCart createOrderCart(String username, OrderCart newOrderCart) {
 		User user = userRepo.findByUsername(username);
-		if(user != null) {
+		if (user != null) {
 			newOrderCart.setUser(user);
 			return orderCartRepo.saveAndFlush(newOrderCart);
 		}
 		return null;
 	}
-	
-	
-	
+
 //	@Override
 //	@Transactional
 //	public OrderCart addPlantToCart(String username, int plantId, int quantity) {
@@ -86,48 +82,66 @@ public class OrderCartServiceImpl implements OrderCartService {
 //		
 //		
 //	}
+
 	
+	//POTENTIAL CHECKOUT METHOD
+//	@Override
+//	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
+//		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+//		if(existing != null) {
+//			existing.setNotes(updatedOrderCart.getNotes());
+//			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+//	        orderDetailService.updateOrderDetail(existing.getOrderDetails(), updatedOrderCart.getOrderDetails());
+//
+//			orderCartRepo.saveAndFlush(existing);
+//			
+//		}
+//		return existing;
+//	}
 
 	@Override
 	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
-		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
-		if(existing != null) {
-			existing.setNotes(updatedOrderCart.getNotes());
-			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
-			orderCartRepo.saveAndFlush(existing);
-			
+		OrderCart existingCart = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+		if (existingCart != null) {
+			existingCart.setNotes(updatedOrderCart.getNotes());
+			existingCart.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+
+			for (OrderDetail updatedDetail : updatedOrderCart.getOrderDetails()) {
+				int detailId = updatedDetail.getId();
+				orderDetailService.updateOrderDetail(detailId, updatedDetail, username);
+			}
+
+			orderCartRepo.saveAndFlush(existingCart);
 		}
-		return existing;
+		return existingCart;
 	}
 
 	@Override
 	public boolean deleteOrderCart(String username, int orderCartId) {
-		
+
 		return false;
 	}
 
 	@Override
-    public OrderCart getOrderCartByUsername(String username) throws EntityNotFoundException {
-        User user = userRepo.findByUsername(username);
-        if (user == null) {
-            throw new EntityNotFoundException("User not found for username: " + username);
-        }
-
-        OrderCart orderCart = user.getOrderCart();
-        if (orderCart == null) {
-            throw new EntityNotFoundException("OrderCart not found for user: " + username);
-        }
-        int totalPrice = 0;
-        for (OrderDetail detail : orderCart.getOrderDetails()) {
-        	totalPrice += detail.getSubtotalPrice();
-			
+	public OrderCart getOrderCartByUsername(String username) throws EntityNotFoundException {
+		User user = userRepo.findByUsername(username);
+		if (user == null) {
+			throw new EntityNotFoundException("User not found for username: " + username);
 		}
-        
-        orderCart.setTotalPrice(totalPrice);
 
-        return orderCart;
-    }
-	
-	
-	
+		OrderCart orderCart = user.getOrderCart();
+		if (orderCart == null) {
+			throw new EntityNotFoundException("OrderCart not found for user: " + username);
+		}
+		int totalPrice = 0;
+		for (OrderDetail detail : orderCart.getOrderDetails()) {
+			totalPrice += detail.getSubtotalPrice();
+
+		}
+
+		orderCart.setTotalPrice(totalPrice);
+
+		return orderCart;
+	}
+
 }

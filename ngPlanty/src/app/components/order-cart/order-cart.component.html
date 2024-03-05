@@ -26,13 +26,21 @@
   <div *ngIf="editOrderCart" class="edit-order-cart-form">
     <h3>Edit Order Cart</h3>
     <form (ngSubmit)="updateOrderCart(editOrderCart, editOrderCart.id)">
-      <div class="form-group">
-        <label for="specialInstructions">Special Instructions</label>
-        <input type="text" class="form-control" id="specialInstructions" [(ngModel)]="editOrderCart.orderDetails" name="specialInstructions">
+      <div *ngFor="let detail of editOrderCart.orderDetails; let i = index">
+        <h4>Order Detail #{{ i + 1 }}</h4>
+        <div class="form-group">
+          <label for="quantity{{i}}">Quantity</label>
+          <input type="number" class="form-control" id="quantity{{i}}" [(ngModel)]="detail.quantityOrdered" name="quantity{{i}}">
+        </div>
+        <div class="form-group">
+          <label for="giftWrap{{i}}">Gift Wrap</label>
+          <input type="checkbox" class="form-check-input" id="giftWrap{{i}}" [(ngModel)]="detail.giftWrap" name="giftWrap{{i}}">
+        </div>
       </div>
       <button type="submit" class="btn btn-success">Save Changes</button>
       <button type="button" class="btn btn-secondary" (click)="clearSelectedOrderCart()">Cancel</button>
     </form>
   </div>
+
 
 </div>
