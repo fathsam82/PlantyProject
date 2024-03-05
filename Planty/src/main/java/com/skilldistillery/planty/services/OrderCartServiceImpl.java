@@ -105,6 +105,7 @@ public class OrderCartServiceImpl implements OrderCartService {
 		if (existingCart != null) {
 			existingCart.setNotes(updatedOrderCart.getNotes());
 			existingCart.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+			existingCart.setPaymentData(updatedOrderCart.getPaymentData());
 
 			for (OrderDetail updatedDetail : updatedOrderCart.getOrderDetails()) {
 				int detailId = updatedDetail.getId();
