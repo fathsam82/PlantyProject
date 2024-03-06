@@ -84,28 +84,29 @@ public class OrderCartServiceImpl implements OrderCartService {
 //	}
 
 	
-	//POTENTIAL CHECKOUT METHOD
-//	@Override
-//	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
-//		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
-//		if(existing != null) {
-//			existing.setNotes(updatedOrderCart.getNotes());
-//			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
-//	        orderDetailService.updateOrderDetail(existing.getOrderDetails(), updatedOrderCart.getOrderDetails());
-//
-//			orderCartRepo.saveAndFlush(existing);
-//			
-//		}
-//		return existing;
-//	}
+	
+	@Override
+	public OrderCart checkoutOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
+		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+		if(existing != null) {
+			existing.setNotes(updatedOrderCart.getNotes());
+			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+//			existing.setPaymentData(updatedOrderCart.getPaymentData());   // STILL HAVE TO IMPLEMENT GET / POST / DELETE FOR PAYMENT DATA POJO
+			
+			orderCartRepo.saveAndFlush(existing);
+			
+		}
+		return existing;
+	}
 
 	@Override
 	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
 		OrderCart existingCart = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
 		if (existingCart != null) {
-			existingCart.setNotes(updatedOrderCart.getNotes());
-			existingCart.setPaymentMethod(updatedOrderCart.getPaymentMethod());
-			existingCart.setPaymentData(updatedOrderCart.getPaymentData());
+//			existingCart.setNotes(updatedOrderCart.getNotes());
+//			existingCart.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+//			existingCart.setPaymentData(updatedOrderCart.getPaymentData());
+			
 
 			for (OrderDetail updatedDetail : updatedOrderCart.getOrderDetails()) {
 				int detailId = updatedDetail.getId();

@@ -78,5 +78,21 @@ public class OrderCartController {
 
 	}
 	
+	@PutMapping("orderCarts/{orderCartId}")
+	public OrderCart checkoutOrderCart(Principal principal, HttpServletResponse res, @PathVariable("orderCartId")int OrderCartId, @RequestBody OrderCart orderCart) {
+		orderCart = orderCartService.checkoutOrderCart(principal.getName(), OrderCartId, orderCart);
+		try {
+			if (orderCart == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+			orderCart = null;
+		}
+		return orderCart;
+
+	}
+	
 	
 }
