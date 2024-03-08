@@ -1,5 +1,5 @@
 <!-- <pre>{{ orderCart | json }}</pre> -->
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div *ngIf="orderCart">
     <h2>Your Order Cart <button class="btn btn-primary" (click)="initiateEditOrderCart()">Edit OrderCart</button></h2>
     <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index">
@@ -43,4 +43,89 @@
   </div>
 
 
+</div> -->
+
+
+<!-- <div class="container-fluid">
+  <div *ngIf="orderCart">
+    <h2>Your Order Cart</h2>
+    <div class="card-container">
+      <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index" class="card">
+        <div class="card-header">
+          <h3>{{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
+        </div>
+        <img [src]="orderDetail.plant.plantImageUrl" class="card-img" alt="Plant Image"/>
+        <div class="card-body">
+          <form class="quantity-form">
+            <label for="quantity{{i}}">Quantity:</label>
+            <input type="number" id="quantity{{i}}" [(ngModel)]="orderDetail.quantityOrdered" name="quantity{{i}}">
+            <button type="submit" class="btn btn-primary save-btn">Save</button>
+          </form>
+          <p>Price: ${{ orderDetail.subtotalPrice / 100 | number : "1.2-2" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <div class="container-fluid">
+  <div *ngIf="orderCart">
+    <h2>Your Order Cart</h2>
+    <div class="card-container">
+      <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index" class="card">
+        <div class="card-header">
+          <h3>{{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
+        </div>
+        <img [src]="orderDetail.plant.plantImageUrl" class="card-img" alt="Plant Image"/>
+        <div class="card-body">
+          <form #orderDetailForm="ngForm" (ngSubmit)="updateOrderCart(editOrderCart, editOrderCart?.id)">
+            <div class="form-group">
+              <label for="quantity{{i}}">Quantity:</label>
+              <input type="number" id="quantity{{i}}" class="form-control" [(ngModel)]="orderDetail.quantityOrdered" name="quantity{{i}}">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="giftWrap{{i}}" [(ngModel)]="orderDetail.giftWrap" name="giftWrap{{i}}">
+              <label for="giftWrap{{i}}" class="form-check-label">Gift Wrap</label>
+            </div>
+            <button type="submit" class="btn btn-primary save-btn">Save</button>
+          </form>
+          <p>Price: ${{ orderDetail.subtotalPrice / 100 | number : '1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container-fluid">
+  <div *ngIf="orderCart">
+    <h2>Your Order Cart</h2>
+    <div class="card-container">
+      <div *ngFor="let orderDetail of orderCart?.orderDetails; let i = index" class="card">
+        <div class="card-header">
+          <h3>{{ i + 1 }}. {{ orderDetail.plant.name }}</h3>
+        </div>
+        <img [src]="orderDetail.plant.plantImageUrl" class="card-img" alt="Plant Image"/>
+        <div class="card-body">
+          <form #orderDetailForm="ngForm" (ngSubmit)="updateOrderCart(orderCart, orderCart.id)">
+            <div class="form-group">
+              <label for="quantity{{i}}">Quantity:</label>
+              <input type="number" id="quantity{{i}}" class="form-control" [(ngModel)]="orderDetail.quantityOrdered" name="quantity{{i}}">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="giftWrap{{i}}" [(ngModel)]="orderDetail.giftWrap" name="giftWrap{{i}}">
+              <label for="giftWrap{{i}}" class="form-check-label">Gift Wrap</label>
+            </div>
+            <button type="submit" class="btn btn-primary save-btn">Save</button>
+          </form>
+          <p>Price: ${{ orderDetail.subtotalPrice / 100 | number : '1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+

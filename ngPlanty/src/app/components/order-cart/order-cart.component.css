@@ -1,4 +1,4 @@
-.image-container {
+/* .image-container {
   position: relative;
 }
 
@@ -11,7 +11,7 @@
   max-width: 100%;
   height: auto;
   display: block;
-}
+} */
 
 /* .card-img-top {
   width: 100%;
@@ -26,3 +26,69 @@
   margin-left: auto;
   margin-right: auto;
 } */
+
+.container-fluid {
+  padding: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  width: calc(33.333% - 20px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card-header h3 {
+  margin: 0;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+}
+
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.quantity-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.quantity-form input[type="number"] {
+  width: 60px;
+  padding: 5px;
+}
+
+.save-btn {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+}
+
