@@ -50,7 +50,7 @@ public class OrderCart {
 	
 //	@JsonIgnore  // TEMP
 	@ManyToOne
-	@JoinColumn(name = "payment_data_id")
+	@JoinColumn(name = "payment_data_id", nullable = true)
 	private PaymentData paymentData;
 	
 //	@JsonIgnore  // TEMP

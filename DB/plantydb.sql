@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `order_cart` ;
 CREATE TABLE IF NOT EXISTS `order_cart` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `payment_data_id` INT NOT NULL,
+  `payment_data_id` INT NULL,
   `total_price` INT NOT NULL,
   `date_placed` DATETIME NULL,
   `notes` VARCHAR(255) NULL,

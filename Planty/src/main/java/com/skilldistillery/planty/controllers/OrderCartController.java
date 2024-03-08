@@ -78,7 +78,7 @@ public class OrderCartController {
 
 	}
 	
-	@PutMapping("orderCarts/{orderCartId}")
+	@PutMapping("orderCarts/checkout/{orderCartId}")
 	public OrderCart checkoutOrderCart(Principal principal, HttpServletResponse res, @PathVariable("orderCartId")int OrderCartId, @RequestBody OrderCart orderCart) {
 		orderCart = orderCartService.checkoutOrderCart(principal.getName(), OrderCartId, orderCart);
 		try {
