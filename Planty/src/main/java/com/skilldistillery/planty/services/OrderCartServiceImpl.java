@@ -146,4 +146,10 @@ public class OrderCartServiceImpl implements OrderCartService {
 		return orderCart;
 	}
 
+	@Override
+	public boolean removeOrderDetailFromOrderCart(String username, int orderDetailId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

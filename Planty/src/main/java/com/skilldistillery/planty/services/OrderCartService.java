@@ -19,6 +19,8 @@ public interface OrderCartService {
 	OrderCart checkoutOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 	
 	boolean deleteOrderCart(String username, int orderCartId);
+	
+	boolean removeOrderDetailFromOrderCart(String username, int orderDetailId);
 
 	OrderCart getOrderCartByUsername(String username);
 
