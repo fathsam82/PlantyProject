@@ -32,23 +32,6 @@ public class OrderCartServiceImpl implements OrderCartService {
 	@Autowired
 	private OrderDetailService orderDetailService;
 
-//	@Override
-//	public List<OrderCart> listAllOrderCarts(String username) {
-//		
-//		return orderCartRepo.findByUser_Username(username);
-//	}
-
-//	@Override
-//	public OrderCart getOrderCart(String username, int orderCartId) {
-//		OrderCart orderCart = null;
-//		
-//		Optional<OrderCart> orderCartOpt = orderCartRepo.findById(orderCartId);
-//		if (orderCartOpt.isPresent() && orderCartOpt.get().getUser().getUsername().equals(username)) {
-//			orderCart = orderCartOpt.get();
-//		}
-//		return orderCart;
-//	}
-
 	@Override
 	public OrderCart createOrderCart(String username, OrderCart newOrderCart) {
 		User user = userRepo.findByUsername(username);
@@ -59,42 +42,16 @@ public class OrderCartServiceImpl implements OrderCartService {
 		return null;
 	}
 
-//	@Override
-//	@Transactional
-//	public OrderCart addPlantToCart(String username, int plantId, int quantity) {
-//		User user = userRepo.findByUsername(username);
-//		Plant plant = plantRepo.findById(plantId).orElseThrow(null);
-//		
-//		OrderCart orderCart = user.getOrderCart();
-//		
-//		if(orderCart == null) {
-//			orderCart = new OrderCart();
-//			orderCart.setUser(user);
-//		}
-//		
-//		OrderDetail orderDetail = new OrderDetail();
-//		orderDetail.setPlant(plant);
-//		orderDetail.setQuantityOrdered(quantity);
-//		orderDetail.setOrderCart(orderCart);
-//		orderDetailRepo.saveAndFlush(orderDetail);
-//		
-//		return orderCart;
-//		
-//		
-//	}
-
-	
-	
 	@Override
 	public OrderCart checkoutOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
 		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
-		if(existing != null) {
+		if (existing != null) {
 			existing.setNotes(updatedOrderCart.getNotes());
 			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
 //			existing.setPaymentData(updatedOrderCart.getPaymentData());   // STILL HAVE TO IMPLEMENT GET / POST / DELETE FOR PAYMENT DATA POJO
-			
+
 			orderCartRepo.saveAndFlush(existing);
-			
+
 		}
 		return existing;
 	}
@@ -106,7 +63,6 @@ public class OrderCartServiceImpl implements OrderCartService {
 //			existingCart.setNotes(updatedOrderCart.getNotes());
 //			existingCart.setPaymentMethod(updatedOrderCart.getPaymentMethod());
 //			existingCart.setPaymentData(updatedOrderCart.getPaymentData());
-			
 
 			for (OrderDetail updatedDetail : updatedOrderCart.getOrderDetails()) {
 				int detailId = updatedDetail.getId();
@@ -148,8 +104,21 @@ public class OrderCartServiceImpl implements OrderCartService {
 
 	@Override
 	public boolean removeOrderDetailFromOrderCart(String username, int orderDetailId) {
-		// TODO Auto-generated method stub
-		return false;
+		User user = userRepo.findByUsername(username);
+	    if (user == null) {
+	        return false;
+	    }
+	    OrderCart orderCart = user.getOrderCart();
+	    if (orderCart == null) {
+	        return false;
+	    }
+	    
+	    boolean removed = orderCart.getOrderDetails().removeIf(detail -> detail.getId() == orderDetailId);
+	    if (removed) {
+	        orderCartRepo.saveAndFlush(orderCart);
+	    }
+	    return removed; 
+	
 	}
 
 }
