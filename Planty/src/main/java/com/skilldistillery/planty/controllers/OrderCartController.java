@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,6 +94,29 @@ public class OrderCartController {
 		return orderCart;
 
 	}
+	
+	@DeleteMapping("orderCarts/{orderCartId}/details/{orderDetailId}")
+	public ResponseEntity<?> removeOrderDetailFromOrderCart(Principal principal, @PathVariable("orderCartId") int orderCartId, @PathVariable("orderDetailId") int orderDetailId, HttpServletResponse res) {
+	    if (principal == null) {
+	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	    }
+	    try {
+	        String username = principal.getName();
+	        boolean success = orderCartService.removeOrderDetailFromOrderCart(username, orderDetailId);
+	        
+	        if (success) {
+	            return ResponseEntity.ok().build();
+	        } else {
+	            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("orderDetail with ID " + orderDetailId + " not found with orderCart ID " + orderCartId);
+	        }
+	    } catch (Exception e) {
+	        res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while removing the order detail");
+	    }
+	}
+
 	
 	
 }
