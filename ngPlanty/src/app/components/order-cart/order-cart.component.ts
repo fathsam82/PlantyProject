@@ -65,6 +65,24 @@ export class OrderCartComponent implements OnInit {
     });
   }
 
+removeOrderDetail(orderCartId: number, orderDetailId: number) {
+  this.orderCartService.removeOrderDetail(orderCartId, orderDetailId).subscribe({
+    next: () => {
+      console.log(`Order detail ${orderDetailId} deleted successfully!`);
+
+
+      this.getOrderCart();
+
+
+    },
+    error: (error) => {
+      console.error(`Error deleting order detail ${orderDetailId}`, error);
+    }
+  });
+}
+
+
+
   initiateEditOrderCart() {
     this.editOrderCart = JSON.parse(JSON.stringify(this.selectedOrderCart));
   }

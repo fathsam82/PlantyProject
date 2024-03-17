@@ -25,7 +25,7 @@ public class OrderCartServiceImpl implements OrderCartService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private OrderDetailRepository orderDetailRepo;
 
@@ -108,21 +108,21 @@ public class OrderCartServiceImpl implements OrderCartService {
 	@Override
 	public boolean removeOrderDetailFromOrderCart(String username, int orderDetailId) {
 		User user = userRepo.findByUsername(username);
-	    if (user == null) {
-	        return false;
-	    }
-	    OrderCart orderCart = user.getOrderCart();
-	    if (orderCart == null) {
-	        return false;
-	    }
-	    
-	    boolean removed = orderCart.getOrderDetails().removeIf(detail -> detail.getId() == orderDetailId);
-	    if (removed) {
-	    	orderDetailRepo.deleteById(orderDetailId);
-	        orderCartRepo.saveAndFlush(orderCart);
-	    }
-	    return removed; 
-	
+		if (user == null) {
+			return false;
+		}
+		OrderCart orderCart = user.getOrderCart();
+		if (orderCart == null) {
+			return false;
+		}
+
+		boolean removed = orderCart.getOrderDetails().removeIf(detail -> detail.getId() == orderDetailId);
+		if (removed) {
+			orderDetailRepo.deleteById(orderDetailId);
+			orderCartRepo.saveAndFlush(orderCart);
+		}
+		return removed;
+
 	}
 
 }

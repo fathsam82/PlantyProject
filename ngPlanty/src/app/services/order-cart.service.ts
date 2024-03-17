@@ -71,5 +71,22 @@ export class OrderCartService {
       )
     }
 
+    removeOrderDetail(orderCartId: number, orderDetailId: number): Observable<any> {
+      return this.authService.getLoggedInUser().pipe(
+        switchMap(user => {
+          if (!user) {
+            throw new Error('User not logged in');
+          }
+          const deleteUrl = `${this.url}/${orderCartId}/details/${orderDetailId}`;
+          return this.httpClient.delete(deleteUrl, this.getHttpOptions()).pipe(
+            catchError(err => {
+              console.error(err);
+              return throwError(() => new Error('OrderCartService.removeOrderDetail(): error removing order detail'));
+            })
+          );
+        })
+      );
+    }
+
 
 }
