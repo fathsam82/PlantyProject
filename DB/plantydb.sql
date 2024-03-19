@@ -225,6 +225,28 @@ CREATE TABLE IF NOT EXISTS `plant_origin` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `shipping_address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shipping_address` ;
+
+CREATE TABLE IF NOT EXISTS `shipping_address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `street_address` VARCHAR(255) NULL,
+  `zipcode` VARCHAR(45) NULL,
+  `city` VARCHAR(200) NULL,
+  `state` VARCHAR(45) NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_shipping_address_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_shipping_address_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS plantyuser@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -330,6 +352,16 @@ INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) V
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Guyana', 6.8013, -58.1553);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (3, 3, 'Oman', 21.0000, 57.0000);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (4, 4, 'Ghana', 5.5600, 0.2057);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `shipping_address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `shipping_address` (`id`, `street_address`, `zipcode`, `city`, `state`, `user_id`) VALUES (1, '4567 sawmill blvd', '78456', 'Townsville', 'CO', 1);
 
 COMMIT;
 
