@@ -6,13 +6,13 @@ import com.skilldistillery.planty.entities.PaymentData;
 
 public interface PaymentDataService {
 	
-	List<PaymentData> listAllPaymentData(String username);
+	List<PaymentData> listPaymentDataByUsername(String username);
 	
 	PaymentData getPaymentData(String username, int paymentDataId);
 	
 	PaymentData createPaymentData(String username, String cardType, String cardNumber, String expirationDateString);
 	
-	boolean deletePaymmentData(String username, int paymentDataId);
+	boolean deletePaymentData(String username, int paymentDataId);
 	
 
 }
