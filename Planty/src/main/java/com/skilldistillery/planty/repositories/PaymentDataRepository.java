@@ -10,6 +10,6 @@ public interface PaymentDataRepository extends JpaRepository<PaymentData, Intege
 	
 	List<PaymentData> findByUser_Username(String username);
 	
-	
+	PaymentData findByIdAndUser_Username(int paymentDataId, String username);
 
 }

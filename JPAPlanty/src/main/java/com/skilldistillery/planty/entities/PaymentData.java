@@ -16,36 +16,39 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "payment_data")
 public class PaymentData {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "card_type")
 	private String cardType;
-	
+
 	@Column(name = "card_number")
 	private String cardNumber;
-	
+
 	@CreationTimestamp
 	@Column(name = "expiration_date")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate expirationDate;
-	
+
 	private Boolean enabled;
-	
+
 	@JoinColumn(name = "user_id")
 	@ManyToOne
 	private User user;
-	
+
 //	@OneToMany(mappedBy = "paymentData")
 //	private List<OrderCart> orderCarts;
 //	No need for bi directional, will only need to access paymentData from orderCart, not orderCart from paymentData
 
 	public PaymentData() {
-		
+
 	}
 
 	public int getId() {
@@ -87,8 +90,6 @@ public class PaymentData {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	
 
 	public User getUser() {
 		return user;
@@ -97,7 +98,7 @@ public class PaymentData {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "PaymentData [id=" + id + ", cardType=" + cardType + ", cardNumber=" + cardNumber + ", expirationDate="
@@ -120,9 +121,5 @@ public class PaymentData {
 		PaymentData other = (PaymentData) obj;
 		return id == other.id;
 	}
-	
-	
-	
-	
 
 }

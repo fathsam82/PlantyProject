@@ -8,11 +8,11 @@ public interface PaymentDataService {
 	
 	List<PaymentData> listPaymentDataByUsername(String username);
 	
-	PaymentData getPaymentData(String username, int paymentDataId);
+	PaymentData getPaymentData(int paymentDataId, String username);
 	
 	PaymentData createPaymentData(String username, String cardType, String cardNumber, String expirationDateString);
 	
-	boolean deletePaymentData(String username, int paymentDataId);
+	boolean deletePaymentData(int paymentDataId, String username);
 	
 
 }
