@@ -53,7 +53,7 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 		    }
 		    
 		    if (expirationDate.isBefore(LocalDate.now())) {
-		        throw new IllegalArgumentException("Can't use an expired card, genius!");
+		        throw new IllegalArgumentException("Card is expired, genius!");
 		    }
 		    
 		    PaymentData paymentData = new PaymentData();
@@ -65,9 +65,7 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 		    return paymentDataRepo.save(paymentData);
 		}
 
-
-
-		
+	
 		@Override
 		public boolean deletePaymentData(int paymentDataId, String username) {
 		    PaymentData paymentData = paymentDataRepo.findByIdAndUser_Username(paymentDataId, username);

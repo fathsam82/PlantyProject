@@ -19,6 +19,10 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { OrderCartComponent } from './components/order-cart/order-cart.component';
 import { MatIconModule } from '@angular/material/icon';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -34,6 +38,7 @@ import { MatIconModule } from '@angular/material/icon';
     PlantDetailComponent,
     OrderDetailComponent,
     OrderCartComponent,
+    CheckoutComponent
   ],
   providers: [DatePipe, provideAnimationsAsync()],
   bootstrap: [AppComponent],

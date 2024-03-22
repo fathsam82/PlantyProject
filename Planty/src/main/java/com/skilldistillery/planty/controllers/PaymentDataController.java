@@ -2,7 +2,6 @@ package com.skilldistillery.planty.controllers;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
