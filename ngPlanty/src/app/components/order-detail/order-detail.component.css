@@ -1,39 +1,48 @@
+
+
+
 .order-detail-container {
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .order-detail-card {
+  display: flex;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin-top: 20px;
+  width: 80%;
+  max-width: 960px;
 }
 
 .image-container {
+  flex: 1;
   text-align: center;
   padding: 20px;
 }
 
 .plant-image {
-  max-width: 100%;
-  height: auto;
+  width: auto;
+  max-height: 250px;
   border-radius: 8px;
 }
 
-.order-info h2 {
-  font-size: 1.5rem;
-  color: #333;
-  padding-top: 20px;
+.order-info {
+  flex: 1;
+  padding: 20px;
 }
 
-.order-info h1 {
-  font-size: 2rem;
-  color: #007BFF;
-  padding: 10px 0;
-}
 
 @media (max-width: 768px) {
-  .order-info h1, .order-info h2 {
-    text-align: center;
+  .order-detail-card {
+    flex-direction: column;
+  }
+
+  .plant-image {
+    max-height: 200px;
   }
 }
+
