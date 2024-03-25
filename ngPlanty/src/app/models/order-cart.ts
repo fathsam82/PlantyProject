@@ -15,7 +15,6 @@ export class OrderCart {
   paymentData: PaymentData;
   orderDetails: OrderDetail[];
 
-
   constructor(
     id: number = 0,
     totalPrice: number = 0,
