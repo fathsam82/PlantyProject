@@ -6,7 +6,7 @@ import { PaymentData } from '../models/payment-data';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaymentDataService {
   private url = environment.baseUrl + 'api/paymentData';
@@ -14,7 +14,7 @@ export class PaymentDataService {
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService
-  ) { }
+  ) {}
 
   getHttpOptions() {
     let options = {
@@ -26,24 +26,27 @@ export class PaymentDataService {
     return options;
   }
 
-  getPaymentDataByUsername(username: string): Observable<PaymentData> {
+  getPaymentDataByUsername(username: string): Observable<PaymentData[]> {
     return this.authService.getLoggedInUser().pipe(
       switchMap((user) => {
-        if(!user) {
+        if (!user) {
           throw new Error('User not logged in');
         }
         const urlWithUsername = `${this.url}/${username}`;
-        return this.httpClient.get<PaymentData>(urlWithUsername, this.getHttpOptions()).pipe(
-          catchError((err: any) => {
-            console.log(err);
-            return throwError(
-              () =>
-              new Error('PaymentDataService.getPaymentDataByUsername(): error retrieving paymentData')
-            );
-          })
-        );
+        return this.httpClient
+          .get<PaymentData[]>(urlWithUsername, this.getHttpOptions())
+          .pipe(
+            catchError((err: any) => {
+              console.log(err);
+              return throwError(
+                () =>
+                  new Error(
+                    'PaymentDataService.getPaymentDataByUsername(): error retrieving paymentData'
+                  )
+              );
+            })
+          );
       })
-    )
+    );
   }
-
 }

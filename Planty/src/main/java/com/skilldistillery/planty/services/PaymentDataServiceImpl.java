@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +27,20 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 	@Autowired
 	private UserRepository userRepo;
 
-	@Override
-	public List<PaymentData> listPaymentDataByUsername(String username) {
-		return paymentDataRepo.findByUser_Username(username);
+	public List<PaymentData> listPaymentDataForLoggedInUser(String username) {
+	  
+	    User user = userRepo.findByUsername(username);
+	    if (user == null) {
+	        throw new EntityNotFoundException("User not found for username: " + username);
+	    }
+	    
+	    List<PaymentData> paymentDatas = user.getPaymentDatas();
+	    if (paymentDatas == null) {
+	        return new ArrayList<>();
+	    }
+	    return paymentDatas;
 	}
+
 
 		@Override
 	    public PaymentData getPaymentData(int paymentDataId, String username) {

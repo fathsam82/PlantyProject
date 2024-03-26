@@ -29,8 +29,8 @@ public class PaymentDataController {
 	@Autowired
 	private PaymentDataService paymentDataService;
 
-	@GetMapping("paymentData/{username}")
-	public ResponseEntity<List<PaymentData>> listPaymentDataByUsername(@PathVariable String username,
+	@GetMapping("paymentData")
+	public ResponseEntity<List<PaymentData>> listPaymentDataByUsername(
 			Principal principal, HttpServletResponse res) {
 		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -38,7 +38,8 @@ public class PaymentDataController {
 		}
 
 		try {
-			List<PaymentData> paymentDatas = paymentDataService.listPaymentDataByUsername(username);
+			String username = principal.getName();
+			List<PaymentData> paymentDatas = paymentDataService.listPaymentDataForLoggedInUser(username);
 			return ResponseEntity.ok(paymentDatas);
 		} catch (EntityNotFoundException e) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);

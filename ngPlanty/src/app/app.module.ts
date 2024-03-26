@@ -20,6 +20,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { OrderCartComponent } from './components/order-cart/order-cart.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
 
 
 
@@ -38,7 +39,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     PlantDetailComponent,
     OrderDetailComponent,
     OrderCartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProfileInfoComponent
   ],
   providers: [DatePipe, provideAnimationsAsync()],
   bootstrap: [AppComponent],

@@ -10,6 +10,7 @@ import { PlantDetailComponent } from './components/plant-detail/plant-detail.com
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { OrderCartComponent } from './components/order-cart/order-cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'plants' },
@@ -23,6 +24,8 @@ const routes: Routes = [
   { path: 'order-detail/:id', component: OrderDetailComponent },
   { path: 'order-cart', component: OrderCartComponent },
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'profile-info', component: ProfileInfoComponent },
+
 
 
   // { path: '**', component: NotFoundComponent}

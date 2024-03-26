@@ -5,7 +5,7 @@ import com.skilldistillery.planty.entities.PaymentData;
 
 public interface PaymentDataService {
 
-	List<PaymentData> listPaymentDataByUsername(String username);
+	List<PaymentData> listPaymentDataForLoggedInUser(String username);
 
 	PaymentData getPaymentData(int paymentDataId, String username);
 

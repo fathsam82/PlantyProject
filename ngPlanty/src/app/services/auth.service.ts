@@ -71,16 +71,17 @@ export class AuthService {
         'X-Requested-with': 'XMLHttpRequest',
       },
     };
-    return this.http
-      .get<User>(this.url + 'authenticate', httpOptions)
-      .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError(
-            () => new Error( 'AuthService.getUserById(): error retrieving user: ' + err )
-          );
-        })
-      );
+    return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () =>
+            new Error(
+              'AuthService.getUserById(): error retrieving user: ' + err
+            )
+        );
+      })
+    );
   }
 
   checkLogin(): boolean {
@@ -97,5 +98,4 @@ export class AuthService {
   getCredentials(): string | null {
     return localStorage.getItem('credentials');
   }
-
 }

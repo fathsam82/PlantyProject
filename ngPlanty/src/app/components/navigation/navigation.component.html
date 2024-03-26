@@ -40,6 +40,10 @@
             <mat-icon>shopping_cart</mat-icon>
           </button>
         </li>
+
+        <li class="nav-item" *ngIf="checkLogin()">
+          <button class="btn nav-link" [routerLink]="['/profile-info']">Profile</button>
+        </li>
       </ul>
     </div>
   </div>

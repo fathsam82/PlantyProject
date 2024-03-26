@@ -12,9 +12,9 @@ export class PlantService {
   // private baseUrl = 'http://localhost:8085/';
   private url = environment.baseUrl + 'api/plants';
 
-  constructor(private http: HttpClient)
-  // private auth: AuthService
-  {}
+  constructor(
+    private http: HttpClient // private auth: AuthService
+  ) {}
 
   //     getHttpOptions(){
   //       let options = {

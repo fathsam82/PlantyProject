@@ -44,10 +44,12 @@ export class OrderDetailService {
           })
         );
       }),
-      catchError((err:any) =>{
+      catchError((err: any) => {
         console.log(err);
-        return throwError(
-          () => Error('OrderDetailService.getOrderDetail(): error checking user login')
+        return throwError(() =>
+          Error(
+            'OrderDetailService.getOrderDetail(): error checking user login'
+          )
         );
       })
     );
