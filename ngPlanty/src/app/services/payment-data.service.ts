@@ -26,15 +26,14 @@ export class PaymentDataService {
     return options;
   }
 
-  getPaymentDataByUsername(username: string): Observable<PaymentData[]> {
+  getPaymentDataByUsername(): Observable<PaymentData[]> {
     return this.authService.getLoggedInUser().pipe(
       switchMap((user) => {
         if (!user) {
           throw new Error('User not logged in');
         }
-        const urlWithUsername = `${this.url}/${username}`;
         return this.httpClient
-          .get<PaymentData[]>(urlWithUsername, this.getHttpOptions())
+          .get<PaymentData[]>(this.url, this.getHttpOptions())
           .pipe(
             catchError((err: any) => {
               console.log(err);

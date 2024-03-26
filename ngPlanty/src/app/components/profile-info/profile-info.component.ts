@@ -8,7 +8,7 @@ import { PaymentDataService } from 'src/app/services/payment-data.service';
   templateUrl: './profile-info.component.html',
   styleUrl: './profile-info.component.css',
 })
-export class ProfileInfoComponent {
+export class ProfileInfoComponent implements OnInit {
   paymentDataList: PaymentData[] | undefined;
   searchPaymentDataQuery: string = '';
 
@@ -18,33 +18,23 @@ export class ProfileInfoComponent {
     private router: Router
   ) {}
 
-  // ngOnInit() {
-  //   this.authService.getLoggedInUser().subscribe(user => {
-  //     if (user && user.username) {
-  //       this.searchPaymentDataQuery = user.username; // Assuming the user object has a username property
-  //       this.getPaymentDataByUsername();
-  //     }
-  //   });
-  // }
-
+  ngOnInit() {
+    this.getPaymentDataByUsername();
+  }
 
   getPaymentDataByUsername() {
-    if (this.searchPaymentDataQuery.trim()) {
-      this.paymentDataService
-        .getPaymentDataByUsername(this.searchPaymentDataQuery)
-        .subscribe({
-          next: (paymentDataList) => {
-            console.log(paymentDataList);
-            this.paymentDataList = paymentDataList;
-          },
-          error: (sometingBad) => {
-            console.error(
-              'ProfileInfoComponent.getPaymentDataByUsername: error loading paymentData'
-            );
-            console.log(sometingBad);
-            console.log(this.paymentDataList);
-          },
-        });
-    }
+    this.paymentDataService.getPaymentDataByUsername().subscribe({
+      next: (paymentDataList) => {
+        console.log(paymentDataList);
+        this.paymentDataList = paymentDataList;
+      },
+      error: (sometingBad) => {
+        console.error(
+          'ProfileInfoComponent.getPaymentDataByUsername: error loading paymentData'
+        );
+        console.log(sometingBad);
+        console.log(this.paymentDataList);
+      },
+    });
   }
 }
