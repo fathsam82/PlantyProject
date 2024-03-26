@@ -47,20 +47,15 @@ public class PaymentDataController {
 		}
 	}
 	
-	@GetMapping("paymentData/{username}/{paymentDataId}")
-	public ResponseEntity<PaymentData> getPaymentData(@PathVariable String username, @PathVariable int paymentDataId, Principal principal, HttpServletResponse res) {
+	@GetMapping("paymentData/{paymentDataId}")
+	public ResponseEntity<PaymentData> getPaymentData(@PathVariable int paymentDataId, Principal principal, HttpServletResponse res) {
 	    if (principal == null) {
 	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	    }
 
-	    String authenticatedUsername = principal.getName();
-	    if (!authenticatedUsername.equals(username)) {
-	        res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-	        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-	    }
-
 	    try {
+	    	String username = principal.getName();
 	        PaymentData paymentData = paymentDataService.getPaymentData(paymentDataId, username);
 	        return ResponseEntity.ok(paymentData);
 	    } catch (EntityNotFoundException e) {
@@ -69,19 +64,21 @@ public class PaymentDataController {
 	    }
 	}
 	
-	@PostMapping("paymentData/{username}")
-    public ResponseEntity<?> createPaymentData(@PathVariable String username, @RequestBody PaymentData paymentData, Principal principal, HttpServletResponse res) {
-        if (principal == null || !principal.getName().equals(username)) {
+	@PostMapping("paymentData")
+    public ResponseEntity<?> createPaymentData(@RequestBody PaymentData paymentData, Principal principal, HttpServletResponse res) {
+        if (principal == null) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         try {
+        	String username = principal.getName();
             PaymentData newPaymentData = paymentDataService.createPaymentData(
-                principal.getName(), 
+                username, 
                 paymentData.getCardType(), 
                 paymentData.getCardNumber(), 
-                paymentData.getExpirationDate().toString()
+                paymentData.getExpirationDate().toString(),
+                paymentData.getEnabled()
             );
             return ResponseEntity.ok(newPaymentData);
         } catch (IllegalArgumentException | EntityNotFoundException e) {

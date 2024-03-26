@@ -49,7 +49,7 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 	
 
 		@Override
-		public PaymentData createPaymentData(String username, String cardType, String cardNumber, String expirationDateString) {
+		public PaymentData createPaymentData(String username, String cardType, String cardNumber, String expirationDateString, Boolean enabled) {
 		    User user = userRepo.findByUsername(username);
 		    if (user == null) {
 		        throw new EntityNotFoundException("User not found");
@@ -72,6 +72,7 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 		    paymentData.setCardType(cardType);
 		    paymentData.setCardNumber(cardNumber);
 		    paymentData.setExpirationDate(expirationDate);
+		    paymentData.setEnabled(enabled);
 
 		    return paymentDataRepo.save(paymentData);
 		}
