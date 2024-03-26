@@ -48,4 +48,26 @@ export class PaymentDataService {
       })
     );
   }
+
+  getPaymentDataById(paymentDataId: number): Observable<PaymentData> {
+    return this.authService.getLoggedInUser().pipe(
+      switchMap((user) => {
+        if(!user) {
+          throw new Error('User not logged in');
+        }
+        return this.httpClient.get<PaymentData>(this.url + '/' + paymentDataId, this.getHttpOptions())
+        .pipe(
+          catchError((err: any) => {
+            console.log(err);
+            return throwError(
+              () =>
+              new Error(
+                'PaymentDataService.getPaymentDataById(): error retrieving paymentData'
+              )
+            )
+          })
+        )
+      })
+    )
+  }
 }
