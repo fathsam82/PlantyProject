@@ -70,4 +70,26 @@ export class PaymentDataService {
       })
     )
   }
+
+  createPaymentData(paymentData: PaymentData): Observable<PaymentData> {
+    return this.authService.getLoggedInUser().pipe(
+      switchMap((user) => {
+        if (!user) {
+          throw new Error('User not logged in');
+        }
+        return this.httpClient.post<PaymentData>(this.url, paymentData, this.getHttpOptions())
+          .pipe(
+            catchError((err: any) => {
+              console.log(err);
+              return throwError(
+                () =>
+                  new Error(
+                    'PaymentDataService.createPaymentData(): error creating paymentData'
+                  )
+              );
+            })
+          );
+      })
+    );
+  }
 }
