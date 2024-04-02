@@ -9,7 +9,7 @@ public interface PaymentDataService {
 
 	PaymentData getPaymentData(int paymentDataId, String username);
 
-	PaymentData createPaymentData(String username, String cardType, String cardNumber, String expirationDateString, Boolean enabled);
+	PaymentData createPaymentData(String username, String cardType, String cardNumber, String expirationDateString, String fullName, Boolean enabled);
 
 	boolean deletePaymentData(int paymentDataId, String username);
 

@@ -38,7 +38,10 @@ public class PaymentData {
 	private LocalDate expirationDate;
 
 	private Boolean enabled;
-
+	
+	@Column(name = "full_name")
+	private String fullName;
+	
 	@JoinColumn(name = "user_id")
 	@ManyToOne
 	private User user;
@@ -98,11 +101,20 @@ public class PaymentData {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
 	@Override
 	public String toString() {
 		return "PaymentData [id=" + id + ", cardType=" + cardType + ", cardNumber=" + cardNumber + ", expirationDate="
-				+ expirationDate + ", enabled=" + enabled + ", user=" + user + "]";
+				+ expirationDate + ", enabled=" + enabled + ", fullName=" + fullName + ", user=" + user + "]";
 	}
 
 	@Override

@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `payment_data` (
   `card_number` VARCHAR(16) NOT NULL,
   `expiration_date` DATE NOT NULL,
   `enabled` TINYINT NULL,
+  `full_name` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_payment_data_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_payment_data_user1`
@@ -298,7 +299,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `payment_data` (`id`, `user_id`, `card_type`, `card_number`, `expiration_date`, `enabled`) VALUES (1, 1, 'VISA', '1234123412341234', '2024-11-15', 1);
+INSERT INTO `payment_data` (`id`, `user_id`, `card_type`, `card_number`, `expiration_date`, `enabled`, `full_name`) VALUES (1, 1, 'VISA', '1234123412341234', '2024-11-15', 1, 'Dan The Man');
 
 COMMIT;
 

@@ -6,6 +6,7 @@ export class PaymentData {
   cardNumber: string;
   expirationDate: string;
   enabled: boolean;
+  fullName: string;
   user: User;
 
   constructor(
@@ -14,6 +15,7 @@ export class PaymentData {
     cardNumber: string = '',
     expirationDate: string = '',
     enabled: boolean = false,
+    fullName: string = '',
     user: User = new User()
   ) {
     this.id = id;
@@ -21,6 +23,7 @@ export class PaymentData {
     this.cardNumber = cardNumber;
     this.expirationDate = expirationDate;
     this.enabled = enabled;
+    this.fullName = fullName;
     this.user = user;
   }
 }

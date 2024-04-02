@@ -78,6 +78,7 @@ public class PaymentDataController {
                 paymentData.getCardType(), 
                 paymentData.getCardNumber(), 
                 paymentData.getExpirationDate().toString(),
+                paymentData.getFullName(),
                 paymentData.getEnabled()
             );
             return ResponseEntity.ok(newPaymentData);
