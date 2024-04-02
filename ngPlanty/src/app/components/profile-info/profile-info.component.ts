@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentData } from 'src/app/models/payment-data';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { PaymentDataService } from 'src/app/services/payment-data.service';
 
 @Component({
@@ -14,15 +15,19 @@ export class ProfileInfoComponent implements OnInit {
   searchPaymentDataQuery: string = '';
   newPaymentData: PaymentData = new PaymentData;
 
+  username: string | null = null;
+
 
   constructor(
     private paymentDataService: PaymentDataService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.getPaymentDataByUsername();
+    this.username = this.authService.getUsername();
   }
 
   getPaymentDataByUsername() {

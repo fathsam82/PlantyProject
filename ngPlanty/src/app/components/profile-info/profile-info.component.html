@@ -1,33 +1,35 @@
-<div class="container">
-  <h2>Add Payment Method</h2>
-  <form (ngSubmit)="createPaymentData(newPaymentData)">
-    <div class="form-group">
-      <label for="cardType">Card Type:</label>
-      <input type="text" id="cardType" [(ngModel)]="newPaymentData.cardType" name="cardType" required>
-    </div>
-    <div class="form-group">
-      <label for="cardHolderName">Card Holder's Name:</label>
-      <input type="text" id="cardHolderName" [(ngModel)]="newPaymentData.fullName" name="cardHolderName" required>
-    </div>
-    <div class="form-group">
-      <label for="cardNumber">Card Number:</label>
-      <input type="text" id="cardNumber" [(ngModel)]="newPaymentData.cardNumber" name="cardNumber" required>
-    </div>
-    <div class="form-group">
-      <label for="expiryDate">Expiry Date:</label>
-      <input type="text" id="expiryDate" [(ngModel)]="newPaymentData.expirationDate" name="expiryDate" required placeholder="MM/YY">
-    </div>
-    <button type="submit" class="btn">Add Payment Method</button>
-  </form>
+<div class="container my-4">
+  <div class="welcome-message">
+    <h2>Welcome, {{username}}!</h2>
+  </div>
+  <div class="payment-method-form">
+    <h2>Add Payment Method</h2>
+    <form (ngSubmit)="createPaymentData(newPaymentData)" class="form">
+      <div class="form-group">
+        <label for="cardType">Card Type:</label>
+        <input type="text" id="cardType" [(ngModel)]="newPaymentData.cardType" name="cardType" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cardHolderName">Card Holder's Name:</label>
+        <input type="text" id="cardHolderName" [(ngModel)]="newPaymentData.fullName" name="cardHolderName" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" [(ngModel)]="newPaymentData.cardNumber" name="cardNumber" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="text" id="expiryDate" [(ngModel)]="newPaymentData.expirationDate" name="expiryDate" required placeholder="MM/YY" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Add Payment Method</button>
+    </form>
+  </div>
+  <div class="payment-methods-list mt-5">
+    <h2>My Payment Methods</h2>
+    <ul class="list-unstyled">
+      <li *ngFor="let paymentData of paymentDataList" class="payment-method">
+        Card Holder: {{paymentData.fullName}} - Card Number: **** **** **** {{paymentData.cardNumber.slice(-4)}}
+      </li>
+    </ul>
+  </div>
 </div>
-
-<div class="container">
-  <h2>My Payment Methods</h2>
-  <ul>
-    <li *ngFor="let paymentData of paymentDataList">
-      Card Holder: {{paymentData.fullName}} -
-      Card Number: **** **** **** {{paymentData.cardNumber.slice(-4)}}
-    </li>
-  </ul>
-</div>
-

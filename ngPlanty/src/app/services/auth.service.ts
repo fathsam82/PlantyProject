@@ -16,7 +16,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(user: User): Observable<User> {
-    // Create POST request to register a new account
     return this.http.post<User>(this.url + 'register', user).pipe(
       catchError((err: any) => {
         console.log(err);
@@ -89,6 +88,18 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+
+  getUsername(): string | null {
+    const credentials = this.getCredentials();
+    if (!credentials) {
+      return null;
+    }
+    // Decode the credentials from Base64 and split them by the colon to get the username
+    const decoded = Buffer.from(credentials, 'base64').toString('ascii');
+    const username = decoded.split(':')[0];
+    return username;
   }
 
   generateBasicAuthCredentials(username: string, password: string): string {
