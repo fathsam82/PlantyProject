@@ -36,12 +36,17 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 	@Override
 	public ShippingAddress getShippingAddress(int shippingAddressId, String username) {
 		
-		return shippingAddressRepo.;
+		return shippingAddressRepo.findByIdAndUser_Username(shippingAddressId, username);
 	}
 
 	@Override
 	public ShippingAddress createShippingAddress(String username, String streetAddress, String zipcode, String city,
 			String state) {
+		User user = userRepo.findByUsername(username);
+		
+		if (user == null) {
+			throw new EntityNotFoundException("User not found for username " + username);
+		}
 		return null;
 	}
 
