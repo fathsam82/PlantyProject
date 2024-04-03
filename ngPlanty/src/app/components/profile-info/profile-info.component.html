@@ -29,6 +29,7 @@
     <ul class="list-unstyled">
       <li *ngFor="let paymentData of paymentDataList" class="payment-method">
         Card Holder: {{paymentData.fullName}} - Card Number: **** **** **** {{paymentData.cardNumber.slice(-4)}}
+        <button (click)="deletePaymentData(paymentData.id)" class="btn btn-danger btn-sm">Delete</button>
       </li>
     </ul>
   </div>

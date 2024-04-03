@@ -62,4 +62,24 @@ export class ProfileInfoComponent implements OnInit {
 
 
 
+  deletePaymentData(paymentDataId: number) {
+    if (!this.username) {
+      console.error('Error: Username is not available');
+      return;
+    }
+
+    this.paymentDataService.deletePaymentData(this.username, paymentDataId).subscribe({
+      next: () => {
+        console.log('Payment data deleted successfully');
+        // Refresh the list to reflect the deletion
+        this.getPaymentDataByUsername();
+      },
+      error: (error) => {
+        console.error('Error deleting paymentData', error);
+      },
+    });
+  }
+
+
+
 }

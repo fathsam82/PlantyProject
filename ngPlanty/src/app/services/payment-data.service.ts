@@ -92,4 +92,15 @@ export class PaymentDataService {
       })
     );
   }
+
+  deletePaymentData(username: string, paymentDataId: number): Observable<any> {
+    return this.httpClient.delete(`${this.url}/${username}/${paymentDataId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.error('PaymentDataService.deletePaymentData(): error deleting paymentData', err);
+          return throwError(() => new Error('Error deleting paymentData'));
+        })
+      );
+  }
+
 }
