@@ -9,24 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skilldistillery.planty.entities.ShippingAddress;
 import com.skilldistillery.planty.entities.User;
+import com.skilldistillery.planty.repositories.ShippingAddressRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
 
-public class ShippingAddressServiceImpl implements ShippingAddressService{
-	
+public class ShippingAddressServiceImpl implements ShippingAddressService {
+
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private ShippingAddressRepository shippingAddressRepo;
 
 	@Override
 	public List<ShippingAddress> listShippingAddressForLoggedInUser(String username) {
 		User user = userRepo.findByUsername(username);
-		if(user == null) {
+		if (user == null) {
 			throw new EntityNotFoundException("User not found for username " + username);
-			
-			
 		}
-		
 		List<ShippingAddress> shippingAddresses = user.getShippingAddresses();
-		if(shippingAddresses == null) {
+		if (shippingAddresses == null) {
 			return new ArrayList<>();
 		}
 		return shippingAddresses;
@@ -34,7 +35,8 @@ public class ShippingAddressServiceImpl implements ShippingAddressService{
 
 	@Override
 	public ShippingAddress getShippingAddress(int shippingAddressId, String username) {
-		return null;
+		
+		return shippingAddressRepo.;
 	}
 
 	@Override
