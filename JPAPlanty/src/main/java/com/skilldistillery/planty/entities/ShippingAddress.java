@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,7 +29,11 @@ public class ShippingAddress {
 	
 	private String state;
 	
-	@OneToOne
+	private Boolean enabled;
+	
+	private String country;
+	
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user; 
 	
@@ -83,6 +88,31 @@ public class ShippingAddress {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+	@Override
+	public String toString() {
+		return "ShippingAddress [id=" + id + ", streetAddress=" + streetAddress + ", zipcode=" + zipcode + ", city="
+				+ city + ", state=" + state + ", enabled=" + enabled + ", country=" + country + "]";
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -101,11 +131,6 @@ public class ShippingAddress {
 		return id == other.id;
 	}
 
-	@Override
-	public String toString() {
-		return "ShippingAddress [id=" + id + ", streetAddress=" + streetAddress + ", zipcode=" + zipcode + ", city="
-				+ city + ", state=" + state + ", user=" + user + "]";
-	}
 	
 	
 	

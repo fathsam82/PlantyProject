@@ -11,7 +11,7 @@ public interface ShippingAddressService {
 	ShippingAddress getShippingAddress(int shippingAddressId, String username);
 
 	ShippingAddress createShippingAddress(String username, String streetAddress, String zipcode, String city,
-			String state);
+			String state, String country, Boolean enabled);
 
 	boolean deleteShippingAddress(int shippingaddressId, String username);
 

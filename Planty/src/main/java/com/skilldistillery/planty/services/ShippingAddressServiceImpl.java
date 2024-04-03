@@ -6,12 +6,14 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.ShippingAddress;
 import com.skilldistillery.planty.entities.User;
 import com.skilldistillery.planty.repositories.ShippingAddressRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
 
+@Service
 public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Autowired
@@ -41,18 +43,32 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Override
 	public ShippingAddress createShippingAddress(String username, String streetAddress, String zipcode, String city,
-			String state) {
+			String state, String country, Boolean enabled) {
 		User user = userRepo.findByUsername(username);
 		
 		if (user == null) {
 			throw new EntityNotFoundException("User not found for username " + username);
 		}
-		return null;
+		ShippingAddress shippingAddress = new ShippingAddress();
+		shippingAddress.setUser(user);
+		shippingAddress.setStreetAddress(streetAddress);
+		shippingAddress.setCity(city);
+		shippingAddress.setState(state);
+		shippingAddress.setZipcode(zipcode);
+		shippingAddress.setCountry(country);
+		shippingAddress.setEnabled(enabled);
+		
+		return shippingAddressRepo.saveAndFlush(shippingAddress);
 	}
 
 	@Override
 	public boolean deleteShippingAddress(int shippingaddressId, String username) {
-		return false;
-	}
+		ShippingAddress shippingAddress = shippingAddressRepo.findByIdAndUser_Username(shippingaddressId, username);
+		if(shippingAddress == null) {
+			return false;
+		}
+		shippingAddressRepo.delete(shippingAddress);
+		return true;
+}
 
 }
