@@ -44,6 +44,10 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<PaymentData> paymentDatas;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<ShippingAddress> shippingAddresses;
 
 	public User() {
 
@@ -129,6 +133,16 @@ public class User {
 
 	public void setPaymentDatas(List<PaymentData> paymentDatas) {
 		this.paymentDatas = paymentDatas;
+	}
+	
+	
+
+	public List<ShippingAddress> getShippingAddresses() {
+		return shippingAddresses;
+	}
+
+	public void setShippingAddresses(List<ShippingAddress> shippingAddresses) {
+		this.shippingAddresses = shippingAddresses;
 	}
 
 	@Override
