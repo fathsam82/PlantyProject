@@ -21,16 +21,16 @@ import com.skilldistillery.planty.entities.ShippingAddress;
 import com.skilldistillery.planty.services.ShippingAddressService;
 
 @RestController
-@CrossOrigin({"*", "http://localhost/" })
+@CrossOrigin({ "*", "http://localhost/" })
 @RequestMapping("api")
 public class ShippingAddressController {
-	
+
 	@Autowired
 	private ShippingAddressService shippingAddressService;
-	
+
 	@GetMapping("shippingAddress")
-	public ResponseEntity<List<ShippingAddress>> listShippingAddressByUsername(
-			Principal principal, HttpServletResponse res) {
+	public ResponseEntity<List<ShippingAddress>> listShippingAddressByUsername(Principal principal,
+			HttpServletResponse res) {
 		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -38,17 +38,19 @@ public class ShippingAddressController {
 
 		try {
 			String username = principal.getName();
-			List<ShippingAddress> shippingAddresses = shippingAddressService.listShippingAddressForLoggedInUser(username);
+			List<ShippingAddress> shippingAddresses = shippingAddressService
+					.listShippingAddressForLoggedInUser(username);
 			return ResponseEntity.ok(shippingAddresses);
 		} catch (EntityNotFoundException e) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
-	
+
 	@GetMapping("shippingAddress/{shippingAddressId}")
-	public ResponseEntity<ShippingAddress> getShippingAddress(@PathVariable int shippingAddressId, Principal principal, HttpServletResponse res){
-		if(principal == null) {
+	public ResponseEntity<ShippingAddress> getShippingAddress(@PathVariable int shippingAddressId, Principal principal,
+			HttpServletResponse res) {
+		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
@@ -60,16 +62,29 @@ public class ShippingAddressController {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		
+
 	}
-	
+
 	@PostMapping("shippingAddress")
-	public ResponseEntity<?> createShippingAddress(@RequestBody ShippingAddress shippingAddress, Principal principal, HttpServletResponse res){
-		if(principal == null) {
+	public ResponseEntity<?> createShippingAddress(@RequestBody ShippingAddress shippingAddress, Principal principal,
+			HttpServletResponse res) {
+		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		return null;
+
+		try {
+			String username = principal.getName();
+			ShippingAddress newShippingAddress = shippingAddressService.createShippingAddress(username,
+					shippingAddress.getStreetAddress(), shippingAddress.getCity(), shippingAddress.getState(),
+					shippingAddress.getZipcode(), shippingAddress.getCountry(), shippingAddress.getEnabled());
+			return ResponseEntity.ok(newShippingAddress);
+		} catch (IllegalArgumentException | EntityNotFoundException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return ResponseEntity.badRequest().body(e.getMessage());
+
+		}
+
 	}
 
 }

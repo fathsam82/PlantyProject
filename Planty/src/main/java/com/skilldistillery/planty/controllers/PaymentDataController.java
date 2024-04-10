@@ -30,8 +30,7 @@ public class PaymentDataController {
 	private PaymentDataService paymentDataService;
 
 	@GetMapping("paymentData")
-	public ResponseEntity<List<PaymentData>> listPaymentDataByUsername(
-			Principal principal, HttpServletResponse res) {
+	public ResponseEntity<List<PaymentData>> listPaymentDataByUsername(Principal principal, HttpServletResponse res) {
 		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -46,62 +45,60 @@ public class PaymentDataController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
-	
+
 	@GetMapping("paymentData/{paymentDataId}")
-	public ResponseEntity<PaymentData> getPaymentData(@PathVariable int paymentDataId, Principal principal, HttpServletResponse res) {
-	    if (principal == null) {
-	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-	    }
+	public ResponseEntity<PaymentData> getPaymentData(@PathVariable int paymentDataId, Principal principal,
+			HttpServletResponse res) {
+		if (principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 
-	    try {
-	    	String username = principal.getName();
-	        PaymentData paymentData = paymentDataService.getPaymentData(paymentDataId, username);
-	        return ResponseEntity.ok(paymentData);
-	    } catch (EntityNotFoundException e) {
-	        res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	    }
+		try {
+			String username = principal.getName();
+			PaymentData paymentData = paymentDataService.getPaymentData(paymentDataId, username);
+			return ResponseEntity.ok(paymentData);
+		} catch (EntityNotFoundException e) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 	}
-	
+
 	@PostMapping("paymentData")
-    public ResponseEntity<?> createPaymentData(@RequestBody PaymentData paymentData, Principal principal, HttpServletResponse res) {
-        if (principal == null) {
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+	public ResponseEntity<?> createPaymentData(@RequestBody PaymentData paymentData, Principal principal,
+			HttpServletResponse res) {
+		if (principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 
-        try {
-        	String username = principal.getName();
-            PaymentData newPaymentData = paymentDataService.createPaymentData(
-                username, 
-                paymentData.getCardType(), 
-                paymentData.getCardNumber(), 
-                paymentData.getExpirationDate().toString(),
-                paymentData.getFullName(),
-                paymentData.getEnabled()
-            );
-            return ResponseEntity.ok(newPaymentData);
-        } catch (IllegalArgumentException | EntityNotFoundException e) {
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+		try {
+			String username = principal.getName();
+			PaymentData newPaymentData = paymentDataService.createPaymentData(username, paymentData.getCardType(),
+					paymentData.getCardNumber(), paymentData.getExpirationDate().toString(), paymentData.getFullName(),
+					paymentData.getEnabled());
+			return ResponseEntity.ok(newPaymentData);
+		} catch (IllegalArgumentException | EntityNotFoundException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
-    @DeleteMapping("paymentData/{username}/{paymentDataId}")
-    public ResponseEntity<?> deletePaymentData(@PathVariable String username, @PathVariable int paymentDataId, Principal principal, HttpServletResponse res) {
-        if (principal == null || !principal.getName().equals(username)) {
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+	@DeleteMapping("paymentData/{username}/{paymentDataId}")
+	public ResponseEntity<?> deletePaymentData(@PathVariable String username, @PathVariable int paymentDataId,
+			Principal principal, HttpServletResponse res) {
+		if (principal == null || !principal.getName().equals(username)) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 
-        boolean isDeleted = paymentDataService.deletePaymentData(paymentDataId, principal.getName());
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
+		boolean isDeleted = paymentDataService.deletePaymentData(paymentDataId, principal.getName());
+		if (isDeleted) {
+			return ResponseEntity.ok().build();
+		} else {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
 
 }
