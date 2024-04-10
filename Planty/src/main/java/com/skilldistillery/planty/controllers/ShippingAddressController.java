@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,6 +61,15 @@ public class ShippingAddressController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		
+	}
+	
+	@PostMapping("shippingAddress")
+	public ResponseEntity<?> createShippingAddress(@RequestBody ShippingAddress shippingAddress, Principal principal, HttpServletResponse res){
+		if(principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		return null;
 	}
 
 }
