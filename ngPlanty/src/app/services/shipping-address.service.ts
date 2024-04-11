@@ -62,7 +62,7 @@ export class ShippingAddressService {
             return throwError(
               () =>
               new Error(
-                'PaymentDataService.getPaymentDataById(): error retrieving paymentData'
+                'ShippingAddressService.getShippingAddressById(): error retrieving shippingAddress'
               )
             )
           })
@@ -71,4 +71,35 @@ export class ShippingAddressService {
     )
   }
 
+  createShippingAddress(shippingAddress: ShippingAddress): Observable<ShippingAddress> {
+    return this.authService.getLoggedInUser().pipe(
+      switchMap((user) => {
+        if (!user) {
+          throw new Error('User not logged in');
+        }
+        return this.httpClient.post<ShippingAddress>(this.url, shippingAddress, this.getHttpOptions())
+          .pipe(
+            catchError((err: any) => {
+              console.log(err);
+              return throwError(
+                () =>
+                  new Error(
+                    'ShippingAddressService.createShippingAddress(): error creating shippingAddress'
+                  )
+              );
+            })
+          );
+      })
+    );
+  }
+
+  deleteShippingAddress(shippingAddressId: number): Observable<any> {
+    return this.httpClient.delete(`${this.url}/${shippingAddressId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.error('ShippingAddressService.deleteShippingAddress(): error deleting shippingAddress', err);
+          return throwError(() => new Error('Error deleting shippingAddress'));
+        })
+      );
+  }
 }

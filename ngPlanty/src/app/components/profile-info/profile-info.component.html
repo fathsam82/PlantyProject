@@ -33,4 +33,14 @@
       </li>
     </ul>
   </div>
+
+  <div class="shipping-addresses-list mt-5">
+    <h2>My Shipping Addresses</h2>
+    <ul class="list-unstyled">
+      <li *ngFor="let address of shippingAddresses" class="shipping-address">
+        {{ address.streetAddress }} - {{ address.city }}, {{ address.state }}, {{ address.zipcode }}
+        <!-- <button (click)="deleteShippingAddress(address.id)" class="btn btn-danger btn-sm">Delete</button> -->
+      </li>
+    </ul>
+  </div>
 </div>

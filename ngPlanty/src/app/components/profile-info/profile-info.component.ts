@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentData } from 'src/app/models/payment-data';
+import { ShippingAddress } from 'src/app/models/shipping-address';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { PaymentDataService } from 'src/app/services/payment-data.service';
+import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -14,20 +16,23 @@ export class ProfileInfoComponent implements OnInit {
   paymentDataList: PaymentData[] | undefined;
   searchPaymentDataQuery: string = '';
   newPaymentData: PaymentData = new PaymentData;
+  shippingAddresses: ShippingAddress[] | undefined;
 
   username: string | null = null;
 
 
   constructor(
     private paymentDataService: PaymentDataService,
+    private shippingAddressService: ShippingAddressService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.getPaymentDataByUsername();
     this.username = this.authService.getUsername();
+    this.getPaymentDataByUsername();
+    this.getShippingAddressByUsername();
   }
 
   getPaymentDataByUsername() {
@@ -41,6 +46,17 @@ export class ProfileInfoComponent implements OnInit {
         console.log(somethingBad);
         console.log(this.paymentDataList);
       },
+    });
+  }
+
+  getShippingAddressByUsername() {
+    this.shippingAddressService.getShippingAddressByUsername().subscribe({
+      next: (addresses) => {
+        this.shippingAddresses = addresses;
+      },
+      error: (error) => {
+        console.error('ProfileInfoComponent.getShippingAddresses(): error loading shipping addresses', error);
+      }
     });
   }
 
