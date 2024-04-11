@@ -84,21 +84,29 @@ public class PaymentDataController {
 		}
 	}
 
-	@DeleteMapping("paymentData/{username}/{paymentDataId}")
-	public ResponseEntity<?> deletePaymentData(@PathVariable String username, @PathVariable int paymentDataId,
-			Principal principal, HttpServletResponse res) {
-		if (principal == null || !principal.getName().equals(username)) {
+	@DeleteMapping("paymentData/{paymentDataId}")
+	public ResponseEntity<?> deletePaymentData(Principal principal, @PathVariable("paymentDataId") int paymentDataId,
+			HttpServletResponse res) {
+		if (principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
+		try {
+			String username = principal.getName();
+			boolean success = paymentDataService.deletePaymentData(paymentDataId, username);
 
-		boolean isDeleted = paymentDataService.deletePaymentData(paymentDataId, principal.getName());
-		if (isDeleted) {
-			return ResponseEntity.ok().build();
-		} else {
-			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			if (success) {
+				return ResponseEntity.ok().build();
+			} else {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("orderDetail with ID " + paymentDataId + " not found with orderCart ID " + paymentDataId);
+			}
+		} catch (Exception e) {
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while deleting paymentData");
 		}
-	}
 
+	}
 }

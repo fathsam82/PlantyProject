@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,5 +87,23 @@ public class ShippingAddressController {
 		}
 
 	}
+	
+	@DeleteMapping("shippingAddress/{username}/{paymentDataId}")
+	public ResponseEntity<?> deleteShippingAddress(@PathVariable String username, @PathVariable int shippingAddressId, Principal principal, HttpServletResponse res){
+		if(principal == null | !principal.getName().equals(username)) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		boolean isDeleted = shippingAddressService.deleteShippingAddress(shippingAddressId, principal.getName());
+		if(isDeleted) {
+			return ResponseEntity.ok().build();
+		} else {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+	
+	
+	
 
 }
