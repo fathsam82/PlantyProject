@@ -13,8 +13,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.planty.entities.OrderCart;
 import com.skilldistillery.planty.entities.PaymentData;
 import com.skilldistillery.planty.entities.User;
+import com.skilldistillery.planty.repositories.OrderCartRepository;
 import com.skilldistillery.planty.repositories.PaymentDataRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
 
@@ -26,6 +28,9 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private OrderCartRepository orderCartRepo;
 
 	public List<PaymentData> listPaymentDataForLoggedInUser(String username) {
 	  
@@ -81,13 +86,25 @@ public class PaymentDataServiceImpl implements PaymentDataService{
 	
 		@Override
 		public boolean deletePaymentData(int paymentDataId, String username) {
+		    User user = userRepo.findByUsername(username);
+		    if (user == null) {
+		        return false;
+		    }
+
 		    PaymentData paymentData = paymentDataRepo.findByIdAndUser_Username(paymentDataId, username);
 		    if (paymentData == null) {
 		        return false;
 		    }
 		    
+		    OrderCart orderCart = orderCartRepo.findByIdAndUser_Username(paymentDataId, username);
+		    if (orderCart != null) {
+		        orderCart.setPaymentData(null);
+		        orderCartRepo.saveAndFlush(orderCart);
+		    }
+
 		    paymentDataRepo.delete(paymentData);
 		    return true;
 		}
+
 
 }

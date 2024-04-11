@@ -8,8 +8,10 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.planty.entities.OrderCart;
 import com.skilldistillery.planty.entities.ShippingAddress;
 import com.skilldistillery.planty.entities.User;
+import com.skilldistillery.planty.repositories.OrderCartRepository;
 import com.skilldistillery.planty.repositories.ShippingAddressRepository;
 import com.skilldistillery.planty.repositories.UserRepository;
 
@@ -21,6 +23,9 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 	
 	@Autowired
 	private ShippingAddressRepository shippingAddressRepo;
+	
+	@Autowired
+	private OrderCartRepository orderCartRepo;
 
 	@Override
 	public List<ShippingAddress> listShippingAddressForLoggedInUser(String username) {
@@ -63,12 +68,38 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Override
 	public boolean deleteShippingAddress(int shippingaddressId, String username) {
+		User user = userRepo.findByUsername(username);
+		if(user == null) {
+			return false;
+		}
 		ShippingAddress shippingAddress = shippingAddressRepo.findByIdAndUser_Username(shippingaddressId, username);
 		if(shippingAddress == null) {
 			return false;
 		}
+		
+		OrderCart orderCart = orderCartRepo.findByIdAndUser_Username(shippingaddressId, username);
+		if(orderCart != null) {
+			orderCart.setShippingAddress(null);
+			orderCartRepo.saveAndFlush(orderCart);
+		}
 		shippingAddressRepo.delete(shippingAddress);
 		return true;
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -53,6 +53,10 @@ public class OrderCart {
 	@JoinColumn(name = "payment_data_id", nullable = true)
 	private PaymentData paymentData;
 	
+	@ManyToOne
+	@JoinColumn(name = "shipping_address_id", nullable = true)
+	private ShippingAddress shippingAddress;
+	
 //	@JsonIgnore  // TEMP
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -161,13 +165,23 @@ public class OrderCart {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	
+
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
 
 	@Override
 	public String toString() {
 		return "OrderCart [id=" + id + ", totalPrice=" + totalPrice + ", datePlaced=" + datePlaced + ", notes=" + notes
 				+ ", estimatedDeliveryDate=" + estimatedDeliveryDate + ", trackingNumber=" + trackingNumber
-				+ ", paymentMethod=" + paymentMethod + ", paymentData=" + paymentData + ", user=" + user + ", enabled="
-				+ enabled + "]";
+				+ ", paymentMethod=" + paymentMethod + ", paymentData=" + paymentData + ", shippingAddress="
+				+ shippingAddress + ", user=" + user + ", enabled=" + enabled + "]";
 	}
 
 	@Override

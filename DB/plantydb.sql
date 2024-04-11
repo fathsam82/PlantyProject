@@ -94,6 +94,30 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `shipping_address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shipping_address` ;
+
+CREATE TABLE IF NOT EXISTS `shipping_address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `street_address` VARCHAR(255) NULL,
+  `zipcode` VARCHAR(45) NULL,
+  `city` VARCHAR(200) NULL,
+  `state` VARCHAR(45) NULL,
+  `user_id` INT NOT NULL,
+  `enabled` TINYINT NULL,
+  `country` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_shipping_address_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_shipping_address_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `order_cart`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `order_cart` ;
@@ -109,11 +133,13 @@ CREATE TABLE IF NOT EXISTS `order_cart` (
   `tracking_number` INT NULL,
   `payment_method` VARCHAR(45) NULL,
   `enabled` TINYINT NULL,
+  `shipping_address_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_order_payment_data1_idx` (`payment_data_id` ASC),
   UNIQUE INDEX `tracking_number_UNIQUE` (`tracking_number` ASC),
   INDEX `fk_order_cart_user1_idx` (`user_id` ASC),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  INDEX `fk_order_cart_shipping_address1_idx` (`shipping_address_id` ASC),
   CONSTRAINT `fk_order_payment_data1`
     FOREIGN KEY (`payment_data_id`)
     REFERENCES `payment_data` (`id`)
@@ -122,6 +148,11 @@ CREATE TABLE IF NOT EXISTS `order_cart` (
   CONSTRAINT `fk_order_cart_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_cart_shipping_address1`
+    FOREIGN KEY (`shipping_address_id`)
+    REFERENCES `shipping_address` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -226,30 +257,6 @@ CREATE TABLE IF NOT EXISTS `plant_origin` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `shipping_address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `shipping_address` ;
-
-CREATE TABLE IF NOT EXISTS `shipping_address` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `street_address` VARCHAR(255) NULL,
-  `zipcode` VARCHAR(45) NULL,
-  `city` VARCHAR(200) NULL,
-  `state` VARCHAR(45) NULL,
-  `user_id` INT NOT NULL,
-  `enabled` TINYINT NULL,
-  `country` VARCHAR(255) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_shipping_address_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_shipping_address_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 SET SQL_MODE = '';
 DROP USER IF EXISTS plantyuser@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -307,11 +314,21 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `shipping_address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `plantydb`;
+INSERT INTO `shipping_address` (`id`, `street_address`, `zipcode`, `city`, `state`, `user_id`, `enabled`, `country`) VALUES (1, '4567 sawmill blvd', '78456', 'Townsville', 'CO', 1, 1, 'United States');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `order_cart`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `order_cart` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`, `enabled`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 1, 'Credit Card', 1);
+INSERT INTO `order_cart` (`id`, `user_id`, `payment_data_id`, `total_price`, `date_placed`, `notes`, `estimated_delivery_date`, `tracking_number`, `payment_method`, `enabled`, `shipping_address_id`) VALUES (1, 1, 1, 2000, '2023-10-31 12:00:00', 'Please ring the doorbell and leave the plants on the front porch, thank you!', '2023-11-05 12:00:00', 1, 'Credit Card', 1, 1);
 
 COMMIT;
 
@@ -355,16 +372,6 @@ INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) V
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Guyana', 6.8013, -58.1553);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (3, 3, 'Oman', 21.0000, 57.0000);
 INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (4, 4, 'Ghana', 5.5600, 0.2057);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `shipping_address`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `plantydb`;
-INSERT INTO `shipping_address` (`id`, `street_address`, `zipcode`, `city`, `state`, `user_id`, `enabled`, `country`) VALUES (1, '4567 sawmill blvd', '78456', 'Townsville', 'CO', 1, 1, 'United States');
 
 COMMIT;
 
