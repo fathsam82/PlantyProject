@@ -57,6 +57,10 @@ public class PaymentDataController {
 		try {
 			String username = principal.getName();
 			PaymentData paymentData = paymentDataService.getPaymentData(paymentDataId, username);
+			if (paymentData == null) {
+	            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	        }
 			return ResponseEntity.ok(paymentData);
 		} catch (EntityNotFoundException e) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);

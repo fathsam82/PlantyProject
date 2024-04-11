@@ -8,7 +8,7 @@ import { PaymentDataService } from 'src/app/services/payment-data.service';
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
-  styleUrls: ['./profile-info.component.css'], // Corrected typo here
+  styleUrls: ['./profile-info.component.css'],
 })
 export class ProfileInfoComponent implements OnInit {
   paymentDataList: PaymentData[] | undefined;
