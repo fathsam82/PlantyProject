@@ -58,6 +58,11 @@ public class ShippingAddressController {
 		try {
 			String username = principal.getName();
 			ShippingAddress shippingAddress = shippingAddressService.getShippingAddress(shippingAddressId, username);
+			
+			if (shippingAddress == null) {
+	            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	        }
 			return ResponseEntity.ok(shippingAddress);
 		} catch (EntityNotFoundException e) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -88,22 +93,28 @@ public class ShippingAddressController {
 
 	}
 	
-	@DeleteMapping("shippingAddress/{username}/{paymentDataId}")
-	public ResponseEntity<?> deleteShippingAddress(@PathVariable String username, @PathVariable int shippingAddressId, Principal principal, HttpServletResponse res){
-		if(principal == null | !principal.getName().equals(username)) {
+	@DeleteMapping("shippingAddress/{shippingAddressId}")
+	public ResponseEntity<?> deleteShippingAddress(@PathVariable("shippingAddressId") int shippingAddressId, Principal principal, HttpServletResponse res){
+		if(principal == null) {
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		boolean isDeleted = shippingAddressService.deleteShippingAddress(shippingAddressId, principal.getName());
+		
+		try {
+			String username = principal.getName();
+		boolean isDeleted = shippingAddressService.deleteShippingAddress(shippingAddressId, username);
 		if(isDeleted) {
 			return ResponseEntity.ok().build();
 		} else {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body("orderDetail with ID " + shippingAddressId + " not found with orderCart ID " + shippingAddressId);
+		}
+		}catch (Exception e) {
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while deleting shippingAddress");
+		}
 		}
 	}
 	
-	
-	
-
-}
