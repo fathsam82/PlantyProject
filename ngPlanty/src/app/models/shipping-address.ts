@@ -1,7 +1,6 @@
 import { User } from './user';
 
 export class ShippingAddress {
-
   id: number;
   streetAddress: string;
   city: string;
@@ -20,10 +19,7 @@ export class ShippingAddress {
     country: string = '',
     enabled: boolean = false,
     user: User = new User()
-
-
-
-  ){
+  ) {
     this.id = id;
     this.streetAddress = streetAddress;
     this.city = city;
@@ -32,10 +28,5 @@ export class ShippingAddress {
     this.country = country;
     this.enabled = enabled;
     this.user = user;
-
   }
-
-
-
-
 }
