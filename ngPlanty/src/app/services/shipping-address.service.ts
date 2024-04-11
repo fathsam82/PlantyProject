@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ShippingAddress } from '../models/shipping-address';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShippingAddressService {
   private url = environment.baseUrl + 'api/shippingAddress';
@@ -14,9 +14,7 @@ export class ShippingAddressService {
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService
-  ) { }
-
-
+  ) {}
 
   getHttpOptions() {
     let options = {
@@ -28,9 +26,7 @@ export class ShippingAddressService {
     return options;
   }
 
-
   getShippingAddressByUsername(): Observable<ShippingAddress[]> {
-
     return this.authService.getLoggedInUser().pipe(
       switchMap((user) => {
         if (!user) {
@@ -51,8 +47,28 @@ export class ShippingAddressService {
           );
       })
     );
+  }
 
-
+  getShippingAddressById(shippingAddressId: number): Observable<ShippingAddress> {
+    return this.authService.getLoggedInUser().pipe(
+      switchMap((user) => {
+        if(!user) {
+          throw new Error('User not logged in');
+        }
+        return this.httpClient.get<ShippingAddress>(this.url + '/' + shippingAddressId, this.getHttpOptions())
+        .pipe(
+          catchError((err: any) => {
+            console.log(err);
+            return throwError(
+              () =>
+              new Error(
+                'PaymentDataService.getPaymentDataById(): error retrieving paymentData'
+              )
+            )
+          })
+        )
+      })
+    )
   }
 
 }
