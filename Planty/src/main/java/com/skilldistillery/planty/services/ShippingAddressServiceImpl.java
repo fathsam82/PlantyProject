@@ -47,8 +47,8 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 	}
 
 	@Override
-	public ShippingAddress createShippingAddress(String username, String streetAddress, String zipcode, String city,
-			String state, String country, Boolean enabled) {
+	public ShippingAddress createShippingAddress(String username, String streetAddress, String city, String state,
+			String zipcode, Boolean enabled, String country) {
 		User user = userRepo.findByUsername(username);
 		
 		if (user == null) {
@@ -60,8 +60,8 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 		shippingAddress.setCity(city);
 		shippingAddress.setState(state);
 		shippingAddress.setZipcode(zipcode);
-		shippingAddress.setCountry(country);
 		shippingAddress.setEnabled(enabled);
+		shippingAddress.setCountry(country);
 		
 		return shippingAddressRepo.saveAndFlush(shippingAddress);
 	}

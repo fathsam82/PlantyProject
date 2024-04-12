@@ -10,8 +10,8 @@ public interface ShippingAddressService {
 
 	ShippingAddress getShippingAddress(int shippingAddressId, String username);
 
-	ShippingAddress createShippingAddress(String username, String streetAddress, String zipcode, String city,
-			String state, String country, Boolean enabled);
+	ShippingAddress createShippingAddress(String username, String streetAddress, String city, String state,
+			String zipcode, Boolean enabled, String country);
 
 	boolean deleteShippingAddress(int shippingaddressId, String username);
 

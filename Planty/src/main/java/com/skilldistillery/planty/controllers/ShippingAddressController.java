@@ -83,7 +83,7 @@ public class ShippingAddressController {
 			String username = principal.getName();
 			ShippingAddress newShippingAddress = shippingAddressService.createShippingAddress(username,
 					shippingAddress.getStreetAddress(), shippingAddress.getCity(), shippingAddress.getState(),
-					shippingAddress.getZipcode(), shippingAddress.getCountry(), shippingAddress.getEnabled());
+					shippingAddress.getZipcode(), shippingAddress.getEnabled(), shippingAddress.getCountry());
 			return ResponseEntity.ok(newShippingAddress);
 		} catch (IllegalArgumentException | EntityNotFoundException e) {
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);

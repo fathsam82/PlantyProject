@@ -101,12 +101,12 @@ DROP TABLE IF EXISTS `shipping_address` ;
 CREATE TABLE IF NOT EXISTS `shipping_address` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `street_address` VARCHAR(255) NULL,
-  `zipcode` VARCHAR(45) NULL,
   `city` VARCHAR(200) NULL,
   `state` VARCHAR(45) NULL,
-  `user_id` INT NOT NULL,
+  `zipcode` VARCHAR(45) NULL,
   `enabled` TINYINT NULL,
   `country` VARCHAR(255) NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_shipping_address_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_shipping_address_user1`
@@ -318,7 +318,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `shipping_address` (`id`, `street_address`, `zipcode`, `city`, `state`, `user_id`, `enabled`, `country`) VALUES (1, '4567 sawmill blvd', '78456', 'Townsville', 'CO', 1, 1, 'United States');
+INSERT INTO `shipping_address` (`id`, `street_address`, `city`, `state`, `zipcode`, `enabled`, `country`, `user_id`) VALUES (1, '4567 sawmill blvd', 'Townsville', 'CO', '78456', 1, 'United States', 1);
 
 COMMIT;
 
