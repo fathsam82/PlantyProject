@@ -7,7 +7,7 @@
   border-radius: 8px;
 }
 
-.welcome-message h2, .payment-methods-list h2 {
+.welcome-message h2, .payment-methods-list h2, .shipping-addresses-list h2 {
   color: #333;
   font-weight: 300;
 }
@@ -54,17 +54,17 @@
   border-color: #0062cc;
 }
 
-.payment-method {
+.payment-method, .shipping-address {
   padding: 10px;
   margin-bottom: 5px;
   background: #e9ecef;
   border-radius: 5px;
 }
 
-.payment-methods-list ul {
+.payment-methods-list ul, .shipping-addresses-list ul {
   padding-left: 0;
 }
 
-.payment-methods-list li {
+.payment-methods-list ul, .shipping-addresses-list li {
   list-style-type: none;
 }
