@@ -4,6 +4,7 @@ import { PaymentData } from 'src/app/models/payment-data';
 import { ShippingAddress } from 'src/app/models/shipping-address';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { CountryRestService } from 'src/app/services/country-rest.service';
 import { PaymentDataService } from 'src/app/services/payment-data.service';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
@@ -14,16 +15,18 @@ import { ShippingAddressService } from 'src/app/services/shipping-address.servic
 })
 export class ProfileInfoComponent implements OnInit {
   paymentDataList: PaymentData[] | undefined;
-  searchPaymentDataQuery: string = '';
   newPaymentData: PaymentData = new PaymentData();
   shippingAddresses: ShippingAddress[] | undefined;
   newShippingAddress: ShippingAddress = new ShippingAddress();
+
+  countries: any[] = [];
 
   username: string | null = null;
 
   constructor(
     private paymentDataService: PaymentDataService,
     private shippingAddressService: ShippingAddressService,
+    private countryRestService: CountryRestService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthService
@@ -33,6 +36,7 @@ export class ProfileInfoComponent implements OnInit {
     this.username = this.authService.getUsername();
     this.getPaymentDataByUsername();
     this.getShippingAddressByUsername();
+    this.getCountries();
   }
 
   getPaymentDataByUsername() {
@@ -119,4 +123,25 @@ export class ProfileInfoComponent implements OnInit {
       },
     });
   }
+
+
+
+
+  getCountries() {
+    this.countryRestService.getCountries().subscribe({
+      next: (data) => {
+        this.countries = data.map((country: any) => ({
+          name: country.name.common,
+          code: country.cca3
+        }));
+        console.log(this.countries);
+      },
+      error: (err) => console.error('Failed to get countries', err)
+    });
+  }
+
+
+
+
+
 }
