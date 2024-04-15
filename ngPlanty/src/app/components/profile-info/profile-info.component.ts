@@ -15,11 +15,11 @@ import { ShippingAddressService } from 'src/app/services/shipping-address.servic
 export class ProfileInfoComponent implements OnInit {
   paymentDataList: PaymentData[] | undefined;
   searchPaymentDataQuery: string = '';
-  newPaymentData: PaymentData = new PaymentData;
+  newPaymentData: PaymentData = new PaymentData();
   shippingAddresses: ShippingAddress[] | undefined;
+  newShippingAddress: ShippingAddress = new ShippingAddress();
 
   username: string | null = null;
-
 
   constructor(
     private paymentDataService: PaymentDataService,
@@ -42,21 +42,12 @@ export class ProfileInfoComponent implements OnInit {
         this.paymentDataList = paymentDataList;
       },
       error: (somethingBad) => {
-        console.error('ProfileInfoComponent.getPaymentDataByUsername: error loading paymentData');
+        console.error(
+          'ProfileInfoComponent.getPaymentDataByUsername: error loading paymentData'
+        );
         console.log(somethingBad);
         console.log(this.paymentDataList);
       },
-    });
-  }
-
-  getShippingAddressByUsername() {
-    this.shippingAddressService.getShippingAddressByUsername().subscribe({
-      next: (addresses) => {
-        this.shippingAddresses = addresses;
-      },
-      error: (error) => {
-        console.error('ProfileInfoComponent.getShippingAddresses(): error loading shipping addresses', error);
-      }
     });
   }
 
@@ -65,18 +56,16 @@ export class ProfileInfoComponent implements OnInit {
     paymentData.expirationDate = `20${year}-${month}-01`;
 
     this.paymentDataService.createPaymentData(paymentData).subscribe({
-        next: (paymentData) => {
-          this.newPaymentData = new PaymentData();
-          this.getPaymentDataByUsername();
-          console.log(paymentData);
-        },
-        error: (error) => {
-          console.error('Error adding paymentData to profile-info', error);
-        },
-      });
+      next: (paymentData) => {
+        this.newPaymentData = new PaymentData();
+        this.getPaymentDataByUsername();
+        console.log(paymentData);
+      },
+      error: (error) => {
+        console.error('Error adding paymentData to profile-info', error);
+      },
+    });
   }
-
-
 
   deletePaymentData(paymentDataId: number) {
     this.paymentDataService.deletePaymentData(paymentDataId).subscribe({
@@ -89,7 +78,45 @@ export class ProfileInfoComponent implements OnInit {
       },
     });
   }
+  getShippingAddressByUsername() {
+    this.shippingAddressService.getShippingAddressByUsername().subscribe({
+      next: (addresses) => {
+        this.shippingAddresses = addresses;
+      },
+      error: (error) => {
+        console.error(
+          'ProfileInfoComponent.getShippingAddresses(): error loading shipping addresses',
+          error
+        );
+      },
+    });
+  }
+
+  createShippingAddress(shippingAddress: ShippingAddress) {
+    this.shippingAddressService
+      .createShippingAddress(shippingAddress)
+      .subscribe({
+        next: (shippingAddress) => {
+          this.newShippingAddress = new ShippingAddress();
+          this.getShippingAddressByUsername();
+          console.log(shippingAddress);
+        },
+        error: (error) => {
+          console.error('Error adding shippingAddress to profile-info', error);
+        },
+      });
+  }
 
 
-
+  deleteShippingAddress(shippingAddressId: number) {
+    this.shippingAddressService.deleteShippingAddress(shippingAddressId).subscribe({
+      next: () => {
+        console.log('shippingAddress deleted successfully');
+        this.getShippingAddressByUsername();
+      },
+      error: (error) => {
+        console.error('Error deleting shippingAddress', error);
+      },
+    });
+  }
 }

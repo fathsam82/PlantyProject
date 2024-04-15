@@ -33,14 +33,41 @@
       </li>
     </ul>
   </div>
+  </div>
+  <div class="container my-4">
+  <div class="shipping-address-form">
+    <h2>Add Shipping Address</h2>
+    <form (ngSubmit)="createShippingAddress(newShippingAddress)" class="form">
+      <div class="form-group">
+        <label for="street">Street:</label>
+        <input type="text" id="street" [(ngModel)]="newShippingAddress.streetAddress" name="street" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" [(ngModel)]="newShippingAddress.city" name="city" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input type="text" id="state" [(ngModel)]="newShippingAddress.state" name="state" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" [(ngModel)]="newShippingAddress.zipcode" name="postalCode" required class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Add Shipping Address</button>
+    </form>
+  </div>
 
+  <!-- Shipping Addresses List -->
   <div class="shipping-addresses-list mt-5">
     <h2>My Shipping Addresses</h2>
     <ul class="list-unstyled">
       <li *ngFor="let address of shippingAddresses" class="shipping-address">
-        {{ address.streetAddress }} - {{ address.city }}, {{ address.state }}, {{ address.zipcode }}
-        <!-- <button (click)="deleteShippingAddress(address.id)" class="btn btn-danger btn-sm">Delete</button> -->
+        {{ address.streetAddress }}, {{ address.city }}, {{ address.state }} {{ address.zipcode }}
+        <button (click)="deleteShippingAddress(address.id)" class="btn btn-danger btn-sm">Delete</button>
       </li>
     </ul>
   </div>
 </div>
+
+

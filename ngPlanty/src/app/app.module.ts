@@ -21,6 +21,7 @@ import { OrderCartComponent } from './components/order-cart/order-cart.component
 import { MatIconModule } from '@angular/material/icon';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -52,6 +53,7 @@ import { ProfileInfoComponent } from './components/profile-info/profile-info.com
     NgbModule,
     NgbCarouselModule,
     MatIconModule,
+    BsDropdownModule.forRoot(),
   ],
 })
 export class AppModule {}
