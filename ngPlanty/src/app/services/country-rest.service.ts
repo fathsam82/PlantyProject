@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class CountryRestService {
-  private url = environment.baseUrl + 'https://restcountries.com/v3.1/all';
+  private url = 'https://restcountries.com/v3.1/all?fields=name,cca3';
 
   constructor(private httpClient: HttpClient,
   private authService: AuthService)
