@@ -130,15 +130,19 @@ export class ProfileInfoComponent implements OnInit {
   getCountries() {
     this.countryRestService.getCountries().subscribe({
       next: (data) => {
-        this.countries = data.map((country: any) => ({
-          name: country.name.common,
-          code: country.cca3
-        }));
+        this.countries = data
+          .map((country: any) => ({
+            name: country.name.common,
+            code: country.cca3
+          }))
+          .sort((a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name)); // Sorting alphabetically
+
         console.log(this.countries);
       },
       error: (err) => console.error('Failed to get countries', err)
     });
   }
+
 
 
 
