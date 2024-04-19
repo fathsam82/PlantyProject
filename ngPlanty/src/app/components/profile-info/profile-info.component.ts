@@ -135,7 +135,7 @@ export class ProfileInfoComponent implements OnInit {
             name: country.name.common,
             code: country.cca3
           }))
-          .sort((a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name)); // Sorting alphabetically
+          .sort((a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name));
 
         console.log(this.countries);
       },

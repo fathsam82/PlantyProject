@@ -40,5 +40,12 @@ body {
   background-color: transparent;
   box-shadow: none;
   border: none;
-  transform: translateX(-500px);
+}
+
+@media (max-width: 768px) {
+  .nav-link {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
 }

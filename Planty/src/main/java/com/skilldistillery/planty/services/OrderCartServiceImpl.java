@@ -1,7 +1,9 @@
 package com.skilldistillery.planty.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -123,6 +125,34 @@ public class OrderCartServiceImpl implements OrderCartService {
 		}
 		return removed;
 
+	}
+
+	//////////////////////////// SUBMIT ORDER LOGIC
+
+	@Override
+	public OrderCart submitOrderCart(String username, int orderCartId) {
+		OrderCart cart = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+		if (cart != null) {
+			cart.setEstimatedDeliveryDate(LocalDateTime.now().plusDays(7));
+			Random random = new Random();
+			cart.setTrackingNumber(1 + random.nextInt(100000000));
+			orderCartRepo.save(cart);
+
+			clearOrderDetailsFromOrderCart(cart.getId());
+			orderCartRepo.save(cart);
+
+			return cart;
+		}
+		return null;
+	}
+
+	@Override
+	public void clearOrderDetailsFromOrderCart(int orderCartId) {
+		OrderCart cart = orderCartRepo.findById(orderCartId)
+				.orElseThrow(() -> new EntityNotFoundException("OrderCart not found"));
+		orderDetailRepo.deleteAll(cart.getOrderDetails());
+		cart.getOrderDetails().clear();
+		orderCartRepo.save(cart);
 	}
 
 }
