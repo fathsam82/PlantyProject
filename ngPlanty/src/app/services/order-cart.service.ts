@@ -97,4 +97,32 @@ export class OrderCartService {
       })
     );
   }
+
+
+
+  //SUBMIT ORDER LOGIC
+
+
+
+  checkoutOrderCart(orderCartId: number, orderCart: OrderCart): Observable<OrderCart> {
+    const checkoutUrl = `${this.url}/checkout/${orderCartId}`;
+    return this.authService.getLoggedInUser().pipe(
+      switchMap(user => {
+        if (!user) throw new Error('User not logged in');
+        return this.httpClient.put<OrderCart>(checkoutUrl, orderCart, this.getHttpOptions())
+          .pipe(catchError(err => throwError(() => new Error('Error during checkout: ' + err))));
+      })
+    );
+  }
+
+  submitOrderCart(orderCartId: number): Observable<OrderCart> {
+    const submitUrl = `${this.url}/submit/${orderCartId}`;
+    return this.authService.getLoggedInUser().pipe(
+      switchMap(user => {
+        if (!user) throw new Error('User not logged in');
+        return this.httpClient.put<OrderCart>(submitUrl, {}, this.getHttpOptions())
+          .pipe(catchError(err => throwError(() => new Error('Error during order submission: ' + err))));
+      })
+    );
+  }
 }

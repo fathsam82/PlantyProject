@@ -52,8 +52,9 @@ public class OrderCartServiceImpl implements OrderCartService {
 		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
 		if (existing != null) {
 			existing.setNotes(updatedOrderCart.getNotes());
-//			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
-//			existing.setPaymentData(updatedOrderCart.getPaymentData());   // STILL HAVE TO IMPLEMENT GET / POST / DELETE FOR PAYMENT DATA POJO
+			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
+			existing.setPaymentData(updatedOrderCart.getPaymentData());
+
 
 			orderCartRepo.saveAndFlush(existing);
 
