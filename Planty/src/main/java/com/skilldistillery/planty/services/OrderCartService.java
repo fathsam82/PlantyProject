@@ -16,7 +16,6 @@ public interface OrderCartService {
 
 	OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 
-	OrderCart checkoutOrderCart(String username, int orderCartId, OrderCart updatedOrderCart);
 
 	boolean deleteOrderCart(String username, int orderCartId);
 
@@ -27,5 +26,10 @@ public interface OrderCartService {
 	OrderCart submitOrderCart(String username, int orderCartId);
 
 	void clearOrderDetailsFromOrderCart(int orderCartId);
+
+	OrderCart setUserNotes(String username, int orderCartId, String notes);
+
+	OrderCart updatePaymentAndShipping(String username, int orderCartIdd, OrderCart updatedOrderCart);
+
 
 }

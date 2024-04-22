@@ -79,23 +79,6 @@ public class OrderCartController {
 
 	}
 
-	@PutMapping("orderCarts/checkout/{orderCartId}")
-	public OrderCart checkoutOrderCart(Principal principal, HttpServletResponse res,
-			@PathVariable("orderCartId") int OrderCartId, @RequestBody OrderCart orderCart) {
-		orderCart = orderCartService.checkoutOrderCart(principal.getName(), OrderCartId, orderCart);
-		try {
-			if (orderCart == null) {
-				res.setStatus(404);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			res.setStatus(400);
-			orderCart = null;
-		}
-		return orderCart;
-
-	}
-
 	@DeleteMapping("orderCarts/{orderCartId}/details/{orderDetailId}")
 	public ResponseEntity<?> removeOrderDetailFromOrderCart(Principal principal,
 			@PathVariable("orderCartId") int orderCartId, @PathVariable("orderDetailId") int orderDetailId,
@@ -121,32 +104,48 @@ public class OrderCartController {
 					.body("An error occurred while removing the order detail");
 		}
 	}
-	
-	/////////////////// SUBMIT ORDER LOGIC 
-	
-	
+
+	/////////////////// SUBMIT ORDER LOGIC
+
+	@PutMapping("orderCarts/checkout/{orderCartId}")
+	public OrderCart checkoutOrderCart(Principal principal, HttpServletResponse res,
+			@PathVariable("orderCartId") int OrderCartId, @RequestBody OrderCart orderCart) {
+		orderCart = orderCartService.updatePaymentAndShipping(principal.getName(), OrderCartId, orderCart);
+		try {
+			if (orderCart == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+			orderCart = null;
+		}
+		return orderCart;
+
+	}
+
 	@PutMapping("orderCarts/submit/{orderCartId}")
-    public ResponseEntity<?> submitOrderCart(Principal principal, @PathVariable("orderCartId") int orderCartId, HttpServletResponse res) {
-        if (principal == null) {
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        String username = principal.getName();
-        try {
-            OrderCart submittedCart = orderCartService.submitOrderCart(username, orderCartId);
-            if (submittedCart == null) {
-                res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("OrderCart not found.");
-            }
-            return ResponseEntity.ok(submittedCart);
-        } catch (EntityNotFoundException enfe) {
-            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(enfe.getMessage());
-        } catch (Exception e) {
-            res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while submitting the order cart.");
-        }
-    }
+	public ResponseEntity<?> submitOrderCart(Principal principal, @PathVariable("orderCartId") int orderCartId,
+			HttpServletResponse res) {
+		if (principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		String username = principal.getName();
+		try {
+			OrderCart submittedCart = orderCartService.submitOrderCart(username, orderCartId);
+			if (submittedCart == null) {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("OrderCart not found.");
+			}
+			return ResponseEntity.ok(submittedCart);
+		} catch (EntityNotFoundException enfe) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(enfe.getMessage());
+		} catch (Exception e) {
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while submitting the order cart.");
+		}
+	}
 }
-
-

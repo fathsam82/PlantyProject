@@ -31,9 +31,6 @@ public class OrderCartServiceImpl implements OrderCartService {
 	@Autowired
 	private OrderDetailRepository orderDetailRepo;
 
-//	@Autowired
-//	private PlantRepository plantRepo;
-
 	@Autowired
 	private OrderDetailService orderDetailService;
 
@@ -48,27 +45,9 @@ public class OrderCartServiceImpl implements OrderCartService {
 	}
 
 	@Override
-	public OrderCart checkoutOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
-		OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
-		if (existing != null) {
-			existing.setNotes(updatedOrderCart.getNotes());
-			existing.setPaymentMethod(updatedOrderCart.getPaymentMethod());
-			existing.setPaymentData(updatedOrderCart.getPaymentData());
-
-
-			orderCartRepo.saveAndFlush(existing);
-
-		}
-		return existing;
-	}
-
-	@Override
 	public OrderCart updateOrderCart(String username, int orderCartId, OrderCart updatedOrderCart) {
 		OrderCart existingCart = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
 		if (existingCart != null) {
-//			existingCart.setNotes(updatedOrderCart.getNotes());
-//			existingCart.setPaymentMethod(updatedOrderCart.getPaymentMethod());
-//			existingCart.setPaymentData(updatedOrderCart.getPaymentData());
 
 			for (OrderDetail updatedDetail : updatedOrderCart.getOrderDetails()) {
 				int detailId = updatedDetail.getId();
@@ -129,6 +108,29 @@ public class OrderCartServiceImpl implements OrderCartService {
 	}
 
 	//////////////////////////// SUBMIT ORDER LOGIC
+	@Override
+	public OrderCart setUserNotes(String username, int orderCartId, String notes) {
+	    OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+	    if (existing == null) {
+	        throw new EntityNotFoundException("OrderCart not found for username: " + username);
+	    }
+	    existing.setNotes(notes);
+	    orderCartRepo.save(existing);
+	    return existing;
+	}
+
+	@Override
+	public OrderCart updatePaymentAndShipping(String username, int orderCartId, OrderCart updatedOrderCart) {
+	    OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
+	    if (existing == null) {
+	        throw new EntityNotFoundException("OrderCart not found for username: " + username);
+	    }
+//	    existing.setPaymentData(updatedOrderCart.getPaymentData());
+	    existing.setShippingAddress(updatedOrderCart.getShippingAddress());
+	    orderCartRepo.save(existing);
+	    return existing;
+	}
+
 
 	@Override
 	public OrderCart submitOrderCart(String username, int orderCartId) {

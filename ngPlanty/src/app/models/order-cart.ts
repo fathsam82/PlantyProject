@@ -1,5 +1,6 @@
 import { OrderDetail } from './order-detail';
 import { PaymentData } from './payment-data';
+import { ShippingAddress } from './shipping-address';
 import { User } from './user';
 
 export class OrderCart {
@@ -13,6 +14,7 @@ export class OrderCart {
   enabled: boolean;
   user: User;
   paymentData: PaymentData;
+  shippingAddress: ShippingAddress;
   orderDetails: OrderDetail[];
 
   constructor(
@@ -26,6 +28,7 @@ export class OrderCart {
     enabled: boolean = false,
     user: User = new User(),
     paymentData: PaymentData = new PaymentData(),
+    shippingAddress: ShippingAddress = new ShippingAddress(),
     orderDetails: OrderDetail[] = []
   ) {
     this.id = id;
@@ -38,6 +41,7 @@ export class OrderCart {
     this.enabled = enabled;
     this.user = user;
     this.paymentData = paymentData;
+    this.shippingAddress = shippingAddress;
     this.orderDetails = orderDetails;
   }
 }

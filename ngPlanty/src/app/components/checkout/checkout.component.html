@@ -1,1 +1,9 @@
-<p>checkout works!</p>
+<form (ngSubmit)="performCheckout()">
+  <div>
+    <label for="shippingAddress">Select a Shipping Address:</label>
+    <select [(ngModel)]="selectedShippingAddressId" id="shippingAddress" required>
+      <option *ngFor="let address of shippingAddresses" [value]="address.id">
+        {{ address.streetAddress }}, {{ address.city }}, {{ address.state }}, {{ address.zipcode }}, {{ address.country }}
+      </option>
+    </select>
+  </div>

@@ -49,30 +49,6 @@ export class OrderCartService {
     );
   }
 
-  editOrderCart(orderCart: OrderCart, id: number): Observable<OrderCart> {
-    return this.authService.getLoggedInUser().pipe(
-      switchMap((user) => {
-        if (!user) {
-          throw new Error('User not logged in');
-        }
-        const urlWithId = `${this.url}/${id}`;
-        return this.httpClient
-          .put<OrderCart>(urlWithId, orderCart, this.getHttpOptions())
-          .pipe(
-            catchError((err: any) => {
-              console.log(err);
-              return throwError(
-                () =>
-                  new Error(
-                    'OrderCartService.getOrderCarts():error editing orderCart'
-                  )
-              );
-            })
-          );
-      })
-    );
-  }
-
   removeOrderDetail(
     orderCartId: number,
     orderDetailId: number
@@ -97,32 +73,53 @@ export class OrderCartService {
       })
     );
   }
-
-
-
-  //SUBMIT ORDER LOGIC
-
-
-
-  checkoutOrderCart(orderCartId: number, orderCart: OrderCart): Observable<OrderCart> {
-    const checkoutUrl = `${this.url}/checkout/${orderCartId}`;
+  editOrderCart(orderCart: OrderCart, id: number): Observable<OrderCart> {
     return this.authService.getLoggedInUser().pipe(
-      switchMap(user => {
-        if (!user) throw new Error('User not logged in');
-        return this.httpClient.put<OrderCart>(checkoutUrl, orderCart, this.getHttpOptions())
-          .pipe(catchError(err => throwError(() => new Error('Error during checkout: ' + err))));
+      switchMap((user) => {
+        if (!user) {
+          throw new Error('User not logged in');
+        }
+        const urlWithId = `${this.url}/${id}`;
+        return this.httpClient
+          .put<OrderCart>(urlWithId, orderCart, this.getHttpOptions())
+          .pipe(
+            catchError((err: any) => {
+              console.log(err);
+              return throwError(
+                () =>
+                  new Error(
+                    'OrderCartService.getOrderCarts():error editing orderCart'
+                  )
+              );
+            })
+          );
       })
     );
   }
 
-  submitOrderCart(orderCartId: number): Observable<OrderCart> {
-    const submitUrl = `${this.url}/submit/${orderCartId}`;
+  checkoutOrderCart(orderCart: OrderCart, id: number): Observable<OrderCart> {
     return this.authService.getLoggedInUser().pipe(
-      switchMap(user => {
-        if (!user) throw new Error('User not logged in');
-        return this.httpClient.put<OrderCart>(submitUrl, {}, this.getHttpOptions())
-          .pipe(catchError(err => throwError(() => new Error('Error during order submission: ' + err))));
+      switchMap((user) => {
+        if(!user) {
+          throw new Error('User not logged in');
+        }
+        const urlWithId = `${this.url}/checkout/${id}`;
+        return this.httpClient.put<OrderCart>(urlWithId, orderCart, this.getHttpOptions())
+        .pipe(
+          catchError((err: any) => {
+            console.log(err);
+            return throwError(
+              () =>
+              new Error(
+                'OrderCartService.checkoutOrderCart():error checking out orderCart'
+              )
+            );
+          })
+        );
       })
     );
   }
+
+
+
 }
