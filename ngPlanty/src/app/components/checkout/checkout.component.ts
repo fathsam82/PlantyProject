@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loadShippingAddresses();
+    this.getShippingAddressByUsername();
   }
 
   getOrderCart() {
@@ -42,13 +42,18 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  loadShippingAddresses() {
-    this.shippingAddressService.getShippingAddressByUsername().subscribe(
-      addresses => {
+  getShippingAddressByUsername() {
+    this.shippingAddressService.getShippingAddressByUsername().subscribe({
+      next: (addresses) => {
         this.shippingAddresses = addresses;
       },
-      error => console.error('Failed to load shipping addresses', error)
-    );
+      error: (error) => {
+        console.error(
+          'ProfileInfoComponent.getShippingAddresses(): error loading shipping addresses',
+          error
+        );
+      },
+    });
   }
 
 
