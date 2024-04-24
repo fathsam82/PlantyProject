@@ -1,13 +1,32 @@
-<form (ngSubmit)="performCheckout()">
-  <div>
-    <label for="shippingAddress">Select a Shipping Address:</label>
-    <select [(ngModel)]="selectedShippingAddressId" name="selectedShippingAddressId" id="shippingAddress" required>
-      <option *ngFor="let address of shippingAddresses" [value]="address.id">
-        {{ address.streetAddress }}, {{ address.city }}, {{ address.state }}, {{ address.zipcode }}, {{ address.country }}
-      </option>
-    </select>
-  </div>
+<div>
+  <label for="shippingAddress">Select a Shipping Address:</label>
+  <select
+  [(ngModel)]="selectedShippingAddressId"
+  name="selectedShippingAddressId"
+  id="shippingAddress"
+  required
+  >
+  <option *ngFor="let address of shippingAddressList" [value]="address.id">
+    {{ address.streetAddress }}, {{ address.city }}, {{ address.state }},
+    {{ address.zipcode }}, {{ address.country }}
+  </option>
+</select>
 
-  <button type="submit">Checkout</button>
-</form>
+<label for="paymentData">Select a payment method:</label>
+<select
+[(ngModel)]="selectedPaymentData"
+name="selectedShippingAddressId"
+id="paymentData"required="">
+<option *ngFor="let paymentData of paymentDataList" [value]="paymentData.id">
+  {{ paymentData.cardType }}, {{ paymentData.fullName }}, Card Number ending in: {{ paymentData.cardNumber.slice(-4) }}
 
+
+</option>
+</select>
+</div>
+
+
+<!-- <div *ngIf="orderCart">
+  <h3>Order Details</h3>
+  <p><strong>Total Items:</strong> {{ orderCart.totalPrice }}</p>
+</div> -->

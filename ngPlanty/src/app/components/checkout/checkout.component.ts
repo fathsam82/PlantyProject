@@ -3,6 +3,8 @@ import { OrderCartService } from 'src/app/services/order-cart.service';
 import { ShippingAddress } from 'src/app/models/shipping-address';
 import { OrderCart } from 'src/app/models/order-cart';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
+import { PaymentDataService } from 'src/app/services/payment-data.service';
+import { PaymentData } from 'src/app/models/payment-data';
 
 @Component({
   selector: 'app-checkout',
@@ -11,17 +13,23 @@ import { ShippingAddressService } from 'src/app/services/shipping-address.servic
 })
 export class CheckoutComponent implements OnInit {
   selectedShippingAddressId: number | undefined;
-  shippingAddresses: ShippingAddress[] | undefined;
+  shippingAddressList: ShippingAddress[] | undefined;
   selectedShippingAddress: ShippingAddress | null = null;
   orderCart: OrderCart | undefined;
-  prepareOrderCartData: any;
+  paymentDataList: PaymentData[] | undefined;
+  selectedPaymentData: PaymentData | null = null;
+  selectedPaymentDataId: number | undefined;
 
-  constructor(private orderCartService: OrderCartService,
-    private shippingAddressService: ShippingAddressService) {}
 
+  constructor(
+    private orderCartService: OrderCartService,
+    private shippingAddressService: ShippingAddressService,
+    private paymentDataService: PaymentDataService
+  ) {}
 
   ngOnInit() {
     this.getShippingAddressByUsername();
+    this.getPaymentDataByUsername();
   }
 
   getOrderCart() {
@@ -40,12 +48,10 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-
-
   getShippingAddressByUsername() {
     this.shippingAddressService.getShippingAddressByUsername().subscribe({
       next: (addresses) => {
-        this.shippingAddresses = addresses;
+        this.shippingAddressList = addresses;
       },
       error: (error) => {
         console.error(
@@ -56,43 +62,55 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-
-  updateCheckoutOrderCart(
-    orderCart: OrderCart,
-    id: number,
-    setSelectedShippingAddress: boolean = true
-  ) {
-    this.orderCartService.checkoutOrderCart(orderCart, id).subscribe({
-      next: (updatedShippingAddress) => {
-        if (setSelectedShippingAddress) {
-          this.selectedShippingAddress = updatedShippingAddress.shippingAddress;
-        }
-        console.log(
-          'ShippingAddress updated successfully!',
-          updatedShippingAddress
-        );
+  getPaymentDataByUsername() {
+    this.paymentDataService.getPaymentDataByUsername().subscribe({
+      next: (paymentDataList) => {
+        console.log(paymentDataList);
+        this.paymentDataList = paymentDataList;
       },
-      error: (whoopsydaisy) => {
+      error: (somethingBad) => {
         console.error(
-          'CheckoutComponent.updateCheckoutOrderCart: Error on update',
-          whoopsydaisy
+          'ProfileInfoComponent.getPaymentDataByUsername: error loading paymentData'
         );
+        console.log(somethingBad);
+        console.log(this.paymentDataList);
       },
     });
   }
 
+  // updateCheckoutOrderCart(
+  //   orderCart: OrderCart,
+  //   id: number,
+  //   setSelectedShippingAddress: boolean = true
+  // ) {
+  //   this.orderCartService.checkoutOrderCart(orderCart, id).subscribe({
+  //     next: (updatedShippingAddress) => {
+  //       if (setSelectedShippingAddress) {
+  //         this.selectedShippingAddress = updatedShippingAddress.shippingAddress;
+  //       }
+  //       console.log(
+  //         'ShippingAddress updated successfully!',
+  //         updatedShippingAddress
+  //       );
+  //     },
+  //     error: (whoopsydaisy) => {
+  //       console.error(
+  //         'CheckoutComponent.updateCheckoutOrderCart: Error on update',
+  //         whoopsydaisy
+  //       );
+  //     },
+  //   });
+  // }
 
-  performCheckout() {
-    // Assuming prepareOrderCartData correctly sets the shipping address:
-    const orderCart = this.prepareOrderCartData();
-    this.orderCartService.checkoutOrderCart(orderCart, orderCart.id).subscribe(
-      success => {
-        console.log('Checkout successful', success);
-        // Optionally update local shipping address display
-        this.selectedShippingAddress = orderCart.shippingAddress;
-      },
-      error => console.error('Checkout failed', error)
-    );
-  }
-
+  // performCheckout(orderCart: OrderCart, orderCartId: number) {
+  //   this.orderCartService.checkoutOrderCart(orderCart, orderCartId).subscribe({
+  //     next:() => {
+  //       console.log('OrderCart successfully cleared');
+  //       this.getOrderCart();
+  //     },
+  //     error: (error) => {
+  //       console.error('Error proccessing checkout and clearing OrderCart', error);
+  //     },
+  //   });
+  // }
 }
