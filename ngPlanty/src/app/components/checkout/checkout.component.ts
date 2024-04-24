@@ -19,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   paymentDataList: PaymentData[] | undefined;
   selectedPaymentData: PaymentData | null = null;
   selectedPaymentDataId: number | undefined;
-
+  checkoutOrderCart: OrderCart | undefined;
 
   constructor(
     private orderCartService: OrderCartService,
@@ -30,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.getShippingAddressByUsername();
     this.getPaymentDataByUsername();
+    this.getOrderCart();
   }
 
   getOrderCart() {
@@ -78,39 +79,4 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  // updateCheckoutOrderCart(
-  //   orderCart: OrderCart,
-  //   id: number,
-  //   setSelectedShippingAddress: boolean = true
-  // ) {
-  //   this.orderCartService.checkoutOrderCart(orderCart, id).subscribe({
-  //     next: (updatedShippingAddress) => {
-  //       if (setSelectedShippingAddress) {
-  //         this.selectedShippingAddress = updatedShippingAddress.shippingAddress;
-  //       }
-  //       console.log(
-  //         'ShippingAddress updated successfully!',
-  //         updatedShippingAddress
-  //       );
-  //     },
-  //     error: (whoopsydaisy) => {
-  //       console.error(
-  //         'CheckoutComponent.updateCheckoutOrderCart: Error on update',
-  //         whoopsydaisy
-  //       );
-  //     },
-  //   });
-  // }
-
-  // performCheckout(orderCart: OrderCart, orderCartId: number) {
-  //   this.orderCartService.checkoutOrderCart(orderCart, orderCartId).subscribe({
-  //     next:() => {
-  //       console.log('OrderCart successfully cleared');
-  //       this.getOrderCart();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error proccessing checkout and clearing OrderCart', error);
-  //     },
-  //   });
-  // }
 }

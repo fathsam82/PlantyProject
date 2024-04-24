@@ -1,32 +1,37 @@
 <div>
   <label for="shippingAddress">Select a Shipping Address:</label>
   <select
-  [(ngModel)]="selectedShippingAddressId"
-  name="selectedShippingAddressId"
-  id="shippingAddress"
-  required
+    [(ngModel)]="selectedShippingAddressId"
+    name="selectedShippingAddressId"
+    id="shippingAddress"
+    required
   >
-  <option *ngFor="let address of shippingAddressList" [value]="address.id">
-    {{ address.streetAddress }}, {{ address.city }}, {{ address.state }},
-    {{ address.zipcode }}, {{ address.country }}
-  </option>
-</select>
+    <option *ngFor="let address of shippingAddressList" [value]="address.id">
+      {{ address.streetAddress }}, {{ address.city }}, {{ address.state }},
+      {{ address.zipcode }}, {{ address.country }}
+    </option>
+  </select>
 
-<label for="paymentData">Select a payment method:</label>
-<select
-[(ngModel)]="selectedPaymentData"
-name="selectedShippingAddressId"
-id="paymentData"required="">
-<option *ngFor="let paymentData of paymentDataList" [value]="paymentData.id">
-  {{ paymentData.cardType }}, {{ paymentData.fullName }}, Card Number ending in: {{ paymentData.cardNumber.slice(-4) }}
-
-
-</option>
-</select>
+  <label for="paymentData">Select a payment method:</label>
+  <select
+    [(ngModel)]="selectedPaymentData"
+    name="selectedPaymentDataId"
+    id="paymentData"
+    required
+  >
+    <option
+      *ngFor="let paymentData of paymentDataList"
+      [value]="paymentData.id"
+    >
+      {{ paymentData.fullName }}, {{ paymentData.cardType }}, Card Number ending
+      in: {{ paymentData.cardNumber.slice(-4) }}
+    </option>
+  </select>
 </div>
 
-
-<!-- <div *ngIf="orderCart">
+<div [(ngModel)]="orderCart" name="checkoutOrderCart" id="orderCartid">
   <h3>Order Details</h3>
-  <p><strong>Total Items:</strong> {{ orderCart.totalPrice }}</p>
-</div> -->
+  <p>
+    <strong>Total Cost:</strong> {{ orderCart?.totalPrice | number : "1.2-2" }}
+  </p>
+</div>
