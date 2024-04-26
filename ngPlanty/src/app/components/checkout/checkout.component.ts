@@ -26,6 +26,8 @@ export class CheckoutComponent implements OnInit {
   selectedChoicesForCheckout: OrderCart | undefined;
   editCheckout: OrderCart | null = null;
 
+  displayFinalizationDetails: boolean = false;
+
   isShippingAddressesLoaded: boolean = false;
   isPaymentDataLoaded: boolean = false;
 
@@ -81,7 +83,45 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  finalizeOrder(): void {
+    if (this.orderCart && this.orderCart.id) {
+      this.orderCartService.finalizeOrderCart(this.orderCart.id).subscribe({
+        next: (updatedOrderCart) => {
+          this.orderCart = updatedOrderCart;
+          console.log('Order finalized successfully', updatedOrderCart);
+          this.displayFinalizationDetails = true;
+        },
+        error: (error) => {
+          console.error('Failed to finalize order', error);
 
+        }
+      });
+    } else {
+      console.error('Order cart data is incomplete.');
+
+    }
+  }
+
+
+
+  onSubmit(): void {
+    console.log('Form submitted');
+    if (this.selectedShippingAddressId && this.selectedPaymentDataId) {
+      this.finalizeOrder();
+    } else {
+      console.error('Shipping address or payment data is not selected.');
+    }
+  }
+
+  onShippingAddressChange(newAddressId: number): void {
+    this.selectedShippingAddressId = newAddressId;
+    console.log('Selected shipping address ID:', newAddressId);
+  }
+
+  onPaymentDataChange(newPaymentDataId: number): void {
+    this.selectedPaymentDataId = newPaymentDataId;
+    console.log('Selected payment data ID:', newPaymentDataId);
+  }
 
 
 }

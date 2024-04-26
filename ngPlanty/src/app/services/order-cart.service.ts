@@ -99,26 +99,19 @@ export class OrderCartService {
 
   //CHECKOUT COMPONENT LOGIC
 
-  checkoutOrderCart(orderCart: OrderCart, id: number): Observable<OrderCart> {
+  finalizeOrderCart(orderCartId: number): Observable<OrderCart> {
     return this.authService.getLoggedInUser().pipe(
-      switchMap((user) => {
+      switchMap(user => {
         if (!user) {
           throw new Error('User not logged in');
         }
-        const urlWithId = `${this.url}/checkout/${id}`;
-        return this.httpClient
-          .put<OrderCart>(urlWithId, orderCart, this.getHttpOptions())
-          .pipe(
-            catchError((err: any) => {
-              console.log(err);
-              return throwError(
-                () =>
-                  new Error(
-                    'OrderCartService.checkoutOrderCart():error checking out orderCart'
-                  )
-              );
-            })
-          );
+        const finalizeUrl = `${this.url}/${orderCartId}/finalize`;
+        return this.httpClient.post<OrderCart>(finalizeUrl, {}, this.getHttpOptions()).pipe(
+          catchError(err => {
+            console.error('Error finalizing order cart', err);
+            return throwError(() => new Error('OrderCartService.finalizeOrderCart(): error finalizing order cart'));
+          })
+        );
       })
     );
   }
