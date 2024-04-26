@@ -30,21 +30,13 @@
     </select>
   </div>
 
-  <button type="submit">Proceed to Confirm</button>
+  <!-- Remove nested form and use a single button for form submission -->
+  <button type="submit" [disabled]="!checkoutForm.valid">Proceed to Confirm</button>
 </form>
 
-<div class="finalize-order">
-  <button (click)="finalizeOrder()" [disabled]="!checkoutForm.valid">
-    Finalize Order
-  </button>
-</div>
-
-
-
+<!-- Order Finalization Details -->
 <div *ngIf="displayFinalizationDetails && orderCart">
   <h2>Order Finalization Details</h2>
   <p><strong>Tracking Number:</strong> {{ orderCart.trackingNumber }}</p>
-  <p><strong>Estimated Delivery Date:</strong>
-    {{ orderCart.estimatedDeliveryDate | date: 'longDate' }}
-  </p>
+  <p><strong>Estimated Delivery Date:</strong> {{ orderCart.estimatedDeliveryDate | date: 'longDate' }}</p>
 </div>

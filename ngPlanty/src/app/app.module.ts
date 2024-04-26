@@ -22,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -41,7 +43,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     OrderDetailComponent,
     OrderCartComponent,
     CheckoutComponent,
-    ProfileInfoComponent
+    ProfileInfoComponent,
+    ConfirmationDialogComponent
   ],
   providers: [DatePipe, provideAnimationsAsync()],
   bootstrap: [AppComponent],
@@ -53,6 +56,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     NgbModule,
     NgbCarouselModule,
     MatIconModule,
+    MatDialogModule,
     BsDropdownModule.forRoot(),
   ],
 })
