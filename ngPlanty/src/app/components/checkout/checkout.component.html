@@ -1,37 +1,36 @@
-<div>
-  <label for="shippingAddress">Select a Shipping Address:</label>
-  <select
-    [(ngModel)]="selectedShippingAddressId"
-    name="selectedShippingAddressId"
-    id="shippingAddress"
-    required
-  >
-    <option *ngFor="let address of shippingAddressList" [value]="address.id">
-      {{ address.streetAddress }}, {{ address.city }}, {{ address.state }},
-      {{ address.zipcode }}, {{ address.country }}
-    </option>
-  </select>
-
-  <label for="paymentData">Select a payment method:</label>
-  <select
-    [(ngModel)]="selectedPaymentData"
-    name="selectedPaymentDataId"
-    id="paymentData"
-    required
-  >
-    <option
-      *ngFor="let paymentData of paymentDataList"
-      [value]="paymentData.id"
+<!-- checkout.component.html -->
+<form>
+  <!-- Form content for selecting payment and shipping details -->
+  <div>
+    <label for="shippingAddress">Select Shipping Address:</label>
+    <select
+      [(ngModel)]="selectedShippingAddressId"
+      name="shippingAddress"
+      required
     >
-      {{ paymentData.fullName }}, {{ paymentData.cardType }}, Card Number ending
-      in: {{ paymentData.cardNumber.slice(-4) }}
-    </option>
-  </select>
-</div>
+      <option *ngFor="let address of shippingAddressList" [value]="address.id">
+        {{ address.streetAddress }}
+        {{ address.city }}
+        {{ address.state }}
+      </option>
+    </select>
+  </div>
 
-<div [(ngModel)]="orderCart" name="checkoutOrderCart" id="orderCartid">
-  <h3>Order Details</h3>
-  <p>
-    <strong>Total Cost:</strong> {{ orderCart?.totalPrice | number : "1.2-2" }}
-  </p>
-</div>
+  <div>
+    <label for="paymentData">Select Payment Method:</label>
+    <select [(ngModel)]="selectedPaymentDataId" name="paymentData" required>
+      <option
+        *ngFor="let paymentData of paymentDataList"
+        [value]="paymentData.id"
+      >
+        {{ paymentData.cardType }}
+        {{ paymentData.cardNumber }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Similarly setup for payment data if necessary -->
+
+  <!-- Submit button -->
+  <button type="submit">Checkout</button>
+</form>

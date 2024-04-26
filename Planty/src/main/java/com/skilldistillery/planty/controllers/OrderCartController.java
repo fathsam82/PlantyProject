@@ -105,25 +105,50 @@ public class OrderCartController {
 		}
 	}
 
-	/////////////////// SUBMIT ORDER LOGIC
-
-	@PutMapping("orderCarts/checkout/{orderCartId}")
-	public OrderCart checkoutOrderCart(Principal principal, HttpServletResponse res,
-			@PathVariable("orderCartId") int OrderCartId, @RequestBody OrderCart orderCart) {
-		orderCart = orderCartService.updatePaymentAndShippingForCheckout(principal.getName(), OrderCartId, orderCart);
+	@PostMapping("orderCarts/{orderCartId}/finalize")
+	public ResponseEntity<?> finalizeOrderCart(Principal principal, @PathVariable("orderCartId") int orderCartId,
+			HttpServletResponse res) {
+		if (principal == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 		try {
-			if (orderCart == null) {
-				res.setStatus(404);
+			String username = principal.getName();
+			OrderCart finalizedCart = orderCartService.submitOrderCart(username, orderCartId);
+			if (finalizedCart == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("OrderCart not found or not available for finalization.");
 			}
+			return ResponseEntity.ok(finalizedCart);
+		} catch (EntityNotFoundException enfe) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(enfe.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.setStatus(400);
-			orderCart = null;
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error processing your order finalization.");
 		}
-		return orderCart;
 
 	}
+
 }
+
+/////////////////// SUBMIT ORDER LOGIC
+
+//	@PutMapping("orderCarts/checkout/{orderCartId}")
+//	public OrderCart checkoutOrderCart(Principal principal, HttpServletResponse res,
+//			@PathVariable("orderCartId") int OrderCartId, @RequestBody OrderCart orderCart) {
+//		orderCart = orderCartService.updatePaymentAndShippingForCheckout(principal.getName(), OrderCartId, orderCart);
+//		try {
+//			if (orderCart == null) {
+//				res.setStatus(404);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			res.setStatus(400);
+//			orderCart = null;
+//		}
+//		return orderCart;
+//
+//	}
 
 //	@PutMapping("orderCarts/submit/{orderCartId}")
 //	public ResponseEntity<?> submitOrderCart(Principal principal, @PathVariable("orderCartId") int orderCartId,
@@ -149,4 +174,3 @@ public class OrderCartController {
 //					.body("An error occurred while submitting the order cart.");
 //		}
 //	}
-

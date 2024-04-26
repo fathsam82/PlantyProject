@@ -27,8 +27,8 @@ export class OrderCart {
     paymentMethod: string = '',
     enabled: boolean = false,
     user: User = new User(),
-    paymentData: PaymentData = new PaymentData(),
-    shippingAddress: ShippingAddress = new ShippingAddress(),
+    paymentData: PaymentData = new PaymentData,
+    shippingAddress: ShippingAddress = new ShippingAddress,
     orderDetails: OrderDetail[] = []
   ) {
     this.id = id;

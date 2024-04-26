@@ -13,13 +13,21 @@ import { PaymentData } from 'src/app/models/payment-data';
 })
 export class CheckoutComponent implements OnInit {
   selectedShippingAddressId: number | undefined;
-  shippingAddressList: ShippingAddress[] | undefined;
-  selectedShippingAddress: ShippingAddress | null = null;
-  orderCart: OrderCart | undefined;
-  paymentDataList: PaymentData[] | undefined;
-  selectedPaymentData: PaymentData | null = null;
   selectedPaymentDataId: number | undefined;
-  checkoutOrderCart: OrderCart | undefined;
+
+  shippingAddressList: ShippingAddress[] | undefined;
+  paymentDataList: PaymentData[] | undefined;
+
+  shippingAddress: ShippingAddress | undefined;
+  paymentData: PaymentData | undefined;
+
+
+  orderCart: OrderCart | undefined;
+  selectedChoicesForCheckout: OrderCart | undefined;
+  editCheckout: OrderCart | null = null;
+
+  isShippingAddressesLoaded: boolean = false;
+  isPaymentDataLoaded: boolean = false;
 
   constructor(
     private orderCartService: OrderCartService,
@@ -28,9 +36,9 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getOrderCart();
     this.getShippingAddressByUsername();
     this.getPaymentDataByUsername();
-    this.getOrderCart();
   }
 
   getOrderCart() {
@@ -51,32 +59,32 @@ export class CheckoutComponent implements OnInit {
 
   getShippingAddressByUsername() {
     this.shippingAddressService.getShippingAddressByUsername().subscribe({
-      next: (addresses) => {
-        this.shippingAddressList = addresses;
+      next: (addressList) => {
+        this.shippingAddressList = addressList;
+        this.isShippingAddressesLoaded = true; // Set flag when data is loaded
       },
       error: (error) => {
-        console.error(
-          'ProfileInfoComponent.getShippingAddresses(): error loading shipping addresses',
-          error
-        );
+        console.error('Error loading shipping addresses', error);
       },
     });
   }
 
   getPaymentDataByUsername() {
     this.paymentDataService.getPaymentDataByUsername().subscribe({
-      next: (paymentDataList) => {
-        console.log(paymentDataList);
-        this.paymentDataList = paymentDataList;
+      next: (paymentList) => {
+        this.paymentDataList = paymentList;
+        this.isPaymentDataLoaded = true; // Set flag when data is loaded
       },
-      error: (somethingBad) => {
-        console.error(
-          'ProfileInfoComponent.getPaymentDataByUsername: error loading paymentData'
-        );
-        console.log(somethingBad);
-        console.log(this.paymentDataList);
+      error: (error) => {
+        console.error('Error loading payment data', error);
       },
     });
   }
 
+
+
+
 }
+
+
+

@@ -14,13 +14,13 @@ public interface OrderCartService {
 
 	OrderCart getOrderCartByUsername(String username);
 
-//	OrderCart submitOrderCart(String username, int orderCartId);
+	OrderCart submitOrderCart(String username, int orderCartId);
 
-//	void clearOrderDetailsFromOrderCart(int orderCartId);   //CALLED IN submitOrderCart
+	void clearOrderDetailsFromOrderCart(int orderCartId);   //CALLED IN submitOrderCart
 
-	OrderCart setUserNotesForCheckout(String username, int orderCartId, String notes);
+//	OrderCart setUserNotesForCheckout(String username, int orderCartId, String notes);
 
-	OrderCart updatePaymentAndShippingForCheckout(String username, int orderCartIdd, OrderCart updatedOrderCart);
+//	OrderCart updatePaymentAndShippingForCheckout(String username, int orderCartIdd, OrderCart updatedOrderCart);
 
 
 }
