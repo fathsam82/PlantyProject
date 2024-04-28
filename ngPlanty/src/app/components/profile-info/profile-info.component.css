@@ -42,6 +42,20 @@
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 
+.btn-group {
+  display: block;
+  width: 100%;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #007bff;
@@ -59,6 +73,29 @@
   margin-bottom: 5px;
   background: #e9ecef;
   border-radius: 5px;
+}
+
+.dropdown-toggle:hover, .dropdown-toggle:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.dropdown-menu {
+  width: 100%;
+  border-radius: .25rem;
+  border: 1px solid #ced4da;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+  padding: .375rem .75rem;
+  color: #495057;
+  text-decoration: none;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #fff;
+  background-color: #007bff;
 }
 
 .payment-methods-list ul, .shipping-addresses-list ul {
