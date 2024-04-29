@@ -1,3 +1,7 @@
+
+<div class="container-fluid">
+
+
 <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
   <div>
     <label for="shippingAddress">Select Shipping Address:</label>
@@ -39,4 +43,5 @@
   <h2>Order Finalization Details</h2>
   <p><strong>Tracking Number:</strong> {{ orderCart.trackingNumber }}</p>
   <p><strong>Estimated Delivery Date:</strong> {{ orderCart.estimatedDeliveryDate | date: 'longDate' }}</p>
+</div>
 </div>

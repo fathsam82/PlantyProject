@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS `plant` ;
 CREATE TABLE IF NOT EXISTS `plant` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(500) NULL,
+  `description` VARCHAR(1000) NULL,
   `price` INT NOT NULL,
   `stock_quantity` INT NOT NULL,
   `plant_image_url` VARCHAR(255) NULL,
@@ -244,10 +244,10 @@ DROP TABLE IF EXISTS `plant_origin` ;
 
 CREATE TABLE IF NOT EXISTS `plant_origin` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `plant_id` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `latitude` DECIMAL(9,6) NOT NULL,
   `longitude` DECIMAL(9,6) NOT NULL,
+  `plant_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_plant_origin_plant1_idx` (`plant_id` ASC),
   CONSTRAINT `fk_plant_origin_plant1`
@@ -285,12 +285,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Long, light to dark green leaves.', 1000, 1000000, 'https://target.scene7.com/is/image/Target/GUEST_71909e47-2c05-418f-a124-cf3910389a15?wid=1200&hei=1200&qlt=80&fmt=webp', 'medium', 1, 1, 1);
-INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'Short dark green leaves.', 1000, 1000000, 'https://m.media-amazon.com/images/I/71M-lBHD4sL._AC_SX679_.jpg', 'medium', 1, 2, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (1, 'Snake Plant', 'Known for its durability and adaptability, this plant thrives even in lowlight conditions and is exceptionally lowmaintenance.\nIts sophisticated appearance enhances the aesthetics of your interior, making it a timeless addition to any room.', 1000, 1000000, 'https://target.scene7.com/is/image/Target/GUEST_71909e47-2c05-418f-a124-cf3910389a15?wid=1200&hei=1200&qlt=80&fmt=webp', 'medium', 1, 1, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (2, 'Money Tree', 'The Money Tree thrives in indirect sunlight and requires moderate watering, making it an excellent choice for busy individuals. With minimal care, it flourishes, gracing your home with enduring beauty and vibrant greenery.', 1000, 1000000, 'https://m.media-amazon.com/images/I/71M-lBHD4sL._AC_SX679_.jpg', 'medium', 1, 2, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (3, 'Aloe Vera', 'Medium length green succulent leaves that are prickly. It is well known for offering possible health and beauty benefits. It\'s also toxic to cats and dogs so we advise caution to where it\'s placed in your home.', 1100, 1000000, 'https://m.media-amazon.com/images/I/713BlHvw8VL.__AC_SX300_SY300_QL70_FMwebp_.jpg', 'medium', 1, 3, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (4, 'Winter Green', 'The “Wintergreen” cultivar of the Ficus benjamina is characterized by its yellowish green foliage that help give it a glowing appearance. Otherwise, this tree is everything plant lovers appreciate about fig trees. Even indoors, this tree can grow to be over 10-feet tall.', 1500, 1000000, 'https://m.media-amazon.com/images/I/81Ez5uPN9vL._AC_SY879_.jpg', 'large', 0, 2, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (5, 'Lilly Plant', 'Being a tropical plant, peace lily prefers high levels of humidity. If the leaf edges turn brown, supply more humidity by grouping it with more houseplants. Grow in bright, indirect sunlight and enjoy!', 2000, 1000000, 'https://m.media-amazon.com/images/I/81jEsBi-oJL.__AC_SX300_SY300_QL70_FMwebp_.jpg', 'large', 0, 1, 1);
 INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (6, 'Palm Plant', 'Majesty Palms are quick to grow, allowing them to quickly fill a space and transform home or office decor immediately. They are popular choices for living rooms, offices, patios, or poolside areas, adding tropical ambiance anywhere. They thrive in bright, indirect sunlight.', 2000, 1000000, 'https://m.media-amazon.com/images/I/81LMkrAjr9L._AC_SX679_.jpg', 'large', 0, 2, 1);
+INSERT INTO `plant` (`id`, `name`, `description`, `price`, `stock_quantity`, `plant_image_url`, `size`, `is_discounted`, `plant_category_id`, `enabled`) VALUES (7, 'Rattlesnake Plant', 'Rattlesnake plants are known for their air-purifying qualities, making it a great addition to any indoor environment. The plant prefers indirect sunlight and consistently moist soil to thrive.', 2000, 1000000, 'https://m.media-amazon.com/images/I/71rY2lmCyaL._AC_SX679_.jpg', 'medium', 0, 1, 1);
 
 COMMIT;
 
@@ -370,11 +371,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (1, 1, 'Ghana', 5.5600, 0.2057);
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (2, 2, 'Guyana', 6.8013, -58.1553);
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (3, 3, 'Oman', 21.0000, 57.0000);
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (4, 4, 'Ghana', 5.5600, 0.2057);
-INSERT INTO `plant_origin` (`id`, `plant_id`, `name`, `latitude`, `longitude`) VALUES (5, 5, 'Columbia', 4.7110, 74.0721);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (1, 'Ghana', 5.5600, 0.2057, 1);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (2, 'Guyana', 6.8013, -58.1553, 2);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (3, 'Oman', 21.0000, 57.0000, 3);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (4, 'Ghana', 5.5600, 0.2057, 4);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (5, 'Columbia', 4.7110, 74.0721, 5);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (6, 'Maldives', 4.1755, 73.5093, 6);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (7, 'Brazil', -14.2350, -51.9253, 7);
 
 COMMIT;
 

@@ -69,9 +69,9 @@ class PlantTest {
 		
 		assertNotNull(plant);
 		
-		assertNotNull(plant.getPlantOrigins());
+		assertNotNull(plant.getPlantOrigin());
 		
-		assertTrue(plant.getPlantOrigins().size()>0);	
+			
 		
 	}
 	

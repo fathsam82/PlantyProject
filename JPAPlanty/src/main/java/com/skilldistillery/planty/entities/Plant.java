@@ -11,9 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -48,8 +47,8 @@ public class Plant {
 	
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "plant")
-	private List<PlantOrigin> plantOrigins;
+	@OneToOne(mappedBy = "plant")
+	private PlantOrigin plantOrigin;
 	
 	private Boolean enabled;
 	
@@ -158,12 +157,13 @@ public class Plant {
 		this.plantCat = plantCat;
 	}
 
-	public List<PlantOrigin> getPlantOrigins() {
-		return plantOrigins;
+
+	public PlantOrigin getPlantOrigin() {
+		return plantOrigin;
 	}
 
-	public void setPlantOrigins(List<PlantOrigin> plantOrigins) {
-		this.plantOrigins = plantOrigins;
+	public void setPlantOrigin(PlantOrigin plantOrigin) {
+		this.plantOrigin = plantOrigin;
 	}
 
 	public Boolean getEnabled() {

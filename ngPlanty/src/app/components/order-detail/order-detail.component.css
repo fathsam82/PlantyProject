@@ -38,6 +38,32 @@
   padding: 20px;
 }
 
+.nav {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item {
+  margin: 10px;
+}
+
+.nav-link {
+  padding: 10px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #007BFF;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
 
 @media (max-width: 768px) {
   .order-detail-card {
@@ -48,4 +74,3 @@
     max-height: 200px;
   }
 }
-

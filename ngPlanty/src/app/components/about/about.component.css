@@ -1,0 +1,28 @@
+body {
+  background-image: url('/assets/DALL·E 2024-04-28 11.45.20 - An aerial view of a lush, green forest canopy, capturing a detailed scene with a clear foreground, middleground, and background. The foreground featur.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  font-weight: 500;
+  line-height: 1.6;
+  text-align: justify;
+}
+
