@@ -18,25 +18,27 @@ import com.skilldistillery.planty.services.PlantOriginService;
 @CrossOrigin({ "*", "http://localhost/" })
 @RequestMapping("api")
 public class PlantOriginController {
-	
-	
+
 	@Autowired
 	private PlantOriginService plantOriginService;
-	@GetMapping("plants/{id}/origin")
+
+	@GetMapping("plantOrigin/{id}")
 	public ResponseEntity<?> getPlantOriginByPlantId(@PathVariable("id") int plantId) {
-	    try {
-	        PlantOrigin plantOrigin = plantOriginService.getPlantOriginByPlantId(plantId);
-	        if (plantOrigin != null) {
-	            return ResponseEntity.ok(plantOrigin);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Origin not found for plant with id: " + plantId + " 🌍");
-	        }
-	    } catch (EntityNotFoundException e) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Crikey! An error occurred while fetching the plant's origin 😖");
-	    }
+		try {
+			PlantOrigin plantOrigin = plantOriginService.getPlantOriginByPlantId(plantId);
+			if (plantOrigin != null) {
+				return ResponseEntity.ok(plantOrigin);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("Origin not found for plant with id: " + plantId + " 🌍");
+			}
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Crikey! An error occurred while fetching the plant's origin 😖");
+		}
 	}
 
 }
