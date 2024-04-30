@@ -9,21 +9,24 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-plant-detail',
   templateUrl: './plant-detail.component.html',
   styleUrls: ['./plant-detail.component.css'],
+
 })
 export class PlantDetailComponent implements OnInit {
   plant: Plant | undefined;
   quantity: number = 1;
   giftWrap: boolean = false;
 
+
   constructor(
     private plantService: PlantService,
     private activatedRoute: ActivatedRoute,
     private orderDetailService: OrderDetailService,
     private router: Router
-  ) {}
+    ) {}
 
-  ngOnInit() {
-    this.getPlantDetails();
+    ngOnInit() {
+      this.getPlantDetails();
+
   }
 
   getPlantDetails() {
@@ -61,4 +64,8 @@ export class PlantDetailComponent implements OnInit {
         },
       });
   }
+
+
+
+
 }
