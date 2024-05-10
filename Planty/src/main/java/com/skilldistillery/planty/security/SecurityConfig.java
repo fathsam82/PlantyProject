@@ -40,6 +40,11 @@ public class SecurityConfig {
         .antMatchers(HttpMethod.DELETE, "/api/orderDetails/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.GET, "/api/plants").permitAll()  //TEMP
         .antMatchers(HttpMethod.GET, "/api/plants/*").permitAll()  //TEMP
+        
+        .antMatchers(HttpMethod.GET, "/api/plantOrigin").permitAll()  //TEMP
+        .antMatchers(HttpMethod.GET, "/api/plantOrigin/*").permitAll()  //TEMP
+        
+        
         .antMatchers(HttpMethod.POST, "/api/plants").permitAll()  //TEMP
         .antMatchers(HttpMethod.POST, "/api/plants/*").permitAll()  //TEMP
         .antMatchers(HttpMethod.PUT, "/api/plants").permitAll()  //TEMP

@@ -6,13 +6,14 @@ import { PlantOrigin } from '../models/plant-origin';
 import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PlantOriginService {
-
   private url = environment.baseUrl + 'api/plantOrigin';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient , private authService: AuthService
+  ) {}
 
   getHttpOptions() {
     let options = {
@@ -25,19 +26,27 @@ export class PlantOriginService {
   }
 
   getPlantOrigin(id: number): Observable<PlantOrigin> {
-    return this.authService.getLoggedInUser().pipe(
-      switchMap((user) => {
-        if (!user) {
-          throw new Error('User not logged in.');
-        }
+    // return this.authService.getLoggedInUser().pipe(
+    //   switchMap((user) => {
+    //     if (!user) {
+    //       throw new Error('User not logged in.');
+    //     }
 
-        return this.http.get<PlantOrigin>(`${this.url}/${id}`, this.getHttpOptions()).pipe(
-          catchError((err: any) => {
-            console.error(`PlantOriginService.getPlantOrigin(): error retrieving plantOrigin by id ${id}`, err);
-            return throwError(() => new Error(`PlantOriginService.getPlantOrigin(): error retrieving plantOrigin by id ${id}`));
-          })
+    return this.http.get<PlantOrigin>(`${this.url}/${id}`).pipe(
+      catchError((err: any) => {
+        console.error(
+          `PlantOriginService.getPlantOrigin(): error retrieving plantOrigin by id ${id}`,
+          err
+        );
+        return throwError(
+          () =>
+            new Error(
+              `PlantOriginService.getPlantOrigin(): error retrieving plantOrigin by id ${id}`
+            )
         );
       })
     );
+    //   })
+    // );
   }
 }
