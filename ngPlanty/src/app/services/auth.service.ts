@@ -1,6 +1,126 @@
+// import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { Injectable } from '@angular/core';
+// import { tap, catchError, throwError, Observable } from 'rxjs';
+// import { environment } from 'src/environments/environment';
+// import { User } from '../models/user';
+// import { Buffer } from 'buffer';
+
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class AuthService {
+//   // Set port number to server's port
+//   // private baseUrl = 'http://localhost:8085/';
+//   private url = environment.baseUrl;
+
+//   constructor(private http: HttpClient) {}
+
+//   register(user: User): Observable<User> {
+//     return this.http.post<User>(this.url + 'register', user).pipe(
+//       catchError((err: any) => {
+//         console.log(err);
+//         return throwError(
+//           () => new Error('AuthService.register(): error registering user.')
+//         );
+//       })
+//     );
+//   }
+
+//   login(username: string, password: string): Observable<User> {
+//     // Make credentials
+//     const credentials = this.generateBasicAuthCredentials(username, password);
+//     // Send credentials as Authorization header specifying Basic HTTP authentication
+//     const httpOptions = {
+//       headers: new HttpHeaders({
+//         Authorization: `Basic ${credentials}`,
+//         'X-Requested-With': 'XMLHttpRequest',
+//       }),
+//     };
+
+//     // Create GET request to authenticate credentials
+//     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
+//       tap((newUser) => {
+//         // While credentials are stored in browser localStorage, we consider
+//         // ourselves logged in.
+//         localStorage.setItem('credentials', credentials);
+//         return newUser;
+//       }),
+//       catchError((err: any) => {
+//         console.log(err);
+//         return throwError(
+//           () => new Error('AuthService.login(): error logging in user.')
+//         );
+//       })
+//     );
+//   }
+
+//   logout(): void {
+//     localStorage.removeItem('credentials');
+//   }
+
+//   getLoggedInUser(): Observable<User> {
+//     if (!this.checkLogin()) {
+//       return throwError(() => {
+//         new Error('Not logged in.');
+//       });
+//     }
+//     let httpOptions = {
+//       headers: {
+//         Authorization: 'Basic ' + this.getCredentials(),
+//         'X-Requested-with': 'XMLHttpRequest',
+//       },
+//     };
+//     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
+//       catchError((err: any) => {
+//         console.log(err);
+//         return throwError(
+//           () =>
+//             new Error(
+//               'AuthService.getUserById(): error retrieving user: ' + err
+//             )
+//         );
+//       })
+//     );
+//   }
+
+//   checkLogin(): boolean {
+//     if (localStorage.getItem('credentials')) {
+//       return true;
+//     }
+//     return false;
+//   }
+
+
+//   getUsername(): string | null {
+//     const credentials = this.getCredentials();
+//     if (!credentials) {
+//       return null;
+//     }
+//     // Decode the credentials from Base64 and split them by the colon to get the username
+//     const decoded = Buffer.from(credentials, 'base64').toString('ascii');
+//     const username = decoded.split(':')[0];
+//     return username;
+//   }
+
+//   generateBasicAuthCredentials(username: string, password: string): string {
+//     return Buffer.from(`${username}:${password}`).toString('base64');
+//   }
+
+//   getCredentials(): string | null {
+//     return localStorage.getItem('credentials');
+//   }
+// }
+
+
+
+
+
+
+
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, catchError, throwError, Observable } from 'rxjs';
+import { tap, catchError, throwError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { Buffer } from 'buffer';
@@ -9,8 +129,6 @@ import { Buffer } from 'buffer';
   providedIn: 'root',
 })
 export class AuthService {
-  // Set port number to server's port
-  // private baseUrl = 'http://localhost:8085/';
   private url = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
@@ -19,17 +137,13 @@ export class AuthService {
     return this.http.post<User>(this.url + 'register', user).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError(
-          () => new Error('AuthService.register(): error registering user.')
-        );
+        return throwError(() => new Error('AuthService.register(): error registering user.'));
       })
     );
   }
 
   login(username: string, password: string): Observable<User> {
-    // Make credentials
     const credentials = this.generateBasicAuthCredentials(username, password);
-    // Send credentials as Authorization header specifying Basic HTTP authentication
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `Basic ${credentials}`,
@@ -37,19 +151,14 @@ export class AuthService {
       }),
     };
 
-    // Create GET request to authenticate credentials
     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
       tap((newUser) => {
-        // While credentials are stored in browser localStorage, we consider
-        // ourselves logged in.
         localStorage.setItem('credentials', credentials);
         return newUser;
       }),
       catchError((err: any) => {
         console.log(err);
-        return throwError(
-          () => new Error('AuthService.login(): error logging in user.')
-        );
+        return throwError(() => new Error('AuthService.login(): error logging in user.'));
       })
     );
   }
@@ -58,48 +167,35 @@ export class AuthService {
     localStorage.removeItem('credentials');
   }
 
-  getLoggedInUser(): Observable<User> {
+  getLoggedInUser(): Observable<User | null> {
     if (!this.checkLogin()) {
-      return throwError(() => {
-        new Error('Not logged in.');
-      });
+      return of(null);
     }
-    let httpOptions = {
-      headers: {
+    const httpOptions = {
+      headers: new HttpHeaders({
         Authorization: 'Basic ' + this.getCredentials(),
-        'X-Requested-with': 'XMLHttpRequest',
-      },
+        'X-Requested-With': 'XMLHttpRequest',
+      }),
     };
     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError(
-          () =>
-            new Error(
-              'AuthService.getUserById(): error retrieving user: ' + err
-            )
-        );
+        return throwError(() => new Error('AuthService.getLoggedInUser(): error retrieving user.'));
       })
     );
   }
 
   checkLogin(): boolean {
-    if (localStorage.getItem('credentials')) {
-      return true;
-    }
-    return false;
+    return !!localStorage.getItem('credentials');
   }
-
 
   getUsername(): string | null {
     const credentials = this.getCredentials();
     if (!credentials) {
       return null;
     }
-    // Decode the credentials from Base64 and split them by the colon to get the username
     const decoded = Buffer.from(credentials, 'base64').toString('ascii');
-    const username = decoded.split(':')[0];
-    return username;
+    return decoded.split(':')[0];
   }
 
   generateBasicAuthCredentials(username: string, password: string): string {
@@ -110,3 +206,4 @@ export class AuthService {
     return localStorage.getItem('credentials');
   }
 }
+

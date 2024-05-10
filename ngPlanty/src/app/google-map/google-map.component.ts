@@ -1,13 +1,42 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, SimpleChanges, OnChanges } from '@angular/core';
+
+declare var google: any;
 
 @Component({
   selector: 'app-google-map',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './google-map.component.html',
-  styleUrl: './google-map.component.css'
+  template: '<div #mapContainer style="width: 100%; height: 400px;"></div>',
+  styleUrls: ['./google-map.component.css']
 })
-export class GoogleMapComponent {
+export class GoogleMapComponent implements AfterViewInit, OnChanges {
+  @Input() lat: number = 0;
+  @Input() lng: number = 0;
+  @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
+  private map: any;
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['lat'] || changes['lng']) {
+      this.initializeMap();
+    }
+  }
+
+  ngAfterViewInit() {
+    this.initializeMap();
+  }
+
+  initializeMap(): void {
+    const center = { lat: this.lat, lng: this.lng };
+    if (this.mapContainer && this.mapContainer.nativeElement) {
+      if (!this.map) {
+        this.map = new google.maps.Map(this.mapContainer.nativeElement, {
+          center: center,
+          zoom: 8
+        });
+      } else {
+        this.map.setCenter(center);
+      }
+      new google.maps.Marker({ position: center, map: this.map });
+    } else {
+      console.warn('GoogleMapComponent: mapContainer is not defined');
+    }
+  }
 }

@@ -1,9 +1,11 @@
+import { PlantOriginService } from './../../services/plant-origin.service';
 import { Component, OnInit } from '@angular/core';
 import { PlantService } from 'src/app/services/plant.service';
 import { Plant } from 'src/app/models/plant';
 import { FormsModule } from '@angular/forms';
 import { OrderDetailService } from 'src/app/services/order-detail.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PlantOrigin } from 'src/app/models/plant-origin';
 
 @Component({
   selector: 'app-plant-detail',
@@ -15,13 +17,15 @@ export class PlantDetailComponent implements OnInit {
   plant: Plant | undefined;
   quantity: number = 1;
   giftWrap: boolean = false;
+  origin: PlantOrigin | undefined;
 
 
   constructor(
     private plantService: PlantService,
     private activatedRoute: ActivatedRoute,
     private orderDetailService: OrderDetailService,
-    private router: Router
+    private router: Router,
+    private plantOriginService: PlantOriginService
     ) {}
 
     ngOnInit() {
@@ -35,7 +39,10 @@ export class PlantDetailComponent implements OnInit {
       const id = Number(plantId);
       if (!isNaN(id)) {
         this.plantService.getPlant(id).subscribe({
-          next: (plant) => (this.plant = plant),
+          next: (plant) => {
+            this.plant = plant;
+            this.getOriginDetails(id);
+          },
           error: (err) => console.error(err),
         });
       } else {
@@ -63,6 +70,13 @@ export class PlantDetailComponent implements OnInit {
           console.error('Error adding plant to order', error);
         },
       });
+  }
+
+  getOriginDetails(plantId: number) {
+    this.plantOriginService.getPlantOrigin(plantId).subscribe({
+      next: (origin) => this.origin = origin,
+      error: (err) => console.error('Failed to load origin', err)
+    });
   }
 
 
