@@ -11,7 +11,6 @@ import { PlantOrigin } from 'src/app/models/plant-origin';
   selector: 'app-plant-detail',
   templateUrl: './plant-detail.component.html',
   styleUrls: ['./plant-detail.component.css'],
-
 })
 export class PlantDetailComponent implements OnInit {
   plant: Plant | undefined;
@@ -19,18 +18,16 @@ export class PlantDetailComponent implements OnInit {
   giftWrap: boolean = false;
   origin: PlantOrigin | undefined;
 
-
   constructor(
     private plantService: PlantService,
     private activatedRoute: ActivatedRoute,
     private orderDetailService: OrderDetailService,
     private router: Router,
     private plantOriginService: PlantOriginService
-    ) {}
+  ) {}
 
-    ngOnInit() {
-      this.getPlantDetails();
-
+  ngOnInit() {
+    this.getPlantDetails();
   }
 
   getPlantDetails() {
@@ -74,12 +71,8 @@ export class PlantDetailComponent implements OnInit {
 
   getOriginDetails(plantId: number) {
     this.plantOriginService.getPlantOrigin(plantId).subscribe({
-      next: (origin) => this.origin = origin,
-      error: (err) => console.error('Failed to load origin', err)
+      next: (origin) => (this.origin = origin),
+      error: (err) => console.error('Failed to load origin', err),
     });
   }
-
-
-
-
 }
