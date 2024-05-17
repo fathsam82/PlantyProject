@@ -111,34 +111,41 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  onSubmit(): void {
-    if (this.selectedShippingAddressId && this.selectedPaymentDataId) {
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+  // checkout.component.ts
+onSubmit(): void {
+  if (this.selectedShippingAddressId && this.selectedPaymentDataId) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Confirm Purchase',
+        message: 'Are you sure you want to finalize this order?'
+      }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          if (this.orderCart && this.orderCart.id) {
-            this.orderCartService.finalizeOrderCart(this.orderCart.id).subscribe({
-              next: (updatedOrderCart) => {
-                this.orderCart = updatedOrderCart;
-                console.log('Order finalized successfully', updatedOrderCart);
-                this.displayFinalizationDetails = true;
-              },
-              error: (error) => {
-                console.error('Failed to finalize order', error);
-              }
-            });
-          } else {
-            console.error('Order cart data is incomplete.');
-          }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (this.orderCart && this.orderCart.id) {
+          this.orderCartService.finalizeOrderCart(this.orderCart.id).subscribe({
+            next: (updatedOrderCart) => {
+              this.orderCart = updatedOrderCart;
+              console.log('Order finalized successfully', updatedOrderCart);
+              this.displayFinalizationDetails = true;
+            },
+            error: (error) => {
+              console.error('Failed to finalize order', error);
+            }
+          });
         } else {
-          console.log('Order finalization canceled');
+          console.error('Order cart data is incomplete.');
         }
-      });
-    } else {
-      console.error('Shipping address or payment data is not selected.');
-    }
+      } else {
+        console.log('Order finalization canceled');
+      }
+    });
+  } else {
+    console.error('Shipping address or payment data is not selected.');
   }
+}
+
 
 
 

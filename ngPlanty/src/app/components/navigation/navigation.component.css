@@ -43,6 +43,7 @@
   justify-content: center;
   align-items: center;
   list-style: none;
+  margin-bottom: 5px;
 }
 
 .nav-item {
@@ -51,4 +52,14 @@
 
 .navbar-nav, .navbar-right {
   padding: 0;
+}
+
+.nav-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-link:hover {
+  color: #32cbd8;
 }

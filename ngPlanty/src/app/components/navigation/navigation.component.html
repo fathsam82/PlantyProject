@@ -30,7 +30,7 @@
           <a class="nav-link" [routerLink]="['/login']">Log In</a>
         </li>
         <li class="nav-item" *ngIf="checkLogin()">
-          <a class="nav-link" [routerLink]="['/logout']">Logout</a>
+          <a class="nav-link" [routerLink]="['/profile-info']">Profile</a>
         </li>
         <li class="nav-item" *ngIf="checkLogin()">
           <button class="btn nav-link" mat-icon-button [routerLink]="['/order-cart']">
@@ -40,7 +40,7 @@
       </ul>
       <ul class="navbar-right">
         <li class="nav-item" *ngIf="checkLogin()">
-          <a class="nav-link" [routerLink]="['/profile-info']">Profile</a>
+          <a class="nav-link" (click)="openLogoutDialog()">Logout</a>
         </li>
       </ul>
     </div>
