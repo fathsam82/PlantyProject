@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { OrderDetailService } from 'src/app/services/order-detail.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlantOrigin } from 'src/app/models/plant-origin';
+import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-plant-detail',
@@ -23,7 +25,8 @@ export class PlantDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private orderDetailService: OrderDetailService,
     private router: Router,
-    private plantOriginService: PlantOriginService
+    private plantOriginService: PlantOriginService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -65,6 +68,14 @@ export class PlantDetailComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error adding plant to order', error);
+          this.dialog.open(ConfirmationDialogComponent, {
+            data: {
+              title: 'Add to Order Failed',
+              message: 'You must be logged in to add plants to your order.',
+              linkText: 'Go to Login',
+              linkRoute: '/login',
+            },
+          });
         },
       });
   }
