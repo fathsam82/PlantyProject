@@ -1,6 +1,5 @@
 <div class="container-fluid">
   <div *ngIf="plant" class="row">
-    <!-- Plant Image and Basic Information -->
     <div class="col-md-4">
       <div class="card">
         <div class="image-container">
@@ -20,7 +19,6 @@
       </div>
     </div>
 
-    <!-- Quantity Selection and Order Addition -->
     <div class="col-md-6">
       <form>
         <div class="form-group">
@@ -52,7 +50,6 @@
           Add to Order
         </button>
       </form>
-      <!-- <div></div> -->
       <!-- Google Map Display, shown only when origin data is available -->
       <div class="col-md-12 map-container" *ngIf="origin">
         <h4> Native Origin of {{plant.name}}s </h4>

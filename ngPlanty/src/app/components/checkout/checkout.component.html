@@ -34,11 +34,9 @@
     </select>
   </div>
 
-  <!-- Remove nested form and use a single button for form submission -->
   <button type="submit" [disabled]="!checkoutForm.valid">Proceed to Confirm</button>
 </form>
 
-<!-- Order Finalization Details -->
 <div *ngIf="displayFinalizationDetails && orderCart">
   <h2>Order Finalization Details</h2>
   <p><strong>Tracking Number:</strong> {{ orderCart.trackingNumber }}</p>

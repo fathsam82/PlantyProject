@@ -1,34 +1,35 @@
-<div class="container-fluid">
-<form (submit)="register(newUser)">
-  <div class="row">
-  <div>
-    <input
-      class="col form-control"
-      type="text"
-      name="username"
-      [(ngModel)]="newUser.username"
-      placeholder="Username"
-    /><br />
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-lg" style="width: 400px;">
+    <h2 class="text-center mb-4">Register</h2>
+    <form (submit)="register(newUser)">
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="text"
+          name="username"
+          [(ngModel)]="newUser.username"
+          placeholder="Username"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          [(ngModel)]="newUser.email"
+          placeholder="Email"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="password"
+          name="password"
+          [(ngModel)]="newUser.password"
+          placeholder="Password"
+        />
+      </div>
+      <button class="btn btn-primary w-100">Register Account</button>
+    </form>
   </div>
-  <div>
-    <input
-      class="col form-control"
-      type="text"
-      name="email"
-      [(ngModel)]="newUser.email"
-      placeholder="Email"
-    /><br />
-  </div>
-  <div>
-    <input
-      class="col form-control"
-      type="text"
-      name="password"
-      [(ngModel)]="newUser.password"
-      placeholder="Password"
-    />
-  </div>
-</div>
-  <button class="col-auto btn btn-accesss">Register Account</button>
-</form>
 </div>

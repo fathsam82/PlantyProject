@@ -1,0 +1,21 @@
+/* login.component.css */
+.container {
+  height: 100vh;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+h2 {
+  color: #333;
+}
+
+.btn-primary {
+  background-color: #5cb85c;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #4cae4c;
+}
