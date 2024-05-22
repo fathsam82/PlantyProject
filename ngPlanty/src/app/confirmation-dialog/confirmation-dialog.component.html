@@ -12,13 +12,17 @@
 <div mat-dialog-content>
   <p>{{ message }}</p>
   <ng-container *ngIf="linkText && linkRoute">
-    <a (click)="navigateToLink()" style="cursor: pointer; color: blue; text-decoration: underline;">
+    <a [mat-dialog-close] (click)="navigateToLink()" style="cursor: pointer; color: blue; text-decoration: underline;">
       {{ linkText }}
     </a>
   </ng-container>
 </div>
-<div mat-dialog-actions>
+<div *ngIf="!linkText && !linkRoute"mat-dialog-actions>
+  <div>
   <button mat-button [mat-dialog-close]="true">Yes</button>
+  </div>
+  <div>
   <button mat-button [mat-dialog-close]="false">No</button>
+</div>
 </div>
 
