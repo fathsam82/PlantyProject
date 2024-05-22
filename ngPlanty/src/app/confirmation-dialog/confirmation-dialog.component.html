@@ -1,7 +1,7 @@
 
 <h1 mat-dialog-title>{{ title }}</h1>
 <div mat-dialog-content>
-  <p>{{ message }}</p>
+  <p *ngIf="!errorMessage">{{ message }}</p>
   <ng-container *ngIf="errorMessage">
     <p style="color: red;">{{ errorMessage }}</p>
   </ng-container>
@@ -11,7 +11,7 @@
     </a>
   </ng-container>
 </div>
-<div *ngIf="!linkText && !linkRoute"mat-dialog-actions>
+<div *ngIf="!linkText && !linkRoute && !errorMessage"mat-dialog-actions>
   <div>
   <button mat-button [mat-dialog-close]="true">Yes</button>
   </div>
