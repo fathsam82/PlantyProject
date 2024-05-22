@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,10 +11,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ){}
 
   loginUser: User = new User();
@@ -21,6 +23,16 @@ export class LoginComponent {
     console.log('Logging in:');
     console.log(user);
 
+    if (!user.username || !user.password) {
+      this.dialog.open(ConfirmationDialogComponent, {
+        data: {
+          title: 'Login Error',
+          errorMessage: 'Please correctly enter both the username and password.'
+        }
+      });
+      return;
+    }
+
     this.auth.login(user.username, user.password).subscribe({
       next: (loggedInUser) => {
         this.router.navigateByUrl('/plants');
@@ -28,8 +40,13 @@ export class LoginComponent {
       error: (problem) => {
         console.error('LoginComponent.login(): Error logging in user:');
         console.error(problem);
+        this.dialog.open(ConfirmationDialogComponent, {
+          data: {
+            title: 'Login Error',
+            errorMessage: 'Incorrect username or password. Please try again.'
+          }
+        });
       }
     });
   }
-
 }

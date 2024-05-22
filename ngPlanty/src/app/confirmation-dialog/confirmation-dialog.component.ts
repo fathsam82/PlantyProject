@@ -7,13 +7,16 @@ import { Router } from '@angular/router';
   templateUrl: './confirmation-dialog.component.html',
 })
 export class ConfirmationDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router
+  ) {}
 
-  get title(){
+  get title() {
     return this.data.title || 'Confirmation';
   }
 
-  get message(){
+  get message() {
     return this.data.message || 'Are you sure?';
   }
 
@@ -23,6 +26,10 @@ export class ConfirmationDialogComponent {
 
   get linkRoute() {
     return this.data.linkRoute || null;
+  }
+
+  get errorMessage() {
+    return this.data.errorMessage || null;
   }
 
   navigateToLink() {
