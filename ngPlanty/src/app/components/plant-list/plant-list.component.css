@@ -12,6 +12,7 @@
 
 
 
+
 .overlay {
   position: absolute;
   top: 10px;
@@ -36,7 +37,7 @@
 }
 
 .card {
-  height: 450px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   background-color: #f4f4f4;
@@ -50,7 +51,14 @@
 }
 
 
-.card-title, .card-text {
-  overflow: hidden;
+.card-text {
+  overflow: scroll;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+-webkit-line-clamp: 3; /* Number of lines to show before cutting off */
+height: calc(1.2em * 3); /* Adjust according to the number of lines */
+line-height: 1.2em;
+max-height: calc(1.2em * 3); /* Adjust according to the number of lines */
 }
+
