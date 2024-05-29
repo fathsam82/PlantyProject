@@ -17,6 +17,8 @@ export class PlantListComponent implements OnInit {
 
   searchPlantQuery: string = '';
 
+  errorMessage: string = '';
+
   constructor(private plantService: PlantService, private router: Router) {}
 
   ngOnInit() {
@@ -25,6 +27,7 @@ export class PlantListComponent implements OnInit {
   }
 
   reload() {
+    this.errorMessage = '';
     this.plantService.index().subscribe({
       next: (plants) => {
         this.plants = plants;
@@ -42,11 +45,13 @@ export class PlantListComponent implements OnInit {
       this.plantService.getPlantByName(this.searchPlantQuery).subscribe({
         next: (plant) => {
           this.plants = [plant];
+          this.errorMessage = '';
         },
         error: (badTings) => {
           console.error('PlantListComponent.getPlantByName: error loading plant');
           console.error(badTings);
-          this.plants = [];
+          // this.plants = [];
+          this.errorMessage = 'No plants found with the name "' + this.searchPlantQuery + '"';
         }
       });
     } else {

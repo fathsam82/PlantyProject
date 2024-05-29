@@ -18,7 +18,8 @@ public class PlantOriginServiceImpl implements PlantOriginService {
 	@Autowired
 	private PlantOriginRepository plantOriginRepo;
 	
-	@Autowired PlantRepository plantRepo;
+	@Autowired 
+	private PlantRepository plantRepo;
 	
 	
 	

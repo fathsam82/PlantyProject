@@ -108,6 +108,6 @@ export class OrderCartComponent implements OnInit {
           text.innerText = this.plantFacts[currentIndex].fact;
         }
       }
-    }, 5000);
+    }, 8000);
   }
 }
