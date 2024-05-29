@@ -15,6 +15,12 @@ export class OrderCartComponent implements OnInit {
   selectedOrderCart: OrderCart | null = null;
   editOrderCart: OrderCart | null = null;
 
+  plantFacts: { imgUrl: string, fact: string }[] = [
+    { imgUrl: 'https://static.wikia.nocookie.net/pokemontabletopunited/images/4/43/Bulbasaur.png/revision/latest?cb=20170116035333', fact: 'TEMPnull' },
+    { imgUrl: 'https://www.kindpng.com/picc/m/496-4967747_thumb-image-scyther-png-transparent-png.png', fact: 'TEMPnull' },
+    { imgUrl: 'https://static.wikia.nocookie.net/kaijuwikia/images/e/e4/Celebi.png/revision/latest?cb=20200428060430', fact: 'TEMPnull' }
+  ];
+
   constructor(
     private orderCartService: OrderCartService,
     private activatedRoute: ActivatedRoute,

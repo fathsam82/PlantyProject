@@ -1,45 +1,39 @@
-
 <div class="container-fluid">
-
-
-<form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
-  <div>
-    <label for="shippingAddress">Select Shipping Address:</label>
-    <select
-      [(ngModel)]="selectedShippingAddressId"
-      name="shippingAddress"
-      required
-      (ngModelChange)="onShippingAddressChange($event)"
-    >
-      <option *ngFor="let address of shippingAddressList" [value]="address.id">
-        {{ address.streetAddress }}, {{ address.city }}, {{ address.state }}
-      </option>
-    </select>
-  </div>
-
-  <div>
-    <label for="paymentData">Select Payment Method:</label>
-    <select
-      [(ngModel)]="selectedPaymentDataId"
-      name="paymentData"
-      required
-      (ngModelChange)="onPaymentDataChange($event)"
-    >
-      <option
-        *ngFor="let paymentData of paymentDataList"
-        [value]="paymentData.id"
+  <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+    <div>
+      <label for="shippingAddress">Select Shipping Address:</label>
+      <select
+        [(ngModel)]="selectedShippingAddressId"
+        name="shippingAddress"
+        required
+        (ngModelChange)="onShippingAddressChange($event)"
       >
-        {{ paymentData.cardType }} ending in {{ paymentData.cardNumber | slice:-4 }}
-      </option>
-    </select>
+        <option *ngFor="let address of shippingAddressList" [value]="address.id">
+          {{ address.streetAddress }}, {{ address.city }}, {{ address.state }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="paymentData">Select Payment Method:</label>
+      <select
+        [(ngModel)]="selectedPaymentDataId"
+        name="paymentData"
+        required
+        (ngModelChange)="onPaymentDataChange($event)"
+      >
+        <option *ngFor="let paymentData of paymentDataList" [value]="paymentData.id">
+          {{ paymentData.cardType }} ending in {{ paymentData.cardNumber | slice:-4 }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="!checkoutForm.valid || isOrderSubmitted">Proceed to Confirm</button>
+  </form>
+
+  <div *ngIf="displayFinalizationDetails && orderCart">
+    <h2>Order Finalization Details</h2>
+    <p><strong>Tracking Number:</strong> {{ orderCart.trackingNumber }}</p>
+    <p><strong>Estimated Delivery Date:</strong> {{ orderCart.estimatedDeliveryDate | date: 'longDate' }}</p>
   </div>
-
-  <button type="submit" [disabled]="!checkoutForm.valid">Proceed to Confirm</button>
-</form>
-
-<div *ngIf="displayFinalizationDetails && orderCart">
-  <h2>Order Finalization Details</h2>
-  <p><strong>Tracking Number:</strong> {{ orderCart.trackingNumber }}</p>
-  <p><strong>Estimated Delivery Date:</strong> {{ orderCart.estimatedDeliveryDate | date: 'longDate' }}</p>
-</div>
 </div>

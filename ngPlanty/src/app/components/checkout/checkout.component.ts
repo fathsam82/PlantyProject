@@ -23,21 +23,21 @@ export class CheckoutComponent implements OnInit {
   shippingAddress: ShippingAddress | undefined;
   paymentData: PaymentData | undefined;
 
-
   orderCart: OrderCart | undefined;
   selectedChoicesForCheckout: OrderCart | undefined;
   editCheckout: OrderCart | null = null;
 
   displayFinalizationDetails: boolean = false;
-
   isShippingAddressesLoaded: boolean = false;
   isPaymentDataLoaded: boolean = false;
+
+  isOrderSubmitted: boolean = false;
 
   constructor(
     private orderCartService: OrderCartService,
     private shippingAddressService: ShippingAddressService,
     private paymentDataService: PaymentDataService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -51,6 +51,8 @@ export class CheckoutComponent implements OnInit {
       next: (orderCart) => {
         console.log(orderCart);
         this.orderCart = orderCart;
+
+        this.isOrderSubmitted = false;
       },
       error: (badTings) => {
         console.error(
@@ -66,7 +68,7 @@ export class CheckoutComponent implements OnInit {
     this.shippingAddressService.getShippingAddressByUsername().subscribe({
       next: (addressList) => {
         this.shippingAddressList = addressList;
-        this.isShippingAddressesLoaded = true; // Set flag when data is loaded
+        this.isShippingAddressesLoaded = true;
       },
       error: (error) => {
         console.error('Error loading shipping addresses', error);
@@ -78,7 +80,7 @@ export class CheckoutComponent implements OnInit {
     this.paymentDataService.getPaymentDataByUsername().subscribe({
       next: (paymentList) => {
         this.paymentDataList = paymentList;
-        this.isPaymentDataLoaded = true; // Set flag when data is loaded
+        this.isPaymentDataLoaded = true;
       },
       error: (error) => {
         console.error('Error loading payment data', error);
@@ -86,68 +88,42 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  // finalizeOrder(): void {
-  //   const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+  onSubmit(): void {
+    if (this.selectedShippingAddressId && this.selectedPaymentDataId) {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        data: {
+          title: 'Confirm Purchase',
+          message: 'Are you sure you want to finalize this order?',
+        },
+      });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       if (this.orderCart && this.orderCart.id) {
-  //         this.orderCartService.finalizeOrderCart(this.orderCart.id).subscribe({
-  //           next: (updatedOrderCart) => {
-  //             this.orderCart = updatedOrderCart;
-  //             console.log('Order finalized successfully', updatedOrderCart);
-  //             this.displayFinalizationDetails = true;
-  //           },
-  //           error: (error) => {
-  //             console.error('Failed to finalize order', error);
-  //           }
-  //         });
-  //       } else {
-  //         console.error('Order cart data is incomplete.');
-  //       }
-  //     }
-  //   });
-  // }
-
-
-
-  // checkout.component.ts
-onSubmit(): void {
-  if (this.selectedShippingAddressId && this.selectedPaymentDataId) {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        title: 'Confirm Purchase',
-        message: 'Are you sure you want to finalize this order?'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        if (this.orderCart && this.orderCart.id) {
-          this.orderCartService.finalizeOrderCart(this.orderCart.id).subscribe({
-            next: (updatedOrderCart) => {
-              this.orderCart = updatedOrderCart;
-              console.log('Order finalized successfully', updatedOrderCart);
-              this.displayFinalizationDetails = true;
-            },
-            error: (error) => {
-              console.error('Failed to finalize order', error);
-            }
-          });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          if (this.orderCart && this.orderCart.id) {
+            this.orderCartService
+              .finalizeOrderCart(this.orderCart.id)
+              .subscribe({
+                next: (updatedOrderCart) => {
+                  this.orderCart = updatedOrderCart;
+                  console.log('Order finalized successfully', updatedOrderCart);
+                  this.displayFinalizationDetails = true;
+                  this.isOrderSubmitted = true;
+                },
+                error: (error) => {
+                  console.error('Failed to finalize order', error);
+                },
+              });
+          } else {
+            console.error('Order cart data is incomplete.');
+          }
         } else {
-          console.error('Order cart data is incomplete.');
+          console.log('Order finalization canceled');
         }
-      } else {
-        console.log('Order finalization canceled');
-      }
-    });
-  } else {
-    console.error('Shipping address or payment data is not selected.');
+      });
+    } else {
+      console.error('Shipping address or payment data is not selected.');
+    }
   }
-}
-
-
-
 
   onShippingAddressChange(newAddressId: number): void {
     this.selectedShippingAddressId = newAddressId;
@@ -158,9 +134,4 @@ onSubmit(): void {
     this.selectedPaymentDataId = newPaymentDataId;
     console.log('Selected payment data ID:', newPaymentDataId);
   }
-
-
 }
-
-
-
