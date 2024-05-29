@@ -29,6 +29,7 @@ export class OrderCartComponent implements OnInit {
 
   ngOnInit() {
     this.getOrderCart();
+    this.pokemonImageRotationUponNullCart();
   }
 
   getOrderCart() {
@@ -92,5 +93,22 @@ export class OrderCartComponent implements OnInit {
 
   clearSelectedOrderCart() {
     this.selectedOrderCart = null;
+  }
+
+  pokemonImageRotationUponNullCart(){
+    let currentIndex = 0;
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % this.plantFacts.length;
+      const widget = document.querySelector('.plant-widget');
+      if(widget) {
+        const img = widget.querySelector('img') as HTMLImageElement;
+        const text = widget.querySelector('.plant-fact') as HTMLDivElement;
+        if(img && text) {
+          img.src = this.plantFacts[currentIndex].imgUrl;
+          text.innerText = this.plantFacts[currentIndex].fact;
+        }
+      }
+
+    }, 4000);
   }
 }
