@@ -31,7 +31,7 @@
     <div class="order-summary">
       <div class="summary-card">
         <h4>Total Price: ${{ orderCart.totalPrice / 100 | number : '1.2-2' }}</h4>
-        <a [routerLink]="['/checkout']" class="btn btn-primary checkout-btn">Checkout</a>
+        <a [routerLink]="['/checkout']" class="btn btn-primary checkout-btn" [class.disabled]="orderCart.orderDetails.length === 0">Checkout</a>
       </div>
     </div>
 
