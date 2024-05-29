@@ -78,7 +78,6 @@
   background-color: #fff;
 }
 
-
 .summary-card h4 {
   font-size: 1.2rem;
 }
@@ -90,52 +89,42 @@
   border-color: #ffc107;
 }
 
-
-@media (max-width: 768px) {
-  .cart-layout {
-    flex-direction: column;
-  }
-
-  .cart-items,
-  .order-summary {
-    max-width: 100%;
-  }
+.checkout-btn.disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  pointer-events: none;
 }
 
-.save-btn {
-  align-self: flex-end;
-  margin-top: auto;
-  padding: 10px 20px;
-  background-color: rgb(17, 178, 130)
+
+.plant-widget {
+  margin-top: 20px;
+  text-align: center;
 }
 
-@media (max-width: 480px) {
-  .card-img {
-    height: 200px;
-  }
-
-  .card-header h3 {
-    font-size: 0.9rem;
-  }
-
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    font-size: 0.9rem;
-    height: 100%;
-    flex: 1;
-    display: flex;
-  }
-
-
-
-
-
-  .card {
-    width: 100%;
-    height: auto;
-  }
+.plant-widget img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
+.plant-fact {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.empty-cart {
+  text-align: center;
+}
+
+.btn-secondary {
+  color:aquamarine;
+}
+
+.save-button {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  background-color: #07acff;
+  border-color: #07acff;
+}

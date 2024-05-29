@@ -7,7 +7,7 @@ import { OrderCartService } from 'src/app/services/order-cart.service';
 @Component({
   selector: 'app-order-cart',
   templateUrl: './order-cart.component.html',
-  styleUrl: './order-cart.component.css',
+  styleUrls: ['./order-cart.component.css'],
 })
 export class OrderCartComponent implements OnInit {
   orderDetails: OrderDetail[] | undefined;
@@ -16,9 +16,9 @@ export class OrderCartComponent implements OnInit {
   editOrderCart: OrderCart | null = null;
 
   plantFacts: { imgUrl: string, fact: string }[] = [
-    { imgUrl: 'https://static.wikia.nocookie.net/pokemontabletopunited/images/4/43/Bulbasaur.png/revision/latest?cb=20170116035333', fact: 'TEMPnull' },
-    { imgUrl: 'https://www.kindpng.com/picc/m/496-4967747_thumb-image-scyther-png-transparent-png.png', fact: 'TEMPnull' },
-    { imgUrl: 'https://static.wikia.nocookie.net/kaijuwikia/images/e/e4/Celebi.png/revision/latest?cb=20200428060430', fact: 'TEMPnull' }
+    { imgUrl: 'https://archives.bulbagarden.net/media/upload/thumb/0/0d/0192Sunflora.png/500px-0192Sunflora.png', fact: '"I read that plants can improve productivity, concentration, and well-being by up to 47%. This is due to their oxygenating abilities, aromas, and energy-boosting colors, which stimulate the thinking process. Gosh darn I love house plants!"-Sunflora!'},
+    { imgUrl: 'https://archives.bulbagarden.net/media/upload/thumb/8/8b/0154Meganium.png/500px-0154Meganium.png', fact: '"I love house plants because they can absorb and reflect noise, which can make indoor spaces more comfortable."-Meganium!' },
+    { imgUrl: 'https://archives.bulbagarden.net/media/upload/thumb/f/fb/0001Bulbasaur.png/500px-0001Bulbasaur.png', fact: '"I love house plants because they can remove and absorb toxins from the air, making them natural air fresheners."-Bulbasaur!' }
   ];
 
   constructor(
@@ -108,7 +108,6 @@ export class OrderCartComponent implements OnInit {
           text.innerText = this.plantFacts[currentIndex].fact;
         }
       }
-
-    }, 4000);
+    }, 5000);
   }
 }
