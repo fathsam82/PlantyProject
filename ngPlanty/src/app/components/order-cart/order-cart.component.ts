@@ -14,7 +14,8 @@ export class OrderCartComponent implements OnInit {
   orderCart: OrderCart | undefined;
   selectedOrderCart: OrderCart | null = null;
   editOrderCart: OrderCart | null = null;
-  readonly maxQuantity: number = 20000000;
+  readonly maxQuantity: number = 5000000;
+  errorMessage: string | null = null;
 
   plantFacts: { imgUrl: string, fact: string }[] = [
     { imgUrl: 'https://archives.bulbagarden.net/media/upload/thumb/0/0d/0192Sunflora.png/500px-0192Sunflora.png', fact: '"I read that plants can improve productivity, concentration, and well-being by up to 47%. This is due to their oxygenating abilities, aromas, and energy-boosting colors, which stimulate the thinking process. Gosh darn I love house plants!"-Sunflora!'},
@@ -55,6 +56,12 @@ export class OrderCartComponent implements OnInit {
     id: number,
     setSelected: boolean = true
   ) {
+    const invalidQuantity = orderCart.orderDetails.some(orderDetail => orderDetail.quantityOrdered > this.maxQuantity);
+    if (invalidQuantity) {
+      this.errorMessage = `You cannot purchase more than ${this.maxQuantity} of this plant.`;
+      console.error('One or more items have invalid quantity');
+      return;
+    }
     this.orderCartService.editOrderCart(orderCart, id).subscribe({
       next: (updatedOrderCart) => {
         if (setSelected) {

@@ -34,7 +34,11 @@
           class="form-control"
           [(ngModel)]="orderDetail.quantityOrdered"
           name="quantity{{ i }}"
+          max="5000000"
           />
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
         </div>
         <div class="form-check">
           <input

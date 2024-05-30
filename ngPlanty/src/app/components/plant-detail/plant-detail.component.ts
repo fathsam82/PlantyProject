@@ -19,7 +19,8 @@ export class PlantDetailComponent implements OnInit {
   quantity: number = 1;
   giftWrap: boolean = false;
   origin: PlantOrigin | undefined;
-  readonly maxQuantity: number = 20000000;
+  readonly maxQuantity: number = 5000000;
+  errorMessage: string | null = null;
 
   constructor(
     private plantService: PlantService,
@@ -56,6 +57,7 @@ export class PlantDetailComponent implements OnInit {
 
   addToOrderDetail() {
     if (!this.plant || this.quantity <= 0 || this.quantity > this.maxQuantity) {
+      this.errorMessage = `You cannot purchase more than ${this.maxQuantity} of this plant.`;
       console.error('Invalid plant or quantity');
       return;
     }
