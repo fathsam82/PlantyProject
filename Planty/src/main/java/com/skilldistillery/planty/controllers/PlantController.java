@@ -35,7 +35,6 @@ public class PlantController {
 	public ResponseEntity<?> listPlants() {
 		try {
 			List<Plant> plants = plantService.listAllPlants();
-			
 
 			if (plants == null || plants.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No plants found");
@@ -43,15 +42,12 @@ public class PlantController {
 				return ResponseEntity.ok(plants);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured while fetching plants :(");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occured while fetching plants :(");
 		}
 
-	
 	}
-	
-	
 
 	@GetMapping("plants/{id}")
 	public ResponseEntity<?> getPlantById(@PathVariable("id") int plantId) {
@@ -60,12 +56,14 @@ public class PlantController {
 			if (plant.isPresent()) {
 				return ResponseEntity.ok(plant.get());
 			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plant not found with id: " + plantId + " \uD83E\uDD14");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("Plant not found with id: " + plantId + " \uD83E\uDD14");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant \u2639");
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while fetching the plant \u2639");
 		}
 
 	}
@@ -77,15 +75,17 @@ public class PlantController {
 			if (plant.isPresent()) {
 				return ResponseEntity.ok(plant.get());
 			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plant not found with name: " + name + " \uD83E\uDD14");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("Plant not found with name: " + name + " \uD83E\uDD14");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching the plant \u2639");
-			
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while fetching the plant \u2639");
+
 		}
-		
+
 	}
 
 	@GetMapping("plants/plantCatId/{plantCatId}")
@@ -101,9 +101,10 @@ public class PlantController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO Auto-generated catch block
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching plants :(");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while fetching plants :(");
 		}
-		
+
 	}
 
 	@PostMapping("plants")

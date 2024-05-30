@@ -17,30 +17,28 @@ import com.skilldistillery.planty.services.AuthService;
 @RestController
 @CrossOrigin({ "*", "http://localhost/" })
 public class AuthController {
-	
+
 	@Autowired
 	private AuthService authService;
-	
+
 	@PostMapping("register")
 	public User register(@RequestBody User user, HttpServletResponse res) {
-	  if (user == null) {
-	     res.setStatus(400);
-	     return null;
-	  }
-	  user = authService.register(user);
-	  return user;
+		if (user == null) {
+			res.setStatus(400);
+			return null;
+		}
+		user = authService.register(user);
+		return user;
 	}
-	 
+
 	@GetMapping("authenticate")
 	public User authenticate(Principal principal, HttpServletResponse res) {
-	  if (principal == null) {
-	     res.setStatus(401);
-	     res.setHeader("WWW-Authenticate", "Basic");
-	     return null;
-	  }
-	  return authService.getUserByUsername(principal.getName());
+		if (principal == null) {
+			res.setStatus(401);
+			res.setHeader("WWW-Authenticate", "Basic");
+			return null;
+		}
+		return authService.getUserByUsername(principal.getName());
 	}
-	
-	
 
 }

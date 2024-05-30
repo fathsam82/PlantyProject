@@ -59,8 +59,6 @@ public class OrderCartServiceImpl implements OrderCartService {
 		return existingCart;
 	}
 
-	
-
 	@Override
 	public OrderCart getOrderCartByUsername(String username) throws EntityNotFoundException {
 		User user = userRepo.findByUsername(username);
@@ -103,31 +101,6 @@ public class OrderCartServiceImpl implements OrderCartService {
 
 	}
 
-	//////////////////////////// SUBMIT ORDER LOGIC
-//	@Override
-//	public OrderCart setUserNotesForCheckout(String username, int orderCartId, String notes) {  //NO CONTROLLER ENDPOINT YET
-//	    OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
-//	    if (existing == null) {
-//	        throw new EntityNotFoundException("OrderCart not found for username: " + username);
-//	    }
-//	    existing.setNotes(notes);
-//	    orderCartRepo.saveAndFlush(existing);
-//	    return existing;
-//	}
-//
-//	@Override
-//	public OrderCart updatePaymentAndShippingForCheckout(String username, int orderCartId, OrderCart updatedOrderCart) {
-//	    OrderCart existing = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
-//	    if (existing == null) {
-//	        throw new EntityNotFoundException("OrderCart not found for username: " + username);
-//	    }
-//	    existing.setPaymentData(updatedOrderCart.getPaymentData());
-//	    existing.setShippingAddress(updatedOrderCart.getShippingAddress());
-//	    orderCartRepo.saveAndFlush(existing);
-//	    return existing;
-//	}
-
-
 	@Override
 	public OrderCart submitOrderCart(String username, int orderCartId) {
 		OrderCart cart = orderCartRepo.findByIdAndUser_Username(orderCartId, username);
@@ -153,7 +126,5 @@ public class OrderCartServiceImpl implements OrderCartService {
 		cart.getOrderDetails().clear();
 		orderCartRepo.save(cart);
 	}
-
-	
 
 }

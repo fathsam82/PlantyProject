@@ -20,10 +20,10 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private ShippingAddressRepository shippingAddressRepo;
-	
+
 	@Autowired
 	private OrderCartRepository orderCartRepo;
 
@@ -42,7 +42,7 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Override
 	public ShippingAddress getShippingAddress(int shippingAddressId, String username) {
-		
+
 		return shippingAddressRepo.findByIdAndUser_Username(shippingAddressId, username);
 	}
 
@@ -50,7 +50,7 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 	public ShippingAddress createShippingAddress(String username, String streetAddress, String city, String state,
 			String zipcode, Boolean enabled, String country) {
 		User user = userRepo.findByUsername(username);
-		
+
 		if (user == null) {
 			throw new EntityNotFoundException("User not found for username " + username);
 		}
@@ -62,44 +62,28 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 		shippingAddress.setZipcode(zipcode);
 		shippingAddress.setEnabled(enabled);
 		shippingAddress.setCountry(country);
-		
+
 		return shippingAddressRepo.saveAndFlush(shippingAddress);
 	}
 
 	@Override
 	public boolean deleteShippingAddress(int shippingaddressId, String username) {
 		User user = userRepo.findByUsername(username);
-		if(user == null) {
+		if (user == null) {
 			return false;
 		}
 		ShippingAddress shippingAddress = shippingAddressRepo.findByIdAndUser_Username(shippingaddressId, username);
-		if(shippingAddress == null) {
+		if (shippingAddress == null) {
 			return false;
 		}
-		
+
 		OrderCart orderCart = orderCartRepo.findByIdAndUser_Username(shippingaddressId, username);
-		if(orderCart != null) {
+		if (orderCart != null) {
 			orderCart.setShippingAddress(null);
 			orderCartRepo.saveAndFlush(orderCart);
 		}
 		shippingAddressRepo.delete(shippingAddress);
 		return true;
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 
 }

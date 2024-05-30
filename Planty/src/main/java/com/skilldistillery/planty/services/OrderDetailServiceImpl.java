@@ -48,11 +48,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return orderDetail;
 	}
 
-//	@Override
-//	public OrderDetail createOrderDetail(OrderDetail newOrderDetail) {
-//		return orderDetailRepo.saveAndFlush(newOrderDetail);
-//	}
-
 	@Override
 	public OrderDetail updateOrderDetail(int orderDetailId, OrderDetail updatedOrderDetail, String username) {
 		OrderDetail existingOrderDetail = null;

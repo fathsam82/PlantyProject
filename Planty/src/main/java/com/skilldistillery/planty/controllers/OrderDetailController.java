@@ -55,13 +55,10 @@ public class OrderDetailController {
 
 	}
 
-	
-	
 	@PutMapping("orderDetails/{orderDetailId}")
-	OrderDetail updateOrderDetail(@RequestBody OrderDetail updatedOrderDetail, @PathVariable int orderDetailId, Principal principal, 
-			HttpServletResponse res) {
-		
-		
+	OrderDetail updateOrderDetail(@RequestBody OrderDetail updatedOrderDetail, @PathVariable int orderDetailId,
+			Principal principal, HttpServletResponse res) {
+
 		String username = principal.getName();
 		updatedOrderDetail = orderDetailService.updateOrderDetail(orderDetailId, updatedOrderDetail, username);
 		try {
@@ -75,6 +72,7 @@ public class OrderDetailController {
 		}
 		return updatedOrderDetail;
 	}
+
 	@DeleteMapping("orderDetails/{orderDetailId}")
 	public void deleteOrderDetail(@PathVariable int orderDetailId, HttpServletResponse res) {
 		try {
@@ -87,11 +85,13 @@ public class OrderDetailController {
 			res.setStatus(400);
 		}
 	}
+
 	@PostMapping("orderDetails/addPlant/{plantId}/{quantity}/{giftWrap}")
-	public ResponseEntity<?> addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity, @PathVariable boolean giftWrap, Principal principal
-			) {
+	public ResponseEntity<?> addPlantToOrderDetail(@PathVariable int plantId, @PathVariable int quantity,
+			@PathVariable boolean giftWrap, Principal principal) {
 		if (principal == null) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User was not able to be authorized for this request");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body("User was not able to be authorized for this request");
 		}
 		OrderDetail orderDetail;
 		try {
@@ -104,8 +104,9 @@ public class OrderDetailController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured while trying to create an OrderDetail");
-			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occured while trying to create an OrderDetail");
+
 		}
 	}
 }
