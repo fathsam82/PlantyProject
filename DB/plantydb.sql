@@ -371,10 +371,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `plantydb`;
-INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (1, 'Ghana', 6.6666, 0.2580, 1);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (1, 'Ghana', 6.6500, 0.2580, 1);
 INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (2, 'Guyana', 6.8013, -58.1553, 2);
 INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (3, 'Oman', 21.0000, 57.0000, 3);
-INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (4, 'Ghana', 6.6666, 0.2580, 4);
+INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (4, 'Ghana', 6.6500, 0.2580, 4);
 INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (5, 'Columbia', 4.1755, 73.5093, 5);
 INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (6, 'Maldives', 4.1755, 73.5093, 6);
 INSERT INTO `plant_origin` (`id`, `name`, `latitude`, `longitude`, `plant_id`) VALUES (7, 'Brazil', -14.2350, -51.9253, 7);

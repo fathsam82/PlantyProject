@@ -59,16 +59,16 @@ class PlantOriginTest {
 		assertEquals("Ghana", plantOrigin.getName());
 		
 		//Creating an instance of BigDecimal for unit testing id 1, return 0(which is an indicator that the test passed) and compare the new instance to the entry in the DB, if not equal, debugging string returned 
-		BigDecimal expectedLongitude1 = new BigDecimal("0.2057");
+		BigDecimal expectedLongitude1 = new BigDecimal("0.2580");
 	    assertEquals(0, expectedLongitude1.compareTo(plantOrigin.getLongitude()), "Longitude values are not equal");
 		
-		BigDecimal expectedLatitude1 = new BigDecimal("5.5600");
+		BigDecimal expectedLatitude1 = new BigDecimal("6.6500");
 	    assertEquals(0, expectedLatitude1.compareTo(plantOrigin.getLatitude()), "Latitude values are not equal");
 		
-		BigDecimal expectedLongitude2 = new BigDecimal("0.2057");
+		BigDecimal expectedLongitude2 = new BigDecimal("0.2580");
 	    assertTrue(expectedLongitude2.compareTo(plantOrigin.getLongitude()) == 0, "Longitude values are not equal");
 	    
-	    BigDecimal expectedLatitude2 = new BigDecimal("5.5600");
+	    BigDecimal expectedLatitude2 = new BigDecimal("6.6500");
 	    assertTrue(expectedLatitude2.compareTo(plantOrigin.getLatitude()) == 0, "Latitude values are not equal");
 	}
 	
