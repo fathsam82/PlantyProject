@@ -19,6 +19,7 @@ export class PlantListComponent implements OnInit {
 
   errorMessage: string = '';
 
+
   constructor(private plantService: PlantService, private router: Router) {}
 
   ngOnInit() {

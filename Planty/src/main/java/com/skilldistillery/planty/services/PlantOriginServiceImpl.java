@@ -14,25 +14,21 @@ import com.skilldistillery.planty.repositories.PlantRepository;
 
 @Service
 public class PlantOriginServiceImpl implements PlantOriginService {
-	
+
 	@Autowired
 	private PlantOriginRepository plantOriginRepo;
-	
-	@Autowired 
+
+	@Autowired
 	private PlantRepository plantRepo;
-	
-	
-	
-	
-	
+
 	public PlantOrigin getPlantOriginByPlantId(int plantId) {
-        Optional<Plant> plantOpt = plantRepo.findById(plantId);
-        if (plantOpt.isPresent()) {
-            Plant plant = plantOpt.get();
-            return plant.getPlantOrigin();
-        } else {
-            throw new EntityNotFoundException("No plant found with ID: " + plantId);
-        }
-    }
+		Optional<Plant> plantOpt = plantRepo.findById(plantId);
+		if (plantOpt.isPresent()) {
+			Plant plant = plantOpt.get();
+			return plant.getPlantOrigin();
+		} else {
+			throw new EntityNotFoundException("No plant found with ID: " + plantId);
+		}
+	}
 
 }
