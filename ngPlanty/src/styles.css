@@ -1,13 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-/* .navbar.bg-body-tertiary {
-  background-color: #4CAF50;
-} */
 
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
+
 
 body, html {
   overflow-x: hidden;
@@ -15,11 +8,7 @@ body, html {
 
 /* @import "~bootstrap/dist/css/bootstrap.css"; */
 
-/* html, body {
-  margin: 0;
-  padding: 0;
 
-} */
 
 
 html, body { height: 100%; }
