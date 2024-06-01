@@ -105,7 +105,7 @@ public class OrderDetailController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occured while trying to create an OrderDetail");
+					.body("An error occured when trying to create an OrderDetail");
 
 		}
 	}
