@@ -1,4 +1,4 @@
-body {
+/* body {
   background-image: url('/assets/dalle_image_of_outdoor_canopy.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -8,11 +8,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-* {
-  box-sizing: border-box;
-}
 
 .card {
   background: white;
@@ -26,3 +23,6 @@ body {
   text-align: justify;
 }
 
+* {
+  box-sizing: border-box;
+}
