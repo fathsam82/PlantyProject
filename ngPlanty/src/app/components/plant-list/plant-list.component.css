@@ -1,5 +1,5 @@
 .container-fluid {
-  background-color: rgb(28, 99, 75);
+  background-color: #0b6985;
   padding-left: 0;
   padding-right: 0;
 }
@@ -20,7 +20,7 @@
 }
 .card-body {
   height: 300px;
-  overflow-y: auto;
+  overflow-y: hidden;
   flex: 1;
   background-color:rgb(205, 236, 195);
   border: 2px solid #4CAF50;
@@ -49,14 +49,14 @@
 
 
 .card-text {
-  overflow: scroll;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
--webkit-line-clamp: 3; /* Number of lines to show before cutting off */
-height: calc(1.2em * 3); /* Adjust according to the number of lines */
-line-height: 1.2em;
-max-height: calc(1.2em * 3); /* Adjust according to the number of lines */
+  -webkit-line-clamp: 3;
+  height: calc(1.2em * 3);
+  line-height: 1.2em;
+  max-height: calc(1.2em * 3);
 }
 
 .text-danger {
