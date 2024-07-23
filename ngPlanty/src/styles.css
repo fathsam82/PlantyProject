@@ -9,7 +9,7 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 body .about-container {
-  background-image: url('assets/dalle_image_of_outdoor_canopy.jpg');
+  background-image: url(assets/dalle_image_of_outdoor_canopy.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -21,7 +21,7 @@ body .about-container {
 }
 
 body .home-container {
-  background-image: url('assets/dalle_image_living_room_garden.jpg');
+  background-image: url(assets/dalle_image_living_room_garden.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
