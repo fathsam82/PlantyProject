@@ -1,5 +1,9 @@
 package com.skilldistillery.planty.services;
 
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,9 +42,13 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User getUserByUsername(String username) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		return userOpt.orElseThrow(() ->
+		new EntityNotFoundException("User not found for " + username)
+		);
 		
 	
-		return userRepo.findByUsername(username);
+
 	}
 
 }

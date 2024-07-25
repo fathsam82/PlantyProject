@@ -18,9 +18,6 @@ public interface OrderCartService {
 
 	void clearOrderDetailsFromOrderCart(int orderCartId);   //CALLED IN submitOrderCart
 
-//	OrderCart setUserNotesForCheckout(String username, int orderCartId, String notes);
-
-//	OrderCart updatePaymentAndShippingForCheckout(String username, int orderCartIdd, OrderCart updatedOrderCart);
 
 
 }

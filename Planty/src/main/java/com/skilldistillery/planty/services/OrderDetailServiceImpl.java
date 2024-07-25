@@ -26,8 +26,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
 	private PlantRepository plantRepo;
 
-	@Autowired
-	private OrderCartRepository orderCartRepo;
+//	@Autowired
+//	private OrderCartRepository orderCartRepo;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -53,25 +53,25 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		OrderDetail existingOrderDetail = null;
 		try {
 
-			User user = userRepo.findByUsername(username);
-			if (user == null) {
+			Optional<User> userOpt = userRepo.findByUsername(username);
+			if (!userOpt.isPresent()) {
 				throw new Exception("User not found for username: " + username);
 			}
+			User user = userOpt.get();
 
+			
 			existingOrderDetail = orderDetailRepo.findById(orderDetailId)
-					.orElseThrow(() -> new Exception("OrderDetail not found for Id: " + orderDetailId));
+					.orElseThrow(() -> new Exception("OrderDetail not found for Id: " + orderDetailId));			
 
 			if (!existingOrderDetail.getOrderCart().getUser().equals(user)) {
 				throw new Exception("Unauthorized access attempt to update order detail");
 			}
 
 			existingOrderDetail.setGiftWrap(updatedOrderDetail.getGiftWrap());
-//			existingOrderDetail.setPlant(updatedOrderDetail.getPlant());
 			existingOrderDetail.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
 			Integer subtotalPrice = existingOrderDetail.getPlant().getPrice()
 					* existingOrderDetail.getQuantityOrdered();
 			existingOrderDetail.setSubtotalPrice(subtotalPrice);
-//			existingOrderDetail.setOrderCart(updatedOrderDetail.getOrderCart());
 
 			return orderDetailRepo.saveAndFlush(existingOrderDetail);
 
@@ -98,10 +98,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		Plant plant = plantRepo.findById(plantId)
 				.orElseThrow(() -> new EntityNotFoundException("Plant not found for ID: " + plantId));
 
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found for username: " + username);
 		}
+		User user = userOpt.get();
 		OrderCart orderCart = user.getOrderCart();
 		if (orderCart == null) {
 			throw new EntityNotFoundException("OrderCart not found for user: " + username);

@@ -2,6 +2,7 @@ package com.skilldistillery.planty.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -29,10 +30,11 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Override
 	public List<ShippingAddress> listShippingAddressForLoggedInUser(String username) {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found for username " + username);
 		}
+		User user = userOpt.get();
 		List<ShippingAddress> shippingAddresses = user.getShippingAddresses();
 		if (shippingAddresses == null) {
 			return new ArrayList<>();
@@ -49,11 +51,12 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 	@Override
 	public ShippingAddress createShippingAddress(String username, String streetAddress, String city, String state,
 			String zipcode, Boolean enabled, String country) {
-		User user = userRepo.findByUsername(username);
+		Optional<User> userOpt = userRepo.findByUsername(username);
 
-		if (user == null) {
+		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found for username " + username);
 		}
+		User user = userOpt.get();
 		ShippingAddress shippingAddress = new ShippingAddress();
 		shippingAddress.setUser(user);
 		shippingAddress.setStreetAddress(streetAddress);
@@ -68,9 +71,9 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
 
 	@Override
 	public boolean deleteShippingAddress(int shippingaddressId, String username) {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
-			return false;
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
+			throw new EntityNotFoundException("User not found for username: " + username);
 		}
 		ShippingAddress shippingAddress = shippingAddressRepo.findByIdAndUser_Username(shippingaddressId, username);
 		if (shippingAddress == null) {

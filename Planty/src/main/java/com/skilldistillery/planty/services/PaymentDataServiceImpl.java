@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -34,10 +35,11 @@ public class PaymentDataServiceImpl implements PaymentDataService {
 
 	public List<PaymentData> listPaymentDataForLoggedInUser(String username) {
 
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found for username: " + username);
 		}
+		User user = userOpt.get();
 
 		List<PaymentData> paymentDatas = user.getPaymentDatas();
 		if (paymentDatas == null) {
@@ -54,10 +56,12 @@ public class PaymentDataServiceImpl implements PaymentDataService {
 	@Override
 	public PaymentData createPaymentData(String username, String cardType, String cardNumber,
 			String expirationDateString, String fullName, Boolean enabled) {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found");
 		}
+		
+		User user = userOpt.get();
 
 		LocalDate expirationDate;
 
@@ -84,9 +88,9 @@ public class PaymentDataServiceImpl implements PaymentDataService {
 
 	@Override
 	public boolean deletePaymentData(int paymentDataId, String username) {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
-			return false;
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
+			throw new EntityNotFoundException("Username not found for" + username);
 		}
 
 		PaymentData paymentData = paymentDataRepo.findByIdAndUser_Username(paymentDataId, username);

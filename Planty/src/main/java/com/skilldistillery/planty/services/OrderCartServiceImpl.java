@@ -36,12 +36,14 @@ public class OrderCartServiceImpl implements OrderCartService {
 
 	@Override
 	public OrderCart createOrderCart(String username, OrderCart newOrderCart) {
-		User user = userRepo.findByUsername(username);
-		if (user != null) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (userOpt.isPresent()) {
+			User user = userOpt.get();
 			newOrderCart.setUser(user);
 			return orderCartRepo.saveAndFlush(newOrderCart);
-		}
-		return null;
+		} else {
+		throw new EntityNotFoundException("User not found for username: " + username);
+	}
 	}
 
 	@Override
@@ -61,10 +63,11 @@ public class OrderCartServiceImpl implements OrderCartService {
 
 	@Override
 	public OrderCart getOrderCartByUsername(String username) throws EntityNotFoundException {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found for username: " + username);
 		}
+		User user = userOpt.get();
 
 		OrderCart orderCart = user.getOrderCart();
 		if (orderCart == null) {
@@ -83,13 +86,14 @@ public class OrderCartServiceImpl implements OrderCartService {
 
 	@Override
 	public boolean removeOrderDetailFromOrderCart(String username, int orderDetailId) {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
-			return false;
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		if (!userOpt.isPresent()) {
+			throw new EntityNotFoundException("User not found for username: " + username);
 		}
+		User user = userOpt.get();
 		OrderCart orderCart = user.getOrderCart();
 		if (orderCart == null) {
-			return false;
+			throw new EntityNotFoundException("OrderCart not found for username: " + username);
 		}
 
 		boolean removed = orderCart.getOrderDetails().removeIf(detail -> detail.getId() == orderDetailId);
