@@ -40,12 +40,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	public OrderDetail getOrderDetail(int orderDetailId) {
-		OrderDetail orderDetail = null;
-		Optional<OrderDetail> orderDetailOpt = orderDetailRepo.findById(orderDetailId);
-		if (orderDetailOpt.isPresent()) {
-			orderDetail = orderDetailOpt.get();
-		}
-		return orderDetail;
+//		OrderDetail orderDetail = null;
+//		Optional<OrderDetail> orderDetailOpt = orderDetailRepo.findById(orderDetailId);
+//		if (orderDetailOpt.isPresent()) {
+//			orderDetail = orderDetailOpt.get();
+//		}
+//		return orderDetail;
+
+		return orderDetailRepo.findById(orderDetailId).orElseThrow(
+				() -> new EntityNotFoundException("OrderDetail not found for orderDetailId: " + orderDetailId));
+
 	}
 
 	@Override
@@ -59,9 +63,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			}
 			User user = userOpt.get();
 
-			
 			existingOrderDetail = orderDetailRepo.findById(orderDetailId)
-					.orElseThrow(() -> new Exception("OrderDetail not found for Id: " + orderDetailId));			
+					.orElseThrow(() -> new Exception("OrderDetail not found for Id: " + orderDetailId));
 
 			if (!existingOrderDetail.getOrderCart().getUser().equals(user)) {
 				throw new Exception("Unauthorized access attempt to update order detail");

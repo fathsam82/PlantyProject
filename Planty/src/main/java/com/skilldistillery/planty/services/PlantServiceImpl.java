@@ -20,14 +20,20 @@ public class PlantServiceImpl implements PlantService {
 	@Override
 	public List<Plant> listAllPlants() {
 
-		return plantRepo.findAll();
+		List<Plant> plants = plantRepo.findAll();
+		if (plants.isEmpty()) {
+			throw new EntityNotFoundException("Plants not found");
+
+		}
+
+		return plants;
 
 	}
 
 	@Override
 	public Optional<Plant> getPlant(int plantId) {
 		Optional<Plant> plantOpt = plantRepo.findById(plantId);
-		if(!plantOpt.isPresent()) {
+		if (!plantOpt.isPresent()) {
 			throw new EntityNotFoundException("Plant not found for plant Id: " + plantId);
 		}
 		return plantOpt;
@@ -35,8 +41,12 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public Optional<Plant> findByName(String name) {
-		return plantRepo.findByNameIgnoreCase(name);
-		
+		Optional<Plant> plantNameOpt = plantRepo.findByNameIgnoreCase(name);
+		if(!plantNameOpt.isPresent()) {
+			throw new EntityNotFoundException("Plant not found with name: " + name);
+		}
+		return plantNameOpt;
+
 	}
 
 	@Override
