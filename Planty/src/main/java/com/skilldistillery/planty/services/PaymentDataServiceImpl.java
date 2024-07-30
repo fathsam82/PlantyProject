@@ -50,7 +50,11 @@ public class PaymentDataServiceImpl implements PaymentDataService {
 
 	@Override
 	public PaymentData getPaymentData(int paymentDataId, String username) {
-		return paymentDataRepo.findByIdAndUser_Username(paymentDataId, username);
+		PaymentData singlePaymentData = paymentDataRepo.findByIdAndUser_Username(paymentDataId, username);
+		if(singlePaymentData == null) {
+			throw new EntityNotFoundException("PaymentData not found for paymentDataId: " + paymentDataId);	
+		}
+		return singlePaymentData;
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package com.skilldistillery.planty.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,11 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public Optional<Plant> getPlant(int plantId) {
-		return plantRepo.findById(plantId);
+		Optional<Plant> plantOpt = plantRepo.findById(plantId);
+		if(!plantOpt.isPresent()) {
+			throw new EntityNotFoundException("Plant not found for plant Id: " + plantId);
+		}
+		return plantOpt;
 	}
 
 	@Override
