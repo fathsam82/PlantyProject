@@ -3,6 +3,7 @@
 
 body, html {
   overflow-x: hidden;
+  background-color: #0b6985;
 }
 
 html, body { height: 100%; }
