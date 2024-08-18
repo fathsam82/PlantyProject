@@ -23,11 +23,8 @@ public class PlantServiceImpl implements PlantService {
 		List<Plant> plants = plantRepo.findAll();
 		if (plants.isEmpty()) {
 			throw new EntityNotFoundException("Plants not found");
-
 		}
-
 		return plants;
-
 	}
 
 	@Override
@@ -51,7 +48,11 @@ public class PlantServiceImpl implements PlantService {
 
 	@Override
 	public List<Plant> findByCat(int plantCatId) {
-		return plantRepo.findByPlantCatId(plantCatId);
+		List<Plant> plantsOfCategory = plantRepo.findByPlantCatId(plantCatId);
+		if(plantsOfCategory.isEmpty()) {
+			throw new EntityNotFoundException("Plants of plantCatId " + plantCatId + "not found");
+		}
+		return plantsOfCategory;
 	}
 
 	@Override

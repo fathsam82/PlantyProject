@@ -80,7 +80,6 @@ public class PlantController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("An error occurred while fetching the plant \u2639");
 
@@ -100,7 +99,6 @@ public class PlantController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO Auto-generated catch block
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("An error occurred while fetching plants :(");
 		}
