@@ -66,4 +66,18 @@ export class PlantService {
       })
     );
   }
+  getPlantByCat(plantCatId: number): Observable<Plant[]> {
+    return this.http.get<Plant[]>(this.url + '/plantCatId/' + plantCatId).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () =>
+            new Error(
+              'PlantService.getPlantByCat(): error retrieving plants for ' + plantCatId + ' plantCatId'
+            )
+        )
+      })
+    )
+
+  }
 }
