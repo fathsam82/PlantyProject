@@ -19,6 +19,12 @@ export class PlantListComponent implements OnInit {
 
   errorMessage: string = '';
 
+  categories = [
+    {id: 1, name: 'Evergreen Perennials'},
+    {id: 2, name: 'Tropical Trees'},
+    {id: 3, name: 'Succulents'}
+  ]
+
 
   constructor(private plantService: PlantService, private router: Router) {}
 
@@ -58,5 +64,9 @@ export class PlantListComponent implements OnInit {
     } else {
       this.reload();
     }
+  }
+
+  getPlantByCat(){
+
   }
 }
