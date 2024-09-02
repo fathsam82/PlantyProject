@@ -20,7 +20,7 @@ export class PlantListComponent implements OnInit {
 
   errorMessage: string = '';
 
-  plantCatId: number = 0;
+  plantCatId: number | undefined;
 
   // categories: any = [
   //   {id: 1, name: 'Evergreen Perennials'},
