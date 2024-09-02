@@ -70,14 +70,15 @@ export class PlantService {
     return this.http.get<Plant[]>(this.url + '/plantCatId/' + plantCatId).pipe(
       catchError((err: any) => {
         console.log(err);
+        console.log(plantCatId);
         return throwError(
           () =>
             new Error(
               'PlantService.getPlantByCat(): error retrieving plants for ' + plantCatId + ' plantCatId'
             )
-        )
+        );
       })
-    )
+    );
 
   }
 }

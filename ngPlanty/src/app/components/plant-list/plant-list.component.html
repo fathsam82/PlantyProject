@@ -1,43 +1,65 @@
 <div class="container-fluid">
-  <br>
+  <br />
+
+
   <div class="row">
     <div class="col-md-4">
       <input
-        [(ngModel)]="searchPlantQuery"
+        [(ngModel)]="plantCatId"
         class="form-control"
         type="text"
-        placeholder="Search plant by name"
+        placeholder="Search plant by category"
       />
     </div>
-    <div class="col">
-      <button (click)="getPlantByName()" class="btn btn-primary">Search</button>
-    </div>
-  </div>
-  <br />
-  <div *ngIf="errorMessage" class="row">
-    <div class="col-md-12">
-      <p class="text-danger">{{ errorMessage }}</p>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 col-sm-6 col-md-4 mb-3" *ngFor="let plant of plants">
-      <div class="card">
-        <a [routerLink]="['/plant-detail', plant.id]" class="stretched-link"></a>
-        <div class="image-container">
-          <img
-            [src]="plant.plantImageUrl"
-            class="card-img-top"
-            alt="Plant Image"
-          />
-          <div class="overlay" *ngIf="plant.isDiscounted">
-            <i class="fas fa-percent discount-icon"></i>
-            <span class="discount-text">20% Off!</span>
+    <div class="col">
+      <button (click)="getPlantByCat()" class="btn btn-primary">Search</button>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <input
+          [(ngModel)]="searchPlantQuery"
+          class="form-control"
+          type="text"
+          placeholder="Search plant by name"
+        />
+      </div>
+      <div class="col">
+        <button (click)="getPlantByName()" class="btn btn-primary">
+          Search
+        </button>
+      </div>
+    </div>
+    <br />
+    <div *ngIf="errorMessage" class="row">
+      <div class="col-md-12">
+        <p class="text-danger">{{ errorMessage }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-4 mb-3" *ngFor="let plant of plants">
+        <div class="card">
+          <a
+            [routerLink]="['/plant-detail', plant.id]"
+            class="stretched-link"
+          ></a>
+          <div class="image-container">
+            <img
+              [src]="plant.plantImageUrl"
+              class="card-img-top"
+              alt="Plant Image"
+            />
+            <div class="overlay" *ngIf="plant.isDiscounted">
+              <i class="fas fa-percent discount-icon"></i>
+              <span class="discount-text">20% Off!</span>
+            </div>
           </div>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ plant.name }}</h5>
-          <p class="card-text">{{ plant.description }}</p>
+          <div class="card-body">
+            <h5 class="card-title">{{ plant.name }}</h5>
+            <p class="card-text">{{ plant.description }}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { PlantCategory } from './../../models/plant-category';
 import { Component, OnInit } from '@angular/core';
 import { PlantService } from 'src/app/services/plant.service';
 import { Plant } from 'src/app/models/plant';
@@ -19,11 +20,13 @@ export class PlantListComponent implements OnInit {
 
   errorMessage: string = '';
 
-  categories = [
-    {id: 1, name: 'Evergreen Perennials'},
-    {id: 2, name: 'Tropical Trees'},
-    {id: 3, name: 'Succulents'}
-  ]
+  plantCatId: number = 0;
+
+  // categories: any = [
+  //   {id: 1, name: 'Evergreen Perennials'},
+  //   {id: 2, name: 'Tropical Trees'},
+  //   {id: 3, name: 'Succulents'}
+  // ];
 
 
   constructor(private plantService: PlantService, private router: Router) {}
@@ -66,7 +69,22 @@ export class PlantListComponent implements OnInit {
     }
   }
 
-  getPlantByCat(){
+  getPlantByCat() {
+    if(this.plantCatId){
+      this.plantService.getPlantByCat(this.plantCatId).subscribe({
+        next: (plants) => {
+          this.plants = plants;
+          this.errorMessage = '';
+        },
+        error: (error) => {
+          console.error('PlantListComponent.selectCategory: error loading plants by category');
+          console.error(error);
+          this.errorMessage = 'An error occurred while fetching for plants based on this category';
+        }
+      });
+    } else {
+      this.reload();
+    }
 
   }
 }
