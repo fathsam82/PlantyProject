@@ -64,3 +64,28 @@
   font-weight: bold;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  background-color: #006400;
+  color: #ffffff;
+  border: 1px solid #004d00;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.category-btn:hover {
+  background-color: #004d00;
+}
+
+.category-btn:focus {
+  outline: none;
+  background-color: #003300;
+}
+

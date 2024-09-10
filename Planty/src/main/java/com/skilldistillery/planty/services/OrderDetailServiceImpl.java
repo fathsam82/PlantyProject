@@ -40,15 +40,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	public OrderDetail getOrderDetail(int orderDetailId) {
-//		OrderDetail orderDetail = null;
-//		Optional<OrderDetail> orderDetailOpt = orderDetailRepo.findById(orderDetailId);
-//		if (orderDetailOpt.isPresent()) {
-//			orderDetail = orderDetailOpt.get();
-//		}
-//		return orderDetail;
+		OrderDetail orderDetail = null;
+		Optional<OrderDetail> orderDetailOpt = orderDetailRepo.findById(orderDetailId);
+		if (orderDetailOpt.isPresent()) {
+			orderDetail = orderDetailOpt.get();
+		}
+		return orderDetail;
 
-		return orderDetailRepo.findById(orderDetailId).orElseThrow(
-				() -> new EntityNotFoundException("OrderDetail not found for orderDetailId: " + orderDetailId));
+//		return orderDetailRepo.findById(orderDetailId).orElseThrow(
+//				() -> new EntityNotFoundException("OrderDetail not found for orderDetailId: " + orderDetailId));
 
 	}
 
