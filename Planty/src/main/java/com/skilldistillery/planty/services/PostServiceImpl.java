@@ -2,11 +2,15 @@ package com.skilldistillery.planty.services;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.planty.entities.Post;
 import com.skilldistillery.planty.repositories.PostRepository;
 
+@Service
 public class PostServiceImpl implements PostService {
 	
 	@Autowired
@@ -15,7 +19,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> listAllPosts() {
 		
-		return null;
+		List<Post> allPosts = postRepo.findAll();
+		if(allPosts.isEmpty()) {
+			throw new EntityNotFoundException("No posts found");
+		}
+		return allPosts;
 	}
 
 }

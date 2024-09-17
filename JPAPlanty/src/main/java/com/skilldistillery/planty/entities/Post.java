@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Post {
 	
@@ -34,6 +36,7 @@ public class Post {
 	@ManyToOne
 	private User user;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "post")
 	private List<Comment> comments;
 	
