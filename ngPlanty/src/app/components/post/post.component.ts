@@ -8,17 +8,18 @@ import { Post } from 'src/app/models/post';
   styleUrl: './post.component.css',
 })
 export class PostComponent implements OnInit {
+
   errorMessage: string = '';
+
   posts: Post[] | undefined;
 
+  constructor(private postService: PostService) {}
 
-  constructor(private postService: PostService){
-
+  ngOnInit() {
+    this.reload();
   }
-  ngOnInit() {}
 
-
-  reload(){
+  reload() {
     this.errorMessage = '';
     this.postService.index().subscribe({
       next: (posts) => {
@@ -31,6 +32,4 @@ export class PostComponent implements OnInit {
       },
     });
   }
-
 }
-

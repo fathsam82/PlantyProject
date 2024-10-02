@@ -11,6 +11,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { OrderCartComponent } from './components/order-cart/order-cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
+import { PostComponent } from './components/post/post.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'plants' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'order-cart', component: OrderCartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'profile-info', component: ProfileInfoComponent },
+  { path: 'post', component: PostComponent },
 
 
 

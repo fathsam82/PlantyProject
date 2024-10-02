@@ -82,7 +82,7 @@ export class PlantListComponent implements OnInit {
     }
   }
 
-  filterPlantsByCategory(categoryId: number){
+  filterPlantsByCategory(categoryId: number) {
     this.plantCatId = categoryId;
     this.getPlantByCat();
   }
