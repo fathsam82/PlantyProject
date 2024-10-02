@@ -1,0 +1,15 @@
+.container-fluid {
+  background-color: #0b6985;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.card-body {
+  height: 300px;
+  overflow-y: hidden;
+  flex: 1;
+  background-color:rgb(205, 236, 195);
+  border: 2px solid #4CAF50;
+  padding: 10px;
+
+}

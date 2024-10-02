@@ -33,6 +33,9 @@
           <a class="nav-link" [routerLink]="['/profile-info']">Profile</a>
         </li>
         <li class="nav-item" *ngIf="checkLogin()">
+          <a class="nav-link" [routerLink]="['/post']">Plants Forum</a>
+        </li>
+        <li class="nav-item" *ngIf="checkLogin()">
           <button class="btn nav-link" mat-icon-button [routerLink]="['/order-cart']">
             <mat-icon>shopping_cart</mat-icon>
           </button>

@@ -1,5 +1,6 @@
 import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 
 @Component({
@@ -13,7 +14,7 @@ export class PostComponent implements OnInit {
 
   posts: Post[] | undefined;
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private router: Router) {}
 
   ngOnInit() {
     this.reload();
@@ -23,6 +24,7 @@ export class PostComponent implements OnInit {
     this.errorMessage = '';
     this.postService.index().subscribe({
       next: (posts) => {
+        console.log(posts);
         this.posts = posts;
       },
       error: (retrievingPostsError) => {

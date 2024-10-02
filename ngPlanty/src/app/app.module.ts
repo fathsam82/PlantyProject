@@ -25,6 +25,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleMapComponent } from './google-map/google-map.component';
+import { PostComponent } from './components/post/post.component';
 
 
 
@@ -48,7 +49,8 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     CheckoutComponent,
     ProfileInfoComponent,
     ConfirmationDialogComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    PostComponent
   ],
   providers: [DatePipe, provideAnimationsAsync()],
   bootstrap: [AppComponent],
