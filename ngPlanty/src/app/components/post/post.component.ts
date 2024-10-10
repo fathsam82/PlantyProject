@@ -2,6 +2,8 @@ import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -9,15 +11,49 @@ import { Post } from 'src/app/models/post';
   styleUrl: './post.component.css',
 })
 export class PostComponent implements OnInit {
-
   errorMessage: string = '';
 
   posts: Post[] | undefined;
 
-  constructor(private postService: PostService, private router: Router) {}
+  loggedInUser: User = new User();
+
+  constructor(
+    private authService: AuthService,
+    private postService: PostService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.reload();
+    this.authService.getLoggedInUser().subscribe({
+      next: (user) => {
+        if (user) {
+          this.loggedInUser = user;
+        } else {
+          console.error('No user logged in');
+        }
+      },
+      error: (fail) => {
+        console.error('ngOnInit(): Error getting user');
+        console.error(fail);
+      },
+    });
+
+    if (this.authService.checkLogin()) {
+      this.authService.getLoggedInUser().subscribe({
+        next: (user) => {
+          if (user) {
+            this.loggedInUser = user;
+          } else {
+            console.error('No user logged in');
+          }
+        },
+        error: (fail) => {
+          console.error('ngOnInit(): Error getting user');
+          console.error(fail);
+        },
+      });
+      this.reload();
+    }
   }
 
   reload() {
