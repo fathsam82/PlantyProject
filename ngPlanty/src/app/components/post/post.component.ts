@@ -24,19 +24,19 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.getLoggedInUser().subscribe({
-      next: (user) => {
-        if (user) {
-          this.loggedInUser = user;
-        } else {
-          console.error('No user logged in');
-        }
-      },
-      error: (fail) => {
-        console.error('ngOnInit(): Error getting user');
-        console.error(fail);
-      },
-    });
+    // this.authService.getLoggedInUser().subscribe({
+    //   next: (user) => {
+    //     if (user) {
+    //       this.loggedInUser = user;
+    //     } else {
+    //       console.error('No user logged in');
+    //     }
+    //   },
+    //   error: (fail) => {
+    //     console.error('ngOnInit(): Error getting user');
+    //     console.error(fail);
+    //   },
+    // });
 
     if (this.authService.checkLogin()) {
       this.authService.getLoggedInUser().subscribe({
