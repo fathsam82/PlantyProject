@@ -2,6 +2,8 @@ package com.skilldistillery.planty.services;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,11 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public List<Comment> listAllCommentsForPostId(int postId) {
-//		List<Comment> allCommentsForPostId = 
-		return null;
+		List<Comment> allCommentsForPostId = commentRepo.findByPostId(postId);
+		if(allCommentsForPostId.isEmpty()) {
+			throw new EntityNotFoundException("No comments found");
+		}
+		return allCommentsForPostId;
 	}
 
 }
