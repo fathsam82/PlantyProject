@@ -72,8 +72,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 			existingOrderDetail.setGiftWrap(updatedOrderDetail.getGiftWrap());
 			existingOrderDetail.setQuantityOrdered(updatedOrderDetail.getQuantityOrdered());
-			Integer subtotalPrice = existingOrderDetail.getPlant().getPrice()
-					* existingOrderDetail.getQuantityOrdered();
+			Integer subtotalPrice = existingOrderDetail.getPlant().getPrice()* existingOrderDetail.getQuantityOrdered();
 			existingOrderDetail.setSubtotalPrice(subtotalPrice);
 
 			return orderDetailRepo.saveAndFlush(existingOrderDetail);
