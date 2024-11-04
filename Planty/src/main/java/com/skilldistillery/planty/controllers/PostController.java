@@ -1,6 +1,9 @@
 package com.skilldistillery.planty.controllers;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +26,12 @@ public class PostController {
 	
 	
 	@GetMapping("posts")
-	public ResponseEntity<?> listPosts(){
+	public ResponseEntity<?> listPosts(Principal principal, HttpServletResponse res){
+		if(principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			
+		}
 		try {
 			List<Post> posts = postService.listAllPosts();
 			if(posts == null || posts.isEmpty()) {

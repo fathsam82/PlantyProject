@@ -20,7 +20,7 @@ public class CommentServiceImpl implements CommentService{
 	public List<Comment> listAllCommentsForPostId(int postId) {
 		List<Comment> allCommentsForPostId = commentRepo.findByPostId(postId);
 		if(allCommentsForPostId.isEmpty()) {
-			throw new EntityNotFoundException("No comments found");
+			throw new EntityNotFoundException("No comments found for post Id");
 		}
 		return allCommentsForPostId;
 	}
