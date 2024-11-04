@@ -1,6 +1,9 @@
 package com.skilldistillery.planty.controllers;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +27,13 @@ public class CommentController {
 	
 	
 	@GetMapping("comments/{id}")
-	public ResponseEntity<?> getCommentsForPost(@PathVariable("id") int postId){
+	public ResponseEntity<?> getCommentsForPost(@PathVariable("id") int postId, Principal principal, HttpServletResponse res){
+		if(principal == null) {
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			
+			
+		}
 		try {
 			List<Comment> comments = commentService.listAllCommentsForPostId(postId);
 			if(comments == null || comments.isEmpty()) {
