@@ -1,17 +1,18 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './components/about/about.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 import { HomeComponent } from './components/home/home.component';
-import { PlantListComponent } from './components/plant-list/plant-list.component';
-import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { AboutComponent } from './components/about/about.component';
-import { PlantDetailComponent } from './components/plant-detail/plant-detail.component';
-import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { OrderCartComponent } from './components/order-cart/order-cart.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { PlantDetailComponent } from './components/plant-detail/plant-detail.component';
+import { PlantListComponent } from './components/plant-list/plant-list.component';
 import { PostComponent } from './components/post/post.component';
+import { ProfileInfoComponent } from './components/profile-info/profile-info.component';
+import { RegisterComponent } from './components/register/register.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'plants' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'profile-info', component: ProfileInfoComponent },
   { path: 'post', component: PostComponent },
+  { path: 'post-detal/:id', component: PostDetailComponent }
 
 
 
