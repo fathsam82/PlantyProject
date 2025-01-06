@@ -19,8 +19,8 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostRepository postRepo;
 	
-	@Autowired
-	private UserRepository userRepo;
+//	@Autowired
+//	private UserRepository userRepo;
 
 	@Override
 	public List<Post> listAllPosts() {

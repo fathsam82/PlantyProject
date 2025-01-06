@@ -43,7 +43,6 @@ public class CommentController {
 				return ResponseEntity.ok(comments);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured while fetching comments :(");
 		}

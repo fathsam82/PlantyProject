@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'profile-info', component: ProfileInfoComponent },
   { path: 'post', component: PostComponent },
-  { path: 'post-detail/:id', component: PostDetailComponent }
+  { path: 'post-detail', component: PostDetailComponent }
 
 
 

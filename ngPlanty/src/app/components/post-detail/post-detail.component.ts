@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-post-detail',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css'
 })
-export class PostDetailComponent {
+export class PostDetailComponent implements OnInit{
+
+  ngOnInit(){
+
+  }
 
 }

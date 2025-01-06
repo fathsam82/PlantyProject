@@ -354,6 +354,7 @@ COMMIT;
 START TRANSACTION;
 USE `plantydb`;
 INSERT INTO `post` (`id`, `user_id`, `title`, `content`, `created_at`, `enabled`) VALUES (1, 1, 'What is one benefit you\'ve received after incorporating house plants into your decor?', 'I really like the atmosphere they create. House plants bring a sense of calming to the room. Having oxygen being created inside of your home in a nice feature too.', '2023-11-01 13:11:30', 1);
+INSERT INTO `post` (`id`, `user_id`, `title`, `content`, `created_at`, `enabled`) VALUES (2, 1, 'What is your favorite room to decorate with plants in your house?', 'I love putting plants in the kitchen/living area. I spend most of my time in these areas while I\'m home and it\'s easy to remember to water them!', '2023-11-02 13:14:00', 1);
 
 COMMIT;
 
