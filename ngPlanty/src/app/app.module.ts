@@ -26,6 +26,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { PostComponent } from './components/post/post.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 
 
@@ -50,7 +51,8 @@ import { PostComponent } from './components/post/post.component';
     ProfileInfoComponent,
     ConfirmationDialogComponent,
     GoogleMapComponent,
-    PostComponent
+    PostComponent,
+    PostDetailComponent
   ],
   providers: [DatePipe, provideAnimationsAsync()],
   bootstrap: [AppComponent],
