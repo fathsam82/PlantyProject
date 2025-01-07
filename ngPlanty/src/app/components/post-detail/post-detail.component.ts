@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostDetailComponent implements OnInit{
 
-  constructor(){
+  constructor(private authService: AuthService,
+  ){
 
   }
 
