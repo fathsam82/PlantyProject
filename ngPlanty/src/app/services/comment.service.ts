@@ -12,4 +12,14 @@ export class CommentService {
   constructor(private authService: AuthService,
     private httpClient: HttpClient
   ) { }
+
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return options;
+  }
 }
