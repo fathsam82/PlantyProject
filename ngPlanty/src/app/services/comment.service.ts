@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,5 +9,7 @@ import { environment } from 'src/environments/environment';
 export class CommentService {
   private url = environment.baseUrl + 'api/comments'
 
-  constructor() { }
+  constructor(private authService: AuthService,
+    private httpClient: HttpClient
+  ) { }
 }
