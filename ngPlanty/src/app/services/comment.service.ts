@@ -6,14 +6,15 @@ import { Comment } from '../models/comment';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentService {
-  private url = environment.baseUrl + 'api/comments'
+  private url = environment.baseUrl + 'api/comments';
 
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private httpClient: HttpClient
-  ) { }
+  ) {}
 
   getHttpOptions() {
     let options = {
@@ -28,24 +29,23 @@ export class CommentService {
   getCommentsByPost(): Observable<Comment[]> {
     return this.authService.getLoggedInUser().pipe(
       switchMap((user) => {
-        if(!user){
+        if (!user) {
           throw new Error('User not logged in');
         }
         return this.httpClient
-        .get<Comment[]>(this.url, this.getHttpOptions())
-        .pipe(catchError((err: any) => {
-          console.log(err);
-          return throwError(
-            () =>
-              new Error(
-                'CommentService.getCommentByPost(): error retrieving comments'
-              )
-          )
-        }))
+          .get<Comment[]>(this.url, this.getHttpOptions())
+          .pipe(
+            catchError((err: any) => {
+              console.log(err);
+              return throwError(
+                () =>
+                  new Error(
+                    'CommentService.getCommentByPost(): error retrieving comments'
+                  )
+              );
+            })
+          );
       })
-
-    )
-
-
+    );
   }
 }
