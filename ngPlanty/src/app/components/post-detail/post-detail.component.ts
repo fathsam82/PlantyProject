@@ -2,6 +2,7 @@ import { Comment } from './../../models/comment';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -11,7 +12,7 @@ import { CommentService } from 'src/app/services/comment.service';
 export class PostDetailComponent implements OnInit {
 
   commentList: Comment[] | undefined;
-  constructor(private authService: AuthService, private commentService: CommentService) {}
+  constructor(private authService: AuthService, private commentService: CommentService, private postService: PostService) {}
 
   ngOnInit() {}
 
